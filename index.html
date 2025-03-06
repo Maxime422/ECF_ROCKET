@@ -39,15 +39,15 @@
 						<i class="fa-solid fa-moon"></i>
 					</button>
 					<form id="searchPokemon">
-						<input id="search" type="search" id="searchInput" required>
+						<input id="search" type="search" id="searchInput" required placeholder="Recherche" />
 						<div>
-							<input type="submit" id="searchSubmit" placeholder="Rechercher">
-							<i class="fa-solid fa-chevron-right"></i>
+							<input type="submit" id="searchSubmit" placeholder="Rechercher" />
+							<i class="fa-solid fa-magnifying-glass"></i>
 						</div>
 					</form>
 					<a class="cta primaryButton" href="./HTML/team-pokemon.html">
 						Équipe
-						<i class="fa-solid fa-chevron-right"></i>
+						<i id="styleIcon" class="fa-solid fa-certificate"></i>
 					</a>
 				</div>
 			</div>
@@ -65,25 +65,24 @@
 						<nav class="sectionCardNav">
 							<div>
 								<button id="about" class="subText redText">À propos</button>
-								<button id="evolution" class="subText">Évolution</button>
 							</div>
 							<!-- Add pokemon team -->
-							<button class="cta primaryButton">
-								Ajouter
-								<i class="fa-solid fa-plus"></i>
-							</button>
-							<button id="watchPokemon" class="cta primaryButton">
-								Voir
-								<i class="fa-solid fa-plus"></i>
-							</button>
+							<div>
+								<button class="cta secondaryButton" id="addPokemonTeam">
+									Ajouter
+									<i class="fa-solid fa-plus"></i>
+								</button>
+								<button id="watchPokemon" class="cta primaryButton">
+									Voir
+									<i class="fa-solid fa-chevron-right"></i>
+								</button>
+							</div>
 						</nav>
 						<div class="sectionInformations">
 							<div class="sectionType">
 								<span class="secondaryText subText">Type</span>
 								<!-- Type pokemon -->
-								<div id="typesPokemons">
-
-								</div>
+								<div id="typesPokemons"></div>
 							</div>
 							<!-- Skills pokemon -->
 							<div class="sectionTalent">
@@ -135,8 +134,7 @@
 					</header>
 
 					<!-- Grid pokedex -->
-					<div class="grid" id="gridPokemon">
-					</div>
+					<div class="grid" id="gridPokemon"></div>
 				</div>
 			</section>
 		</main>

@@ -82,7 +82,8 @@ h2,
 	font-weight: var(--font-weight-black);
 }
 
-.subText, h3 {
+.subText,
+h3 {
 	font-size: var(--text-size-large);
 	font-weight: var(--font-weight-extra-bold);
 }
@@ -106,7 +107,8 @@ select {
 	font-weight: var(--font-weight-bold);
 }
 
-.secondaryText, h3 {
+.secondaryText,
+h3 {
 	color: var(--color-gray);
 	font-weight: var(--font-weight-bold);
 }

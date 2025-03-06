@@ -1,27 +1,22 @@
 {
-	"short_name": "nomprojet",
-	"name": "nomprojet",
-	"description": "Une application web progressive pour gérer X, Y, Z.",
+	"short_name": "rocketdev",
+	"name": "rocketdev",
+	"description": "Le Pokédex de La Rocket Dev, outil idéal pour tout dresseur en formation ! Explorez, découvrez et apprenez tout sur vos Pokémon préférés, de Bulbizarre à Dracaufeu en passant par Pikachu !",
 	"icons": [
 		{
-			"src": "./IMG/!!!.png",
+			"src": "./IMG/Logo-Pokemon-128.png",
 			"type": "image/png",
 			"sizes": "128x128"
 		},
 		{
-			"src": "./IMG/!!!.png",
+			"src": "./IMG/Logo-Pokemon-512.png",
 			"type": "image/png",
 			"sizes": "512x512"
-		},
-		{
-			"src": "./IMG/!!!.png",
-			"type": "image/png",
-			"sizes": "256x256"
 		}
 	],
 	"start_url": "/",
-	"background_color": "#ffffff",
+	"background_color": "#0d0a16",
 	"display": "standalone",
 	"scope": "/",
-	"theme_color": "#ffffff"
+	"theme_color": "#0d0a16"
 }

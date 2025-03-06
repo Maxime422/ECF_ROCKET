@@ -1,5 +1,7 @@
 # La Rocket Dev Pokédex – L’outil web ultime pour tous les dresseurs Pokémon
 
+![Visuel Figma Maquette](IMG\VISUAL_PRESENTATION.png)
+
 ## 🚀 Description
 
 Le Pokédex de La Rocket Dev, l’outil idéal pour tout dresseur en formation ! Explorez, découvrez et apprenez tout sur vos Pokémon préférés, de Bulbizarre à Dracaufeu en passant par Pikachu !
@@ -11,6 +13,7 @@ Le Pokédex de La Rocket Dev, l’outil idéal pour tout dresseur en formation !
 - **Blanc :** `#FAFAFA`
 - **Noir :** `#0D0A16`
 - **Typographie :** `Montserrat`
+- **Maquette :** [Maqette Figma](https://www.figma.com/design/m46aSEcedxuc0papLeVWOe/PROJECT_ROCKET_DEV?node-id=14019-7581&t=zLVlbdzQQ3uyaseh-1)
 
 ## ⚙️ API
 
@@ -18,11 +21,9 @@ Le Pokédex de La Rocket Dev, l’outil idéal pour tout dresseur en formation !
 
 ## 🗂️ Ressources
 
-- **Types de ressource :** [Nom de la ressource](Lien)
 - **Icons :** [Font Awesome](https://fontawesome.com/)
 - **Icons :** [Flaticon](https://www.flaticon.com/)
 - **Fonts :** [Google Fonts](https://fonts.google.com/specimen/Montserrat)
-- **Images :** [Unsplash](https://unsplash.com/)
 
 ## 🔧 Technologies Utilisées
 
@@ -38,7 +39,7 @@ Le Pokédex de La Rocket Dev, l’outil idéal pour tout dresseur en formation !
     ```
 2. **Se rendre dans le dossier du projet :**
     ```bash
-    cd ECF_ROCKET_DEV
+    cd ECF_ROCKET
     ```
 3. **Installer les dépendances :**
     ```bash

@@ -37,21 +37,17 @@
 						<i class="fa-solid fa-moon"></i>
 					</button>
 					<form id="searchPokemon">
-						<input id="search" type="search" id="searchInput" required />
+						<input id="search" type="search" id="searchInput" required placeholder="Recherche" />
 						<div>
 							<input type="submit" id="searchSubmit" placeholder="Rechercher" />
-							<i class="fa-solid fa-chevron-right"></i>
+							<i class="fa-solid fa-magnifying-glass"></i>
 						</div>
 					</form>
-					<a class="cta primaryButton" href="./team-pokemon.html">
-						Équipe
-						<i class="fa-solid fa-chevron-right"></i>
-					</a>
 				</div>
 			</div>
 		</header>
-		<!-- Main -->
 
+		<!-- Main -->
 		<main>
 			<section class="bgColor">
 				<div id="zf" class="container">
@@ -67,14 +63,16 @@
 								<button id="evolution" class="subText">Évolution</button>
 							</div>
 							<!-- Add pokemon team -->
-							<button class="cta primaryButton">
-								Ajouter
-								<i class="fa-solid fa-plus"></i>
-							</button>
-							<button id="watchPokemon" class="cta primaryButton">
-								Voir
-								<i class="fa-solid fa-plus"></i>
-							</button>
+							<div>
+								<button class="cta secondaryButton" id="removePokemon">
+									Supprimer
+									<i class="fa-solid fa-plus"></i>
+								</button>
+								<button id="watchPokemon" class="cta primaryButton">
+									Voir
+									<i class="fa-solid fa-chevron-right"></i>
+								</button>
+							</div>
 						</nav>
 						<div class="sectionInformations">
 							<div class="sectionType">
@@ -109,22 +107,22 @@
 								<span class="secondaryText subText">Pokémons</span>
 								<div>
 									<button class="circle circleActive" id="pokemon1">
-										<img src="../IMG/ICONS/POKEMON__ICONS/ICONS__ic_round-catching-pokemon.png" width="32px" alt="Pokeball icon" />
+										<img src="../IMG/ICONS/ICONS__ic_round-catching-pokemon.png" width="32px" alt="Pokeball icon" />
 									</button>
 									<button class="circle" id="pokemon2">
-										<img src="../IMG/ICONS/POKEMON__ICONS/ICONS__ic_round-catching-pokemon.png" width="32px" alt="Pokeball icon" />
+										<img src="../IMG/ICONS/ICONS__ic_round-catching-pokemon.png" width="32px" alt="Pokeball icon" />
 									</button>
 									<button class="circle" id="pokemon3">
-										<img src="../IMG/ICONS/POKEMON__ICONS/ICONS__ic_round-catching-pokemon.png" width="32px" alt="Pokeball icon" />
+										<img src="../IMG/ICONS/ICONS__ic_round-catching-pokemon.png" width="32px" alt="Pokeball icon" />
 									</button>
 									<button class="circle" id="pokemon4">
-										<img src="../IMG/ICONS/POKEMON__ICONS/ICONS__ic_round-catching-pokemon.png" width="32px" alt="Pokeball icon" />
+										<img src="../IMG/ICONS/ICONS__ic_round-catching-pokemon.png" width="32px" alt="Pokeball icon" />
 									</button>
 									<button class="circle" id="pokemon5">
-										<img src="../IMG/ICONS/POKEMON__ICONS/ICONS__ic_round-catching-pokemon.png" width="32px" alt="Pokeball icon" />
+										<img src="../IMG/ICONS/ICONS__ic_round-catching-pokemon.png" width="32px" alt="Pokeball icon" />
 									</button>
 									<button class="circle" id="pokemon6">
-										<img src="../IMG/ICONS/POKEMON__ICONS/ICONS__ic_round-catching-pokemon.png" width="32px" alt="Pokeball icon" />
+										<img src="../IMG/ICONS/ICONS__ic_round-catching-pokemon.png" width="32px" alt="Pokeball icon" />
 									</button>
 								</div>
 							</div>
@@ -134,30 +132,6 @@
 					<figure id="figurePokemonZf">
 						<img src="#" id="imgPokemon" alt="Pokemon de présentation" />
 					</figure>
-				</div>
-			</section>
-
-			<!-- Pokemon on the bill -->
-			<section id="pokemonPromoted">
-				<div class="container">
-					<header>
-						<h1>Pokédex Pokemon</h1>
-						<p>Retrouvez tout vos Pokémons préférés !</p>
-
-						<div>
-							<span class="redText subText">Pokémon à l’affiche</span>
-							<div class="spaceGap">
-								<!-- Select pokemons -->
-								<a href="./HTML/pokedex-pokemon-list.html" id="referech" class="cta primaryButton">
-									Voir la liste complète
-									<i class="fa-solid fa-chevron-right"></i>
-								</a>
-							</div>
-						</div>
-					</header>
-
-					<!-- Grid pokedex -->
-					<div class="grid" id="gridPokemon"></div>
 				</div>
 			</section>
 		</main>
