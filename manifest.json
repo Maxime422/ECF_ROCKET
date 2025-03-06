@@ -1,0 +1,27 @@
+{
+	"short_name": "nomprojet",
+	"name": "nomprojet",
+	"description": "Une application web progressive pour gérer X, Y, Z.",
+	"icons": [
+		{
+			"src": "./IMG/!!!.png",
+			"type": "image/png",
+			"sizes": "128x128"
+		},
+		{
+			"src": "./IMG/!!!.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		},
+		{
+			"src": "./IMG/!!!.png",
+			"type": "image/png",
+			"sizes": "256x256"
+		}
+	],
+	"start_url": "/",
+	"background_color": "#ffffff",
+	"display": "standalone",
+	"scope": "/",
+	"theme_color": "#ffffff"
+}
