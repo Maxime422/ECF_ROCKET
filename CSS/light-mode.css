@@ -1,0 +1,60 @@
+/* Colors */
+:root {
+	--color-blue: #1327b7;
+	--color-blue-1: #1b41e9;
+	--color-blue-2: #3d4fd1;
+	--color-blue-3: #697af3;
+	--color-blue-4: #8c9aff;
+
+	--color-white: #0d0a16;
+	--color-white-1: #13111c;
+	--color-white-2: #282636;
+	--color-white-3: #12101b;
+	--color-white-only: #fafafa;
+
+	--color-gray: #494949;
+	--color-gray-1: #727272;
+
+	--color-black: #fafafa;
+	--color-black-1: #eeedf4;
+	--color-black-2: #dedee9;
+	--color-black-3: #dddddd;
+
+	--color-red: #d62038;
+	--color-red-1: #d62038;
+	--color-red-2: #e45a6d;
+
+	--color-green: #11b86a;
+	--color-green-1: #23a166;
+	--color-green-2: #3ad98f;
+
+	--color-orange: #f88a0c;
+	--color-orange-1: #d68120;
+	--color-orange-2: #e8a04d;
+	--color-orange-3: #e5ae6f;
+	--color-orange-4: #e5ae6f;
+
+	--color-gray: #5e5e5e;
+
+	/* Pokemons Types Colors */
+	--color-eau: #6674db;
+	--color-normal: #a0a2a0;
+	--color-feu: #e3455a;
+	--color-plante: #15e584;
+	--color-electric: #f8c90c;
+	--color-glace: #97a3f7;
+	--color-combat: #f9a23e;
+	--color-poison: #923fcc;
+
+	--color-sol: #915121;
+	--color-vol: #bdc5ff;
+	--color-psy: #ef3f7a;
+	--color-insecte: #91a112;
+
+	--color-roche: #b0aa82;
+	--color-spectre: #704170;
+	--color-dragon: #4f60e2;
+	--color-tenebre: #50413f;
+	--color-acier: #60a2b9;
+	--color-fee: #ef70ef;
+}

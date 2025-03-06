@@ -1,48 +1,44 @@
-# Nom du Projet
+# La Rocket Dev Pokédex – L’outil web ultime pour tous les dresseurs Pokémon
 
 ## 🚀 Description
 
-Brève description du projet. Quel est son objectif ? Qui est-il destiné à aider ?
+Le Pokédex de La Rocket Dev, l’outil idéal pour tout dresseur en formation ! Explorez, découvrez et apprenez tout sur vos Pokémon préférés, de Bulbizarre à Dracaufeu en passant par Pikachu !
 
 ## 🎨 Identité Visuelle
 
-- **Couleur principale :** `#VotreCouleurPrincipale`
-- **Couleur secondaire :** `#VotreCouleurSecondaire`
-- **Blanc :** `#Blanc`
-- **Noir :** `#Noir`
-- **Typographie :** `Nom de la police`
+- **Couleur principale :** Red : ` #E3455A`
+- **Couleur secondaire :** Noir : `#1B1925`
+- **Blanc :** `#FAFAFA`
+- **Noir :** `#0D0A16`
+- **Typographie :** `Montserrat`
 
 ## ⚙️ API
 
-- **API :** [Nom](Lien)
-- **API :** [Nom](Lien)
-- **API :** [Nom](Lien)
+- **API et Images :** [PokeAPI](https://pokeapi.co/)
 
 ## 🗂️ Ressources
 
 - **Types de ressource :** [Nom de la ressource](Lien)
 - **Icons :** [Font Awesome](https://fontawesome.com/)
+- **Icons :** [Flaticon](https://www.flaticon.com/)
 - **Fonts :** [Google Fonts](https://fonts.google.com/specimen/Montserrat)
 - **Images :** [Unsplash](https://unsplash.com/)
 
 ## 🔧 Technologies Utilisées
 
 - **Frontend :** `HTML`, `CSS`, `JavaScript`
-- **Outils :** `Prettier`, `Eslint`, `Docker`
-- **Frameworks/Bibliothèques :** `React`, `Vue.js`
-- **Backend :** `Node.js`, `Express.js`, `PHP`
-- **Base de données :** `MySQL`
+- **Outils :** `Prettier`, `Eslint`
 - **Versionnage et détection :** `Git`, `GitHub`, `SonarQube`
 
 ## 📦 Installation
 
 1. **Cloner le dépôt :**
     ```bash
-    git clone https://github.com/VotreNomUtilisateur/VotreRepo.git
+    git clone https://github.com/Maxime422/ECF_ROCKET_DEV.git
     ```
 2. **Se rendre dans le dossier du projet :**
     ```bash
-    cd nom-du-projet
+    cd ECF_ROCKET_DEV
     ```
 3. **Installer les dépendances :**
     ```bash
@@ -72,10 +68,6 @@ Brève description du projet. Quel est son objectif ? Qui est-il destiné à aid
 3. **Commiter** vos modifications (`git commit -m 'Ajout nouvelle fonctionnalité'`)
 4. **Pousser** la branche (`git push origin nouvelle-fonctionnalité`)
 5. **Ouvrir** une Pull Request
-
-## 📄 Licence
-
-Ce projet est sous licence `MIT` - voir le fichier LICENSE pour plus de détails.
 
 ## 📞 Contact
 

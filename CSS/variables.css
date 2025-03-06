@@ -3,21 +3,21 @@
 	--font-main: 'Montserrat', sans-serif;
 	--font-weight-bold: 600;
 	--font-weight-extra-bold: 700;
-	--font-weight-black: 800;
+	--font-weight-black: 900;
 
-	/* Tailles de texte */
-	--text-size-small: 0.8rem;
-	--text-size-medium: 1rem;
-	--text-size-large: 2rem;
-	--text-size-extra: 2.5rem;
+	/* Fonts sizes */
+	--text-size-small: 1rem;
+	--text-size-medium: 1.2rem;
+	--text-size-large: 1.4rem;
+	--text-size-extra: 2.8rem;
 
-	/* Bordures */
+	/* Borders */
 	--border-radius-small: 0.5rem;
 	--border-radius-medium: 1rem;
 	--border-radius-big: 2rem;
-	--border-radius-circle: 100%;
+	--border-radius-circle: 50%;
 
-	/* Les marges et espacements */
+	/* Margin and padding */
 	--margin-small: 0.5rem;
 	--margin-left-right-small: 0.5rem 0;
 	--margin-medium: 1rem;
@@ -31,15 +31,16 @@
 	--marrgin-top-bottom-large: 2rem 0;
 
 	--padding-small: 0.5rem;
-	--padding-left-right-small: 0.5rem 0;
 	--padding-medium: 1rem;
-	--padding-left-right-medium: 1rem 0;
-	--padding-large: 2rem;
-	--padding-left-right-large: 2rem 0;
-	--padding-extra: 4rem;
+	--padding-large: 1.5rem;
+	--padding-extra: 2rem;
+	--padding-left-right-small: 0 0.5rem;
+	--padding-left-right-medium: 0 1rem;
+	--padding-left-right-large: 0 2rem;
 	--padding-left-right-extra: 4rem 0;
 	--padding-top-bottom-large: 2rem 0;
 	--padding-top-bottom-extra: 4rem 0;
+	--padding-top-bottom-medium: 1rem 0;
 
 	--gap-small: 0.5rem;
 	--gap-medium: 1rem;
@@ -47,12 +48,14 @@
 	--gap-extra: 4rem;
 }
 
+/* Body */
 body {
 	background-color: var(--color-black);
 	color: var(--color-white);
 	font-family: var(--font-main);
 }
 
+/* Resets */
 * {
 	margin: 0;
 	padding: 0;
@@ -69,4 +72,45 @@ button {
 	all: unset;
 	display: inline-block;
 	cursor: pointer;
+}
+
+/* Fonts */
+h1,
+h2,
+.titleText {
+	font-size: var(--text-size-extra);
+	font-weight: var(--font-weight-black);
+}
+
+.subText, h3 {
+	font-size: var(--text-size-large);
+	font-weight: var(--font-weight-extra-bold);
+}
+
+i {
+	font-size: var(--text-size-medium);
+}
+
+h3,
+h4,
+h5,
+button,
+a,
+input,
+span,
+p,
+textarea,
+label,
+select {
+	font-size: var(--text-size-small);
+	font-weight: var(--font-weight-bold);
+}
+
+.secondaryText, h3 {
+	color: var(--color-gray);
+	font-weight: var(--font-weight-bold);
+}
+
+.redText {
+	color: var(--color-red-1);
 }

@@ -1,7 +1,7 @@
 {
-	"name": "nomprojet",
+	"name": "rocketdev",
 	"version": "1.0.0",
-	"description": "Description du Projet",
+	"description": "Le Pokédex de La Rocket Dev, outil idéal pour tout dresseur en formation ! Explorez, découvrez et apprenez tout sur vos Pokémon préférés, de Bulbizarre à Dracaufeu en passant par Pikachu !",
 	"main": "index.js",
 	"scripts": {
 		"format": "prettier . --check",
@@ -9,14 +9,14 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/Maxime422/.git"
+		"url": "git+https://github.com/Maxime422/ECF_ROCKET.git"
 	},
 	"author": "Maxime Germis",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/Maxime422/.../issues"
+		"url": "https://github.com/Maxime422/ECF_ROCKET/issues"
 	},
-	"homepage": "https://github.com/Maxime422/...#readme",
+	"homepage": "https://github.com/Maxime422/ECF_ROCKET#readme",
 	"dependencies": {
 		"express": "^4.21.2",
 		"lodash": "^4.17.21"
@@ -27,6 +27,7 @@
 		"eslint": "^9.19.0",
 		"eslint-config-prettier": "^10.0.1",
 		"eslint-plugin-prettier": "^5.2.3",
+		"glob": "^11.0.1",
 		"globals": "^16.0.0",
 		"jest": "^29.7.0",
 		"prettier": "^3.5.3"

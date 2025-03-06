@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>La Rocket Dev Pokédex – L’outil web ultime pour tous les dresseurs Pokémon</title>
+
+		<meta
+			name="description"
+			content="Le Pokédex de La Rocket Dev, l’outil idéal pour tout dresseur en formation ! Explorez, découvrez et apprenez tout sur vos Pokémon préférés, de Bulbizarre à Dracaufeu en passant par Pikachu !"
+		/>
+		<meta name="author" content="Maxime Germis" />
+
+		<link rel="icon" type="image/png" sizes="76x76" href="../IMG/Logo-Pokemon-128.png" />
+
+		<link rel="stylesheet" href="../CSS/variables.css" />
+		<link rel="stylesheet" href="../CSS/style.css" />
+		<link id="mode" rel="stylesheet" href="../CSS/dark-mode.css" />
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;900&display=swap" rel="stylesheet" />
+	</head>
+	<body>
+		<!-- Header page -->
+		<header class="container">
+			<div id="headerPage">
+				<!-- Logo -->
+				<a href="../index.html">
+					<img src="../IMG/Logo-Pokemon-128.png" alt="Logo RocketDev" />
+				</a>
+
+				<!-- Navigation and Search -->
+				<div class="spaceGap">
+					<button id="darkLightMode">
+						<i class="fa-solid fa-moon"></i>
+					</button>
+					<a id="search" href="../HTML/search-pokemon.html">Rechercher</a>
+					<a class="cta primaryButton" href="../HTML/team-pokemon.html">
+						Équipe
+						<i class="fa-solid fa-chevron-right"></i>
+					</a>
+				</div>
+			</div>
+		</header>
+		<!-- Main -->
+		<main>
+			<section class="bgColor">
+				<div id="zf" class="container">
+					<!-- Section informations pokemon Zf -->
+					<div class="PokemonInfos">
+						<!-- Name pokemon -->
+						<h2 class="PokemonName"></h2>
+						<span class="IdPokemon"></span>
+
+						<nav class="sectionCardNav">
+							<div>
+								<button id="about" class="subText redText">À propos</button>
+								<button id="evolution" class="subText">Évolution</button>
+							</div>
+							<!-- Add pokemon team -->
+							<button class="cta primaryButton">
+								Ajouter
+								<i class="fa-solid fa-plus"></i>
+							</button>
+							<button id="watchPokemon" class="cta primaryButton">
+								Voir
+								<i class="fa-solid fa-plus"></i>
+							</button>
+						</nav>
+						<div class="sectionInformations">
+							<div class="sectionType">
+								<span class="secondaryText subText">Type</span>
+								<!-- Type pokemon -->
+								<div id="typesPokemons"></div>
+							</div>
+							<!-- Skills pokemon -->
+							<div class="sectionTalent">
+								<span class="secondaryText subText">Talent</span>
+								<span class="talentPokemon subText"></span>
+							</div>
+							<!-- Generation pokemon -->
+							<div class="sectionGen">
+								<span class="secondaryText subText">Région</span>
+								<span class="location subText"></span>
+							</div>
+						</div>
+						<!-- Description pokemon -->
+						<div class="sectionDescription">
+							<span class="secondaryText subText">Description</span>
+							<span class="description"></span>
+						</div>
+						<!-- Stats pokemon -->
+						<div class="sectionsStatistiques">
+							<div class="statistiques zones">
+								<span class="secondaryText subText">Statistiques</span>
+							</div>
+						</div>
+					</div>
+					<!-- Img pokemon -->
+					<figure id="figurePokemonZf">
+						<img src="#" id="imgPokemon" alt="Pokemon de présentation" />
+					</figure>
+				</div>
+			</section>
+
+			<!-- Pokemon on the bill -->
+			<section id="pokemonPromoted">
+				<div class="container">
+					<header>
+						<h1>Pokédex Pokemon</h1>
+						<p>Retrouvez tout vos Pokémons préférés !</p>
+
+						<div>
+							<span class="redText subText">Pokémon à l’affiche</span>
+							<div class="spaceGap">
+								<!-- Select pokemons -->
+								<a href="./HTML/pokedex-pokemon-list.html" id="referech" class="cta primaryButton">
+									Voir la liste complète
+									<i class="fa-solid fa-chevron-right"></i>
+								</a>
+							</div>
+						</div>
+					</header>
+
+					<!-- Grid pokedex -->
+					<div class="grid" id="gridPokemon"></div>
+				</div>
+			</section>
+		</main>
+
+		<!-- Footer -->
+		<footer class="container">
+			<div id="footerPage">
+				<div id="primaryContent">
+					<div>
+						<h2>Une aventure inoubliable</h2>
+						<p>
+							Le Pokédex de La Rocket Dev, l’outil idéal pour tout dresseur en formation ! Explorez, découvrez et apprenez tout sur vos Pokémon préférés, de Bulbizarre à Dracaufeu en
+							passant par Pikachu !
+						</p>
+					</div>
+					<ul>
+						<li class="secondaryText">Navigation</li>
+						<li><a href="../index.html">Accueil</a></li>
+						<li><a href="../HTML/team-pokemon.html">Équipe</a></li>
+						<li><a href="../HTML/pokedex-pokemon-list.html">Pokédex</a></li>
+					</ul>
+					<ul>
+						<li class="secondaryText">Ressources</li>
+						<li><a href="../HTML/search-pokemon.html">Recherche</a></li>
+						<li><a href="../HTML/rgpd.html">Mentions légales</a></li>
+					</ul>
+				</div>
+				<div class="secondaryContent">
+					<span>©2025 - Rocket Dev</span>
+					<div>
+						<span>Langue - fr</span>
+						<span>Cookies</span>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<!-- Script JS -->
+		<script type="module" src="../JS/pokemon-script.js"></script>
+		<script type="module" src="../JS/functions.js"></script>
+		<script>
+			window.addEventListener('load', () => {
+				if ('serviceWorker' in navigator) {
+					navigator.serviceWorker.register('../service-worker.js');
+				}
+			});
+		</script>
+	</body>
+</html>
