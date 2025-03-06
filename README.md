@@ -34,7 +34,7 @@ Le Pokédex de La Rocket Dev, l’outil idéal pour tout dresseur en formation !
 
 1. **Cloner le dépôt :**
     ```bash
-    git clone https://github.com/Maxime422/ECF_ROCKET_DEV.git
+    git clone https://github.com/Maxime422/ECF_ROCKET.git
     ```
 2. **Se rendre dans le dossier du projet :**
     ```bash
