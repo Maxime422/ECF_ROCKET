@@ -8,7 +8,7 @@ btn1.addEventListener(`click`, () => {
 		onLoad(0, btn1);
 	}
 });
-
+onLoad(0, btn1);
 function onLoad(i, btn) {
 	const key = localStorage.key(i);
 	if (localStorage.key(i)) {

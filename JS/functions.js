@@ -116,15 +116,14 @@ async function gridPokemon(url, urlSpecies) {
 
 async function genPokemon(url) {
 	try {
-	  const dataPokemonGrid = await getData(url);
-	  if (dataPokemonGrid) {
-
-		updatePokemonGrid(dataPokemonGrid.pokemon_entries);
-	  }
+		const dataPokemonGrid = await getData(url);
+		if (dataPokemonGrid) {
+			updatePokemonGrid(dataPokemonGrid.pokemon_entries);
+		}
 	} catch (error) {
-	  console.error(error.message);
+		console.error(error.message);
 	}
-  }
+}
 /************** Update Species Pokemon **************/
 async function updateSpeciesPokemon(urlSpecies) {
 	try {
@@ -581,18 +580,23 @@ function addPokemon() {
 }
 addPokemon();
 
-document.querySelector('#teamButton').addEventListener(`click`, () => {
-	if (window.localStorage.length === 0) {
-		alert('pas encore de pokémon');
-	} else {
-		const currentPath = window.location.pathname;
-		if (currentPath.includes('/HTML_PAGES/')) {
-		  location.assign('team-pokemon.html');
+const pokemon = document.querySelector('#teamButton');
+if (pokemon) {
+	document.querySelector('#teamButton');
+
+	pokemon.addEventListener(`click`, () => {
+		if (window.localStorage.length === 0) {
+			alert('pas encore de pokémon');
 		} else {
-		  location.assign('./HTML_PAGES/team-pokemon.html');
+			const currentPath = window.location.pathname;
+			if (currentPath.includes('/HTML_PAGES/')) {
+				location.assign('team-pokemon.html');
+			} else {
+				location.assign('./HTML_PAGES/team-pokemon.html');
+			}
 		}
-	}
-});
+	});
+}
 
 /************** Export **************/
 export {gridPokemon, Pokemon, updateSpeciesPokemon, updatePokemon, getData, updatePokemonGrid, updateSpeciesPokemonGrid, addPokemon, relocate, watchPokemon, searchPokemon, genPokemon};
