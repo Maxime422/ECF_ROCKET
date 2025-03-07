@@ -43,16 +43,44 @@
 							<i class="fa-solid fa-magnifying-glass"></i>
 						</div>
 					</form>
-					<a class="cta primaryButton" href="./team-pokemon.html">
+					<button class="cta primaryButton" id="teamButton">
 						Équipe
 						<i id="styleIcon" class="fa-solid fa-certificate"></i>
-					</a>
+					</button>
 				</div>
 			</div>
 		</header>
 
 		<!-- Main -->
-		<main></main>
+		<main>
+			<!-- Pokemon on the bill -->
+			<section id="pokemonPromoted">
+				<div class="container">
+					<header>
+						<h1>Pokédex Pokemon</h1>
+						<p>Retrouvez tout vos Pokémons préférés !</p>
+
+						<div>
+							<span class="redText subText">Pokédex</span>
+							<div class="spaceGap">
+								<!-- Select pokemons -->
+								<button id="GenSelecting" class="cta secondaryButton">
+									Trier par région
+									<i class="fa-solid fa-chevron-right"></i>
+								</button>
+								<button id="typeSelecting" class="cta secondaryButton">
+									Trier par type
+									<i class="fa-solid fa-chevron-right"></i>
+								</button>
+							</div>
+						</div>
+					</header>
+
+					<!-- Grid pokedex -->
+					<div class="grid" id="gridPokemon"></div>
+				</div>
+			</section>
+		</main>
 
 		<!-- Footer -->
 		<footer class="container">
@@ -68,12 +96,12 @@
 					<ul>
 						<li class="secondaryText">Navigation</li>
 						<li><a href="../index.html">Accueil</a></li>
-						<li><a href="../HTML/pokedex-pokemon-list.html">Pokédex</a></li>
+						<li><a href="./pokedex-pokemon-list.html">Pokédex</a></li>
 					</ul>
 					<ul>
 						<li class="secondaryText">Ressources</li>
-						<li><a href="../HTML/team-pokemon.html">Équipe</a></li>
-						<li><a href="../HTML/rgpd.html">Mentions légales</a></li>
+						<li><a href="./team-pokemon.html">Équipe</a></li>
+						<li><a href="./rgpd.html">Mentions légales</a></li>
 					</ul>
 				</div>
 				<div class="secondaryContent">
@@ -87,7 +115,7 @@
 		</footer>
 
 		<!-- Script JS -->
-		<script type="module" src="../JS/index-script.js"></script>
+		<script type="module" src="../JS/pokedex-pokemon-list.js"></script>
 		<script type="module" src="../JS/functions.js"></script>
 		<script>
 			window.addEventListener('load', () => {

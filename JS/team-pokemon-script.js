@@ -1,6 +1,6 @@
 ('use strict');
 
-import {relocate} from './functions.js';
+import {getData, relocate, searchPokemon} from './functions.js';
 /************** Starting Pokemon1 **************/
 const btn1 = document.querySelector(`#pokemon1`);
 btn1.addEventListener(`click`, () => {
@@ -76,3 +76,21 @@ const removeBtn = document.querySelector('#removePokemon');
 removeBtn.addEventListener('click', removePokemon);
 
 console.log(localStorage);
+
+/************** Form selection **************/
+document.querySelector(`form`).addEventListener(`submit`, async (event) => {
+	event.preventDefault();
+	const id = document.getElementById(`search`).value.toLowerCase();
+
+	const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+	try {
+		const data = await getData(url);
+		if (data) {
+			searchPokemon(id);
+		} else {
+			console.error('Aucune donnée trouvée pour ce Pokémon !');
+		}
+	} catch (error) {
+		console.error('Erreur lors de la récupération des données :', error.message);
+	}
+});

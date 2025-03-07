@@ -70,7 +70,6 @@ const typeIcons = {
 async function getData(urlFetch) {
 	try {
 		const response = await fetch(urlFetch);
-
 		if (!response.ok) {
 			throw new Error(`Response status: ${response.status}`);
 		}
@@ -78,6 +77,7 @@ async function getData(urlFetch) {
 		return data;
 	} catch (error) {
 		console.error(error.message);
+		return null;
 	}
 }
 
@@ -100,7 +100,6 @@ async function PokemonSpecies(url) {
 		console.error(error.message);
 	}
 }
-
 /************** Call Pokemon List Call Data Pokemon Grid and Data Species Grid **************/
 async function gridPokemon(url, urlSpecies) {
 	try {
@@ -115,6 +114,17 @@ async function gridPokemon(url, urlSpecies) {
 	}
 }
 
+async function genPokemon(url) {
+	try {
+	  const dataPokemonGrid = await getData(url);
+	  if (dataPokemonGrid) {
+
+		updatePokemonGrid(dataPokemonGrid.pokemon_entries);
+	  }
+	} catch (error) {
+	  console.error(error.message);
+	}
+  }
 /************** Update Species Pokemon **************/
 async function updateSpeciesPokemon(urlSpecies) {
 	try {
@@ -304,10 +314,10 @@ function createArticle(pokemonCompoment2, speciesCompoment2) {
 		figure.appendChild(img);
 
 		const a = document.createElement(`a`);
-		a.href = `./HTML/pokemon.html?p=${name.textContent}`;
+		a.href = `./HTML_PAGES/pokemon.html?p=${name.textContent}`;
 		a.textContent = 'voir plus';
-		a.classList.add("cta");
-		a.classList.add("primaryButton");
+		a.classList.add('cta');
+		a.classList.add('primaryButton');
 
 		const typesDiv = document.createElement('div');
 
@@ -456,13 +466,8 @@ function getTalent(dataPokemon) {
 
 /************** Search Sprites Pokemon **************/
 function getSprite(dataPokemon) {
-	try {
-		const sprites = dataPokemon.sprites.other['official-artwork'].front_default;
-		return sprites;
-	} catch (error) {
-		console.error(error.message);
-		return 'aucune image';
-	}
+	const sprites = dataPokemon.sprites.other['official-artwork'].front_default;
+	return sprites;
 }
 
 /************** Create Stats Pokemon Return Div **************/
@@ -490,7 +495,7 @@ function statsPokemon(dataPokemon) {
 }
 
 /************** Form selection **************/
-if (document.querySelector('#form') === true) {
+if (document.querySelector('form') === true) {
 	document.querySelector(`form`).addEventListener(`submit`, (event) => {
 		event.preventDefault();
 		relocate();
@@ -502,7 +507,6 @@ async function relocate(currentUrl) {
 	try {
 		const type1 = document.querySelector(`#typesPokemons`);
 		type1.innerHTML = '';
-
 		const url = `https://pokeapi.co/api/v2/pokemon/${currentUrl}`;
 		const urlSpecies = `https://pokeapi.co/api/v2/pokemon-species/${currentUrl}`;
 		await updatePokemon(url);
@@ -513,7 +517,7 @@ async function relocate(currentUrl) {
 }
 
 /************** Event Listener Watch Pokemon **************/
-if (document.querySelector('#watchPokemon') !== null || document.querySelector('#watchPokemon') !== undefined) {
+if (document.querySelector('#watchPokemon') !== null && document.querySelector('#watchPokemon') !== undefined) {
 	document.querySelector(`#watchPokemon`).addEventListener(`click`, () => {
 		watchPokemon();
 	});
@@ -523,49 +527,72 @@ if (document.querySelector('#watchPokemon') !== null || document.querySelector('
 function watchPokemon() {
 	let pokemon = document.querySelector(`.IdPokemon`).textContent;
 	pokemon = pokemon.replace('du Pokédex', '');
-	location.assign(`./HTML/pokemon.html?p=${pokemon}`);
+	location.assign(`./HTML_PAGES/pokemon.html?p=${pokemon}`);
+}
+
+/************** Function Move To Pokemon Page **************/
+function searchPokemon(id) {
+	const currentUrl = window.location.pathname.toLowerCase();
+	if (currentUrl.includes('html_pages')) {
+		location.assign(`./pokemon.html?p=${id}`);
+	} else {
+		location.assign(`./HTML_PAGES/pokemon.html?p=${id}`);
+	}
 }
 
 /************** LocalStorage Pokemon For Team **************/
 function addPokemon() {
 	const btn = document.querySelector('#addPokemonTeam');
-	if(btn) {
-	btn.addEventListener(`click`, () => {
-		let pokemon = document.querySelector('.IdPokemon').textContent;
-		pokemon = pokemon.replace(' du Pokédex', '');
+	if (btn) {
+		btn.addEventListener(`click`, () => {
+			let pokemon = document.querySelector('.IdPokemon').textContent;
+			pokemon = pokemon.replace(' du Pokédex', '');
 
-		if (btn) {
-			const count = localStorage.length;
-			const listPokemonLocal = [];
+			if (btn) {
+				const count = localStorage.length;
+				const listPokemonLocal = [];
 
-			for (let i = 0; i < count; i++) {
-				listPokemonLocal.push(localStorage.key(i));
-			}
-			console.log(listPokemonLocal);
+				for (let i = 0; i < count; i++) {
+					listPokemonLocal.push(localStorage.key(i));
+				}
+				console.log(listPokemonLocal);
 
-			if (count >= 6) {
-				console.log('équipe déjà au maximum');
-			} else {
-				let pokemonAlreadyAdded = false;
+				if (count >= 6) {
+					console.log('équipe déjà au maximum');
+				} else {
+					let pokemonAlreadyAdded = false;
 
-				for (let i = 0; i < listPokemonLocal.length; i++) {
-					if (listPokemonLocal[i] === pokemon) {
-						pokemonAlreadyAdded = true;
-						console.log('pokemon déjà dans ton équipe');
-						break;
+					for (let i = 0; i < listPokemonLocal.length; i++) {
+						if (listPokemonLocal[i] === pokemon) {
+							pokemonAlreadyAdded = true;
+							console.log('pokemon déjà dans ton équipe');
+							break;
+						}
+					}
+
+					if (!pokemonAlreadyAdded) {
+						localStorage.setItem(pokemon, 'added');
+						console.log(`Pokemon ${pokemon} added to localStorage`);
 					}
 				}
-
-				if (!pokemonAlreadyAdded) {
-					localStorage.setItem(pokemon, 'added');
-					console.log(`Pokemon ${pokemon} added to localStorage`);
-				}
 			}
-		}
-	});
+		});
 	}
 }
 addPokemon();
 
+document.querySelector('#teamButton').addEventListener(`click`, () => {
+	if (window.localStorage.length === 0) {
+		alert('pas encore de pokémon');
+	} else {
+		const currentPath = window.location.pathname;
+		if (currentPath.includes('/HTML_PAGES/')) {
+		  location.assign('team-pokemon.html');
+		} else {
+		  location.assign('./HTML_PAGES/team-pokemon.html');
+		}
+	}
+});
+
 /************** Export **************/
-export {gridPokemon, Pokemon, updateSpeciesPokemon, updatePokemon, getData, updatePokemonGrid, updateSpeciesPokemonGrid, addPokemon, relocate, watchPokemon};
+export {gridPokemon, Pokemon, updateSpeciesPokemon, updatePokemon, getData, updatePokemonGrid, updateSpeciesPokemonGrid, addPokemon, relocate, watchPokemon, searchPokemon, genPokemon};

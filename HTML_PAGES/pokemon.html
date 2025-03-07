@@ -43,41 +43,69 @@
 							<i class="fa-solid fa-magnifying-glass"></i>
 						</div>
 					</form>
-					<a class="cta primaryButton" href="./team-pokemon.html">
+					<button class="cta primaryButton" id="teamButton">
 						Équipe
 						<i id="styleIcon" class="fa-solid fa-certificate"></i>
-					</a>
+					</button>
 				</div>
 			</div>
 		</header>
-
 		<!-- Main -->
 		<main>
-			<!-- Pokemon on the bill -->
-			<section id="pokemonPromoted">
-				<div class="container">
-					<header>
-						<h1>Pokédex Pokemon</h1>
-						<p>Retrouvez tout vos Pokémons préférés !</p>
+			<section class="bgColor">
+				<div id="zf" class="container">
+					<!-- Section informations pokemon Zf -->
+					<div class="PokemonInfos">
+						<!-- Name pokemon -->
+						<h2 class="PokemonName"></h2>
+						<span class="IdPokemon"></span>
 
-						<div>
-							<span class="redText subText">Pokédex</span>
-							<div class="spaceGap">
-								<!-- Select pokemons -->
-								<button id="GenSelecting" class="cta secondaryButton">
-									Trier par région
-									<i class="fa-solid fa-chevron-right"></i>
-								</button>
-								<button id="typeSelecting" class="cta secondaryButton">
-									Trier par type
-									<i class="fa-solid fa-chevron-right"></i>
+						<nav class="sectionCardNav">
+							<div>
+								<button id="about" class="subText redText">À propos</button>
+								<button id="evolution" class="subText">Évolution</button>
+							</div>
+							<!-- Add pokemon team -->
+							<div>
+								<button class="cta secondaryButton">
+									Ajouter
+									<i class="fa-solid fa-plus"></i>
 								</button>
 							</div>
+						</nav>
+						<div class="sectionInformations">
+							<div class="sectionType">
+								<span class="secondaryText subText">Type</span>
+								<!-- Type pokemon -->
+								<div id="typesPokemons"></div>
+							</div>
+							<!-- Skills pokemon -->
+							<div class="sectionTalent">
+								<span class="secondaryText subText">Talent</span>
+								<span class="talentPokemon subText"></span>
+							</div>
+							<!-- Generation pokemon -->
+							<div class="sectionGen">
+								<span class="secondaryText subText">Région</span>
+								<span class="location subText"></span>
+							</div>
 						</div>
-					</header>
-
-					<!-- Grid pokedex -->
-					<div class="grid" id="gridPokemon"></div>
+						<!-- Description pokemon -->
+						<div class="sectionDescription">
+							<span class="secondaryText subText">Description</span>
+							<span class="description"></span>
+						</div>
+						<!-- Stats pokemon -->
+						<div class="sectionsStatistiques">
+							<div class="statistiques zones">
+								<span class="secondaryText subText">Statistiques</span>
+							</div>
+						</div>
+					</div>
+					<!-- Img pokemon -->
+					<figure id="figurePokemonZf">
+						<img src="#" id="imgPokemon" alt="Pokemon de présentation" />
+					</figure>
 				</div>
 			</section>
 		</main>
@@ -96,12 +124,13 @@
 					<ul>
 						<li class="secondaryText">Navigation</li>
 						<li><a href="../index.html">Accueil</a></li>
-						<li><a href="../HTML/pokedex-pokemon-list.html">Pokédex</a></li>
+						<li><a href="./team-pokemon.html">Équipe</a></li>
+						<li><a href="./pokedex-pokemon-list.html">Pokédex</a></li>
 					</ul>
 					<ul>
 						<li class="secondaryText">Ressources</li>
-						<li><a href="../HTML/team-pokemon.html">Équipe</a></li>
-						<li><a href="../HTML/rgpd.html">Mentions légales</a></li>
+						<li><a href="./search-pokemon.html">Recherche</a></li>
+						<li><a href="./rgpd.html">Mentions légales</a></li>
 					</ul>
 				</div>
 				<div class="secondaryContent">
@@ -115,7 +144,7 @@
 		</footer>
 
 		<!-- Script JS -->
-		<script type="module" src="../JS/pokedex-pokemon-list.js"></script>
+		<script type="module" src="../JS/pokemon-script.js"></script>
 		<script type="module" src="../JS/functions.js"></script>
 		<script>
 			window.addEventListener('load', () => {

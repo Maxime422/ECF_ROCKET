@@ -1,6 +1,6 @@
 ('use strict');
 
-import {gridPokemon, relocate, watchPokemon} from './functions.js';
+import {gridPokemon, relocate, watchPokemon, searchPokemon, getData} from './functions.js';
 
 /************** Call Random Pokemon **************/
 const randomNb = Math.floor(Math.random() * 1025 + 1);
@@ -12,11 +12,21 @@ const urlSpeciesGrid = `https://pokeapi.co/api/v2/pokemon-species/`;
 gridPokemon(urlGrid, urlSpeciesGrid);
 
 /************** Form selection **************/
-document.querySelector(`form`).addEventListener(`submit`, (event) => {
+document.querySelector(`form`).addEventListener(`submit`, async (event) => {
 	event.preventDefault();
-	const currentUrl = document.getElementById(`search`).value.toLowerCase();
-	relocate(currentUrl);
-});
+	const id = document.getElementById(`search`).value.toLowerCase();
+	const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+	try {
+	  const data = await getData(url);
+	  if (data) {
+		searchPokemon(id);
+	  } else {
+		console.error('Aucune donnée trouvée pour ce Pokémon !');
+	  }
+	} catch (error) {
+	  console.error('Erreur lors de la récupération des données :', error.message);
+	}
+  });
 
 /************** View Pokemon **************/
 document.querySelector(`#watchPokemon`).addEventListener(`click`, () => {
