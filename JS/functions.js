@@ -20,50 +20,105 @@ document.querySelector(`#darkLightMode`).addEventListener(`click`, () => {
 });
 
 /************** Type Style Pokemon Object **************/
-const typeColors = {
-	normal: 'colorBtnNormal',
-	fighting: 'colorBtnCombat',
-	flying: 'colorBtnVol',
-	poison: 'colorBtnPoison',
-	ground: 'colorBtnSol',
-	rock: 'colorBtnRoche',
-	bug: 'colorBtnInsecte',
-	ghost: 'colorBtnSpectre',
-	steel: 'colorBtnAcier',
-	fire: 'colorBtnFeu',
-	water: 'colorBtnEau',
-	grass: 'colorBtnPlante',
-	electric: 'colorBtnElectric',
-	psychic: 'colorBtnPsy',
-	ice: 'colorBtnGlace',
-	dragon: 'colorBtnDragon',
-	dark: 'colorBtnTenebre',
-	fairy: 'colorBtnFee',
-	stellar: 'colorBtnStar',
-	unknown: 'colorBtnUnknown',
-};
-
-const typeIcons = {
-	normal: '../IMG/ICONS/Icons-Pokemon-normal.png',
-	fighting: '../IMG/ICONS/Icons-Pokemon-fighting.png',
-	flying: '../IMG/ICONS/Icons-Pokemon-flying.png',
-	poison: '../IMG/ICONS/Icons-Pokemon-poison.png',
-	ground: '../IMG/ICONS/Icons-Pokemon-ground.png',
-	rock: '../IMG/ICONS/Icons-Pokemon-rock.png',
-	bug: '../IMG/ICONS/Icons-Pokemon-bug.png',
-	ghost: '../IMG/ICONS/Icons-Pokemon-ghost.png',
-	steel: '../IMG/ICONS/Icons-Pokemon-steel.png',
-	fire: '../IMG/ICONS/Icons-Pokemon-fire.png',
-	water: '../IMG/ICONS/Icons-Pokemon-water.png',
-	grass: '../IMG/ICONS/Icons-Pokemon-grass.png',
-	electric: '../IMG/ICONS/Icons-Pokemon-electric.png',
-	psychic: '../IMG/ICONS/Icons-Pokemon-psychic.png',
-	ice: '../IMG/ICONS/Icons-Pokemon-ice.png',
-	dragon: '../IMG/ICONS/Icons-Pokemon-dragon.png',
-	dark: '../IMG/ICONS/Icons-Pokemon-dark.png',
-	fairy: '../IMG/ICONS/Icons-Pokemon-fairy.png',
-	stellar: '../IMG/ICONS/',
-	unknown: '../IMG/ICONS/',
+const pokemonTypes = {
+	water: {
+		color: '--color-eau',
+		bgColor: '#DBDFFF',
+		icon: '../IMG/ICONS/Icons-Pokemon-water.png',
+	},
+	normal: {
+		color: '--color-normal',
+		bgColor: '#C8CAC8',
+		icon: '../IMG/ICONS/Icons-Pokemon-normal.png',
+	},
+	fire: {
+		color: '--color-feu',
+		bgColor: '#F5A1A6',
+		icon: '../IMG/ICONS/Icons-Pokemon-fire.png',
+	},
+	grass: {
+		color: '--color-plante',
+		bgColor: '#6FF1A3',
+		icon: '../IMG/ICONS/Icons-Pokemon-grass.png',
+	},
+	electric: {
+		color: '--color-electric',
+		bgColor: '#FFF35C',
+		icon: '../IMG/ICONS/Icons-Pokemon-electric.png',
+	},
+	ice: {
+		color: '--color-glace',
+		bgColor: '#C3CCFA',
+		icon: '../IMG/ICONS/Icons-Pokemon-ice.png',
+	},
+	fighting: {
+		color: '--color-combat',
+		bgColor: '#FFCD78',
+		icon: '../IMG/ICONS/Icons-Pokemon-fighting.png',
+	},
+	poison: {
+		color: '--color-poison',
+		bgColor: '#C18CF0',
+		icon: '../IMG/ICONS/Icons-Pokemon-poison.png',
+	},
+	ground: {
+		color: '--color-sol',
+		bgColor: '#C08A4B',
+		icon: '../IMG/ICONS/Icons-Pokemon-ground.png',
+	},
+	flying: {
+		color: '--color-vol',
+		bgColor: '#DCE1FF',
+		icon: '../IMG/ICONS/Icons-Pokemon-flying.png',
+	},
+	psychic: {
+		color: '--color-psy',
+		bgColor: '#FF94A8',
+		icon: '../IMG/ICONS/Icons-Pokemon-psychic.png',
+	},
+	bug: {
+		color: '--color-insecte',
+		bgColor: '#B6C63F',
+		icon: '../IMG/ICONS/Icons-Pokemon-bug.png',
+	},
+	rock: {
+		color: '--color-roche',
+		bgColor: '#D1CEA6',
+		icon: '../IMG/ICONS/Icons-Pokemon-rock.png',
+	},
+	ghost: {
+		color: '--color-spectre',
+		bgColor: '#A07C9C',
+		icon: '../IMG/ICONS/Icons-Pokemon-ghost.png',
+	},
+	dragon: {
+		color: '--color-dragon',
+		bgColor: '#9BA6F2',
+		icon: '../IMG/ICONS/Icons-Pokemon-dragon.png',
+	},
+	dark: {
+		color: '--color-tenebre',
+		bgColor: '#8A7B79',
+		icon: '../IMG/ICONS/Icons-Pokemon-dark.png',
+	},
+	steel: {
+		color: '--color-acier',
+		bgColor: '#A3C8D9',
+		icon: '../IMG/ICONS/Icons-Pokemon-steel.png',
+	},
+	fairy: {
+		color: '--color-fee',
+		bgColor: '#FFB0FF',
+		icon: '../IMG/ICONS/Icons-Pokemon-fairy.png',
+	},
+	stellar: {
+		color: 'colorBtnStar',
+		icon: '../IMG/ICONS/Icons-Pokemon-',
+	},
+	unknown: {
+		color: 'colorBtnUnknown',
+		icon: '../IMG/ICONS/Icons-Pokemon-',
+	},
 };
 
 /************** Async Fetch **************/
@@ -81,56 +136,73 @@ async function getData(urlFetch) {
 	}
 }
 
-/************** Call Data Pokemon Return Data **************/
-async function Pokemon(url) {
+/************** Search Pokemon **************/
+async function getPokemon(currentUrl) {
 	try {
-		const dataPokemon = await getData(url);
-		return dataPokemon;
+		const type1 = document.querySelector(`#typesPokemons`);
+		type1.innerHTML = '';
+		const url = `https://pokeapi.co/api/v2/pokemon/${currentUrl}`;
+		const urlSpecies = `https://pokeapi.co/api/v2/pokemon-species/${currentUrl}`;
+		await updatePokemon(url);
+		await updateSpeciesPokemon(urlSpecies);
 	} catch (error) {
 		console.error(error.message);
 	}
 }
 
-/************** Call Species Pokemon Return Species **************/
-async function PokemonSpecies(url) {
+/************** Get Evolutions Pokemon **************/
+async function pokemonEvolutions(url) {
 	try {
+		// Fetch de la chain du pokemon de l'url
 		const dataSpecies = await getData(url);
-		return dataSpecies;
-	} catch (error) {
-		console.error(error.message);
-	}
-}
-/************** Call Pokemon List Call Data Pokemon Grid and Data Species Grid **************/
-async function gridPokemon(url, urlSpecies) {
-	try {
-		const dataSpeciesGrid = await getData(urlSpecies);
-		const dataPokemonGrid = await getData(url);
-		if (dataPokemonGrid && dataSpeciesGrid) {
-			updatePokemonGrid(dataPokemonGrid);
-			updateSpeciesPokemonGrid(dataSpeciesGrid);
+
+		if (dataSpecies !== undefined && dataSpecies !== null) {
+			const pokemonName = dataSpecies.chain.species.name;
+			let data = dataSpecies.chain;
+			const list = [];
+
+			// Boucle qui vérifie les évolution du pokémon, si c'est le pokémon du fetch, alors on passe au suivant
+			while (data) {
+				if (pokemonName !== data.species.name && data.species.name !== undefined) {
+					list.push(data.species.name);
+				}
+				data = data.evolves_to[0];
+			}
+			console.log(list);
+			for (const pokemon of list) {
+				const urlGrid = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
+				const urlSpeciesGrid = `https://pokeapi.co/api/v2/pokemon-species/${pokemon}`;
+				// Fait un fetch des évolutions
+				const dataPokemon = await getData(urlGrid);
+				const dataSpeciesPokemon = await getData(urlSpeciesGrid);
+				if (dataPokemon && dataSpeciesPokemon) {
+					console.log(dataPokemon, dataSpeciesPokemon, 'ok');
+					// Renovies les données des pokémon
+					updatePokemonGrid(dataPokemon);
+					updatePokemonGrid(dataSpeciesPokemon);
+				} else {
+					console.error('Aucune info en français trouvée');
+				}
+			}
 		}
 	} catch (error) {
 		console.error(error.message);
 	}
 }
 
-async function genPokemon(url) {
-	try {
-		const dataPokemonGrid = await getData(url);
-		if (dataPokemonGrid) {
-			updatePokemonGrid(dataPokemonGrid.pokemon_entries);
-		}
-	} catch (error) {
-		console.error(error.message);
-	}
-}
 /************** Update Species Pokemon **************/
-async function updateSpeciesPokemon(urlSpecies) {
+async function updateSpeciesPokemon(url) {
 	try {
-		const dataSpecies = await PokemonSpecies(urlSpecies);
-		if (dataSpecies !== undefined || dataSpecies !== null) {
+		// Fetch du pokemon
+		const dataSpecies = await getData(url);
+		if (dataSpecies !== undefined && dataSpecies !== null) {
+			if (document.querySelector('#evolutionBtn')) {
+				await pokemonEvolutions(dataSpecies.evolution_chain.url);
+			}
+
 			const name = document.querySelector('.PokemonName');
 			name.textContent = getName(dataSpecies);
+			console.log(dataSpecies);
 
 			const description = document.querySelector('.description');
 			description.textContent = getDescription(dataSpecies);
@@ -151,25 +223,31 @@ async function updateSpeciesPokemon(urlSpecies) {
 /************** Update Data Pokemon **************/
 async function updatePokemon(url) {
 	try {
-		const dataPokemon = await Pokemon(url);
-		if (dataPokemon !== undefined || dataPokemon !== null) {
-			getType(dataPokemon);
+		// Fetch du pokemon
+		const dataPokemon = await getData(url);
 
+		if (dataPokemon !== undefined || dataPokemon !== null) {
 			const styleType1 = document.createElement('div');
 			const styleType2 = document.createElement('div');
 			const type1 = document.createElement('span');
 			const type2 = document.createElement('span');
 
-			// get types
+			// RRécupère les types
 			const types = getType(dataPokemon);
 			type1.textContent = types[0];
 			type2.textContent = types[1];
 
-			styleType1.classList.add(typeColors[types[0]]);
+			// Change la couleur du type du pokémon en utilisant l'objet pokemonTypes
+			styleType1.style.backgroundColor = `var(${pokemonTypes[types[0]].color})`;
 
+			// Change le fond de couleur en fonction du type de pokémon en utilisant l'objet pokemonTypes
+			const bgColor = document.querySelector('.bgColor');
+			bgColor.style.backgroundColor = `${pokemonTypes[types[0]].bgColor}`;
+
+			// Change l'icon du pokémon en utilisant l'objet pokemonTypes
 			const icon1 = document.createElement('img');
 			const circle1 = document.createElement('div');
-			icon1.src = typeIcons[types[0]];
+			icon1.src = pokemonTypes[types[0]].icon;
 			circle1.append(icon1);
 
 			styleType1.append(circle1, type1);
@@ -178,19 +256,21 @@ async function updatePokemon(url) {
 			const div = document.querySelector('#typesPokemons');
 			div.innerHTML = '';
 
+			// Ajoute le second type si présent
 			if (types[1]) {
-				styleType2.classList.add(typeColors[types[1]]);
+				styleType2.style.backgroundColor = `var(${pokemonTypes[types[1]].color})`;
 				styleType2.classList.add('typePokemon');
 
 				const icon2 = document.createElement('img');
 				const circle2 = document.createElement('div');
-				icon2.src = typeIcons[types[1]];
+				icon2.src = pokemonTypes[types[1]].icon;
 				circle2.append(icon2);
 				styleType2.append(circle2, type2);
 
 				div.append(styleType1, styleType2);
+			} else {
+				div.append(styleType1);
 			}
-			div.append(styleType1);
 
 			const stats = statsPokemon(dataPokemon);
 			const statsContainer = document.querySelector('.statistiques');
@@ -198,7 +278,6 @@ async function updatePokemon(url) {
 
 			statsContainer.appendChild(stats);
 
-			// get talents
 			const talent = document.querySelector('.talentPokemon');
 			talent.textContent = getTalent(dataPokemon);
 
@@ -213,58 +292,49 @@ async function updatePokemon(url) {
 }
 
 /************** Update Data Pokemon Grid **************/
-async function updatePokemonGrid(dataPokemonGrid) {
+async function updatePokemonGrid(dataPokemon) {
 	try {
-		if (dataPokemonGrid) {
-			const listPokemon = dataPokemonGrid.results;
-			for (const pokemon of listPokemon) {
-				const url = pokemon.url;
-				const data = await Pokemon(url);
+		const styleType2 = document.createElement('div');
+		const styleType1 = document.createElement('div');
 
-				const styleType2 = document.createElement('div');
-				const styleType1 = document.createElement('div');
+		const id = document.createElement('span');
+		id.textContent = getId(dataPokemon);
 
-				const id = document.createElement('span');
-				id.textContent = getId(data);
+		const img = document.createElement('img');
+		img.src = getSprite(dataPokemon);
 
-				const img = document.createElement('img');
-				img.src = getSprite(data);
+		// Le type N°1
+		const types = getType(dataPokemon);
+		const type1 = document.createElement('span');
+		type1.textContent = types[0];
 
-				// Types
-				const types = getType(data);
-				const type1 = document.createElement('span');
-				type1.textContent = types[0];
-				styleType1.classList.add(typeColors[types[0]]);
+		// Change la couleur du type du pokémon en utilisant l'objet pokemonTypes
+		styleType1.style.backgroundColor = `var(${pokemonTypes[types[0]].color})`;
 
-				const icon1 = document.createElement('img');
-				const circle1 = document.createElement('div');
-				icon1.src = typeIcons[types[0]];
-				circle1.append(icon1);
-				styleType1.classList.add('typePokemon');
+		const icon1 = document.createElement('img');
+		const circle1 = document.createElement('div');
+		icon1.src = pokemonTypes[types[0]].icon;
+		circle1.append(icon1);
+		styleType1.classList.add('typePokemon');
+		styleType1.append(circle1, type1);
+		// A faire + faire une seule fois les types
 
-				styleType1.append(circle1, type1);
-				const speciesCompoment2 = [data.name];
-				if (types[1]) {
-					const type2 = document.createElement('span');
-					type2.textContent = types[1];
-					styleType2.classList.add(typeColors[types[1]]);
-					styleType2.appendChild(type2);
-					const icon2 = document.createElement('img');
-					const circle2 = document.createElement('div');
-					icon2.src = typeIcons[types[1]];
-					circle2.append(icon2);
-					styleType2.classList.add('typePokemon');
+		if (types[1] !== undefined) {
+			const type2 = document.createElement('span');
+			type2.textContent = types[1];
+			styleType2.style.backgroundColor = `var(${pokemonTypes[types[1]].color})`;
+			styleType2.appendChild(type2);
+			const icon2 = document.createElement('img');
+			const circle2 = document.createElement('div');
+			icon2.src = pokemonTypes[types[1]].icon;
+			circle2.append(icon2);
+			styleType2.classList.add('typePokemon');
 
-					styleType2.append(circle2, type2);
-					const pokemonCompoment2 = [id, img, styleType1, styleType2];
-					createArticle(pokemonCompoment2, speciesCompoment2);
-				} else {
-					const pokemonCompoment2 = [id, img, styleType1];
-					createArticle(pokemonCompoment2, speciesCompoment2);
-				}
-			}
+			console.log([id, img, styleType1, styleType2]);
+			styleType2.append(circle2, type2);
+			createArticle([id, img, styleType1, styleType2]);
 		} else {
-			console.error('Aucune info en français trouvée');
+			createArticle([id, img, styleType1]);
 		}
 	} catch (error) {
 		console.error(error.message);
@@ -272,48 +342,49 @@ async function updatePokemonGrid(dataPokemonGrid) {
 }
 
 /************** Update Species Pokemons Grids **************/
-async function updateSpeciesPokemonGrid(dataSpeciesGrid) {
+async function updateSpeciesPokemonGrid(dataSpecies) {
 	try {
-		if (dataSpeciesGrid) {
-			const listPokemon = dataSpeciesGrid.results;
-			for (const pokemon of listPokemon) {
-				const url = pokemon.url;
+		const name = document.createElement(`h3`);
+		name.textContent = dataSpecies.name;
 
-				const dataSpecies = await Pokemon(url);
+		const gen = document.querySelector('.location');
+		gen.textContent = getGeneration(dataSpecies);
 
-				const name = document.createElement(`h3`);
-				name.textContent = getName(dataSpecies);
-
-				const gen = document.querySelector('.location');
-				gen.textContent = getGeneration(dataSpecies);
-			}
-		} else {
-			console.error('Aucune info en français trouvée');
+		let data: {
+			
 		}
+		console.log([name, gen]);
+		createArticle([name, gen]);
 	} catch (error) {
 		console.error(error.message);
 	}
 }
 
 /************** Create Articles **************/
-function createArticle(pokemonCompoment2, speciesCompoment2) {
+function createArticle(dataPokemon, data) {
 	try {
+		// console.log(dataPokemon, data);
 		const article = document.createElement('article');
 		article.classList.add('articlePokemon');
 
 		const name = document.createElement('h3');
-		name.textContent = speciesCompoment2[0];
-		name.classList.add(`subText`);
-		name.classList.add('secondaryText');
+		name.textContent = data[0];
+		name.classList.add('secondaryText', 'subText');
 
 		const figure = document.createElement('figure');
 		figure.classList.add(`articleFigurePokemon`);
-		const img = pokemonCompoment2[1];
-		img.setAttribute('alt', `Pokemon de présentation${name.textContent}`);
+		const img = dataPokemon[1];
+		img.setAttribute('alt', `Pokemon de présentation ${name.textContent}`);
 		figure.appendChild(img);
 
 		const a = document.createElement(`a`);
-		a.href = `./HTML_PAGES/pokemon.html?p=${name.textContent}`;
+		const currentPath = window.location.pathname;
+		if (currentPath.includes('/HTML_PAGES/')) {
+			a.href = `pokemon.html?p=${name.textContent}`;
+		} else {
+			a.href = `./HTML_PAGES/pokemon.html?p=${name.textContent}`;
+		}
+
 		a.textContent = 'voir plus';
 		a.classList.add('cta');
 		a.classList.add('primaryButton');
@@ -321,12 +392,12 @@ function createArticle(pokemonCompoment2, speciesCompoment2) {
 		const typesDiv = document.createElement('div');
 
 		const typesDiv1 = document.createElement('div');
-		typesDiv1.appendChild(pokemonCompoment2[2]);
+		typesDiv1.appendChild(dataPokemon[2]);
 		typesDiv1.classList.add('styleTypePokemon1');
 
-		if (pokemonCompoment2[3] !== undefined && pokemonCompoment2[3] !== undefined) {
+		if (dataPokemon[3] !== undefined && dataPokemon[3] !== undefined) {
 			const typesDiv2 = document.createElement('div');
-			typesDiv2.appendChild(pokemonCompoment2[3]);
+			typesDiv2.appendChild(dataPokemon[3]);
 			typesDiv2.classList.add('styleTypePokemon2');
 			typesDiv.append(typesDiv1, typesDiv2);
 		} else {
@@ -339,7 +410,7 @@ function createArticle(pokemonCompoment2, speciesCompoment2) {
 
 		content.appendChild(name);
 
-		content.appendChild(pokemonCompoment2[0]);
+		content.appendChild(dataPokemon[0]);
 		content.appendChild(typesDiv);
 		content.appendChild(a);
 
@@ -464,8 +535,9 @@ function getTalent(dataPokemon) {
 }
 
 /************** Search Sprites Pokemon **************/
-function getSprite(dataPokemon) {
-	const sprites = dataPokemon.sprites.other['official-artwork'].front_default;
+function getSprite(data) {
+	console.log(data);
+	const sprites = data.sprites.other['official-artwork'].front_default;
 	return sprites;
 }
 
@@ -497,22 +569,8 @@ function statsPokemon(dataPokemon) {
 if (document.querySelector('form') === true) {
 	document.querySelector(`form`).addEventListener(`submit`, (event) => {
 		event.preventDefault();
-		relocate();
+		getPokemon();
 	});
-}
-
-/************** Search Pokemon **************/
-async function relocate(currentUrl) {
-	try {
-		const type1 = document.querySelector(`#typesPokemons`);
-		type1.innerHTML = '';
-		const url = `https://pokeapi.co/api/v2/pokemon/${currentUrl}`;
-		const urlSpecies = `https://pokeapi.co/api/v2/pokemon-species/${currentUrl}`;
-		await updatePokemon(url);
-		await updateSpeciesPokemon(urlSpecies);
-	} catch (error) {
-		console.error(error.message);
-	}
 }
 
 /************** Event Listener Watch Pokemon **************/
@@ -544,8 +602,8 @@ function addPokemon() {
 	const btn = document.querySelector('#addPokemonTeam');
 	if (btn) {
 		btn.addEventListener(`click`, () => {
-			let pokemon = document.querySelector('.IdPokemon').textContent;
-			pokemon = pokemon.replace(' du Pokédex', '');
+			let pokemonID = document.querySelector('.IdPokemon').textContent;
+			pokemonID = pokemonID.replace(' du Pokédex', '');
 
 			if (btn) {
 				const count = localStorage.length;
@@ -559,19 +617,19 @@ function addPokemon() {
 				if (count >= 6) {
 					console.log('équipe déjà au maximum');
 				} else {
-					let pokemonAlreadyAdded = false;
+					let pokemon = false;
 
 					for (let i = 0; i < listPokemonLocal.length; i++) {
-						if (listPokemonLocal[i] === pokemon) {
-							pokemonAlreadyAdded = true;
+						if (listPokemonLocal[i] === pokemonID) {
+							pokemon = true;
 							console.log('pokemon déjà dans ton équipe');
 							break;
 						}
 					}
 
-					if (!pokemonAlreadyAdded) {
-						localStorage.setItem(pokemon, 'added');
-						console.log(`Pokemon ${pokemon} added to localStorage`);
+					if (!pokemon) {
+						localStorage.setItem(pokemonID, 'added');
+						console.log(`Pokemon ${pokemonID} added to localStorage`);
 					}
 				}
 			}
@@ -580,10 +638,9 @@ function addPokemon() {
 }
 addPokemon();
 
+/************** Team Button **************/
 const pokemon = document.querySelector('#teamButton');
 if (pokemon) {
-	document.querySelector('#teamButton');
-
 	pokemon.addEventListener(`click`, () => {
 		if (window.localStorage.length === 0) {
 			alert('pas encore de pokémon');
@@ -598,5 +655,35 @@ if (pokemon) {
 	});
 }
 
+/************** Switch Evolution About Button **************/
+const evolutionBtn = document.querySelector('#evolutionBtn');
+const aboutBtn = document.querySelector('#aboutBtn');
+
+const aboutSection = document.querySelector('#about');
+const evolutionSection = document.querySelector('#evolution');
+
+if (evolutionBtn && aboutBtn) {
+	evolutionBtn.addEventListener(`click`, () => {
+		if (aboutSection.classList !== 'hidden') {
+			evolutionBtn.classList.add('redText');
+			aboutSection.classList.add('hidden');
+
+			evolutionSection.classList.remove('hidden');
+			aboutBtn.classList.remove('redText');
+			console.log(evolutionBtn, aboutSection, evolutionSection, aboutBtn);
+		}
+	});
+
+	aboutBtn.addEventListener(`click`, () => {
+		if (evolutionSection.classList !== 'hidden') {
+			aboutBtn.classList.add('redText');
+			evolutionSection.classList.add('hidden');
+
+			aboutSection.classList.remove('hidden');
+			evolutionBtn.classList.remove('redText');
+		}
+	});
+}
+
 /************** Export **************/
-export {gridPokemon, Pokemon, updateSpeciesPokemon, updatePokemon, getData, updatePokemonGrid, updateSpeciesPokemonGrid, addPokemon, relocate, watchPokemon, searchPokemon, genPokemon};
+export {updateSpeciesPokemon, updatePokemon, getData, updatePokemonGrid, addPokemon, getPokemon, watchPokemon, searchPokemon, pokemonEvolutions, updateSpeciesPokemonGrid};

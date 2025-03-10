@@ -9,14 +9,14 @@ document.querySelector(`#searchPokemon`).addEventListener(`submit`, (event) => {
 	searchPokemon(id);
 });
 
-/************** Call Random Pokemon **************/
+/************** Call Pokemon **************/
 let currentUrl = window.location.search;
 currentUrl = currentUrl.replace('?p=', '');
 console.log(currentUrl);
 const url = `https://pokeapi.co/api/v2/pokemon/${currentUrl}`;
 const urlSpecies = `https://pokeapi.co/api/v2/pokemon-species/${currentUrl}`;
-updatePokemon(url);
 
+updatePokemon(url);
 updateSpeciesPokemon(urlSpecies);
 
 document.querySelector(`form`).addEventListener(`submit`, async (event) => {

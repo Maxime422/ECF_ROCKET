@@ -1,10 +1,10 @@
-import {relocate, searchPokemon, getData, genPokemon} from './functions.js';
+import {getPokemon, searchPokemon, getData, updatePokemonGrid} from './functions.js';
 
 /************** Form selection **************/
 document.querySelector(`form`).addEventListener(`submit`, (event) => {
 	event.preventDefault();
 	const currentUrl = document.getElementById(`search`).value.toLowerCase();
-	relocate(currentUrl);
+	getPokemon(currentUrl);
 });
 
 /************** Form selection **************/
@@ -27,7 +27,8 @@ document.querySelector(`#searchPokemon`).addEventListener(`submit`, async (event
 /************** Call List Pokemon **************/
 async function getPokemonByRegion(regionName) {
 	const urlGen = `https://pokeapi.co/api/v2/pokedex/${regionName}`;
-	genPokemon(urlGen);
+	const data = getData(urlGen);
+	updatePokemonGrid(data.pokemon_entries);
 }
 
 getPokemonByRegion("kanto");

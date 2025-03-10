@@ -26,9 +26,9 @@
 	--margin-left-right-large: 2rem 0;
 	--margin-extra: 4rem;
 	--margin-left-right-extra: 4rem 0;
-	--marrgin-top-bottom-small: 0.5rem 0;
-	--marrgin-top-bottom-medium: 1rem 0;
-	--marrgin-top-bottom-large: 2rem 0;
+	--margin-top-bottom-small: 0.5rem 0;
+	--margin-top-bottom-medium: 1rem 0;
+	--margin-top-bottom-large: 2rem 0;
 
 	--padding-small: 0.5rem;
 	--padding-medium: 1rem;
@@ -71,7 +71,6 @@ body {
 button {
 	all: unset;
 	display: inline-block;
-	cursor: pointer;
 }
 
 /* Fonts */

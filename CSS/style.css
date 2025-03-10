@@ -1,11 +1,9 @@
-/* Container */
+/************** Container **************/
 .container {
-	width: 1440px;
-	margin: 0 auto;
 	padding: var(--padding-left-right-large);
 }
 
-/* Header */
+/************** Header **************/
 #headerPage {
 	padding: var(--padding-top-bottom-medium);
 	display: flex;
@@ -24,7 +22,7 @@
 	align-items: center;
 }
 
-/* Btn */
+/************** Buttons and Inputs **************/
 .cta,
 #search {
 	display: flex;
@@ -34,14 +32,20 @@
 	padding: var(--padding-medium);
 	align-items: center;
 	border-radius: var(--border-radius-small);
-	transition: 0.1s;
+	transition: transform 0.1s ease-in-out;
+	cursor: pointer;
 }
 
-.cta:hover {
-	transform: scale(1.01);
-
+.cta:hover,
+#evolutionBtn,
+#aboutBtn,
+#searchSubmit,
+#darkLightMode {
+	transform: scale(1.02);
+	cursor: pointer;
 }
 
+/* Form Search */
 #search {
 	background-color: var(--color-black-1);
 }
@@ -78,7 +82,7 @@ form > div i {
 .primaryButton {
 	background-color: var(--color-red-1);
 	color: var(--color-white-only);
-	transition: 0.1s;
+	transition: transform 0.1s ease-in-out;
 }
 
 .primaryButton:hover,
@@ -89,30 +93,31 @@ form > div i {
 .secondaryButton {
 	border: 1px solid var(--color-white);
 	color: var(--color-white);
-	transition: 0.1s;
+	transition: transform 0.1s ease-in-out;
 }
 
+/* Team Pokemon */
 .secondaryButton:hover,
 .circle:not(.circleActive):hover {
 	background-color: var(--color-black-2);
 }
 
 .circle:not(.circleActive):hover {
-	transition: 0.1s;
+	transition: transform 0.1s ease-in-out;
 	background-color: var(--color-gray-1);
 }
 
-/* Main */
+/************** Main **************/
 main {
 	width: 100%;
 }
 
 /* Variable Bg color */
 .bgColor {
-	background-color: var(--color-blue-4);
+	background-color: var(--dynamic-color);
 }
 
-/* Zf */
+/************** Zf **************/
 #zf {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
@@ -120,6 +125,7 @@ main {
 	min-height: 90vh;
 	align-items: center;
 	padding: var(--padding-extra);
+	overflow: hidden;
 }
 
 #zf .PokemonInfos {
@@ -127,6 +133,7 @@ main {
 	background-color: var(--color-black);
 	padding: var(--padding-large);
 	border-radius: var(--border-radius-medium);
+	z-index: 1;
 }
 
 #zf .PokemonInfos .sectionCardNav {
@@ -142,6 +149,7 @@ main {
 	gap: var(--gap-medium);
 }
 
+/* Statistiques and Team */
 #zf .PokemonInfos .sectionInformations,
 .sectionDescription,
 .sectionsStatistiques {
@@ -151,7 +159,7 @@ main {
 	gap: var(--gap-large);
 }
 
-#zf .PokemonInfos .sectionInformations > div,
+.PokemonInfos .sectionInformations > div,
 .sectionDescription,
 .sectionsStatistiques {
 	display: flex;
@@ -159,56 +167,175 @@ main {
 	gap: var(--gap-medium);
 }
 
-#zf .PokemonInfos .sectionInformations .sectionType > div {
+.PokemonInfos .sectionInformations .sectionType > div {
 	display: flex;
 	gap: var(--gap-medium);
 }
 
 /* Zf box */
-#zf .PokemonInfos .sectionsStatistiques .zones {
-	margin: var(--marrgin-top-bottom-medium);
+.PokemonInfos .sectionsStatistiques .zones {
+	margin: var(--margin-top-bottom-medium);
 	padding: var(--padding-medium);
 	background-color: var(--color-black-1);
 	border-radius: var(--border-radius-small);
 }
 
 /* Zf stats */
-#zf .PokemonInfos .sectionsStatistiques .statistiques div {
+.PokemonInfos .sectionsStatistiques .statistiques div {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: var(--gap-small);
 	grid-template-rows: auto;
 }
 
-#zf .PokemonInfos .sectionsStatistiques .team div {
+.PokemonInfos .sectionsStatistiques .team div {
 	display: flex;
 	padding: var(--padding-top-bottom-medium);
 	align-items: center;
 	gap: var(--gap-medium);
 }
 
-#zf .PokemonInfos .sectionsStatistiques .statistiques .secondaryText {
+.PokemonInfos .sectionsStatistiques .statistiques .secondaryText {
 	grid-column: 1/3;
 }
 
-/* Zf figure */
-#zf #figurePokemonZf {
-	background-image: url('../IMG/Pokéball-Image-Fond.png');
-	background-position: center;
-	background-repeat: no-repeat;
+/* Pokeball Circle */
+.circle {
+	background-color: var(--color-gray);
+	padding: var(--padding-small);
+	border-radius: 50%;
+	width: auto;
+	height: 2rem;
+}
+
+.circleActive {
+	background-color: var(--color-red-1);
+}
+
+
+/************** Types pokemons **************/
+.typePokemon {
+	display: flex;
+	gap: var(--gap-small);
+	padding: var(--padding-small);
+	border-radius: var(--border-radius-big);
+	align-items: center;
+	color: var(--color-white-only);
+}
+
+#zf .PokemonInfos .sectionInformations #typesPokemons {
+	padding: var(--padding-medium);
+}
+
+.typePokemon img,
+.circle img {
+	width: 100%;
+	height: auto;
+	width: auto;
+	height: 100%;
+	object-fit: contain;
+}
+
+.typePokemon div {
+	height: 1.5rem;
+	width: 1.5rem;
+	display: flex;
+	align-items: center;
+}
+
+/* Type Pokemon Colors */
+.colorBtnEau {
+	background-color: var(--color-eau);
+}
+.colorBtnNormal {
+	background-color: var(--color-normal);
+}
+.colorBtnFeu {
+	background-color: var(--color-feu);
+}
+.colorBtnPlante {
+	background-color: var(--color-plante);
+}
+.colorBtnElectric {
+	background-color: var(--color-electric);
+}
+.colorBtnGlace {
+	background-color: var(--color-glace);
+}
+.colorBtnCombat {
+	background-color: var(--color-combat);
+}
+.colorBtnPoison {
+	background-color: var(--color-poison);
+}
+
+.colorBtnSol {
+	background-color: var(--color-sol);
+}
+.colorBtnVol {
+	background-color: var(--color-vol);
+}
+.colorBtnPsy {
+	background-color: var(--color-psy);
+}
+.colorBtnInsecte {
+	background-color: var(--color-insecte);
+}
+
+.colorBtnRoche {
+	background-color: var(--color-roche);
+}
+.colorBtnSpectre {
+	background-color: var(--color-spectre);
+}
+.colorBtnDragon {
+	background-color: var(--color-dragon);
+}
+.colorBtnTenebre {
+	background-color: var(--color-tenebre);
+}
+.colorBtnAcier {
+	background-color: var(--color-acier);
+}
+.colorBtnFee {
+	background-color: var(--color-fee);
+}
+
+.colorBtnUnknown {
+	background-color: var(--color-fee);
+}
+
+.colorBtnStar {
+	background-color: var(--color-fee);
+}
+
+/************** Figures **************/
+#figurePokemonZf {
+	position: relative;
 	justify-content: center;
-	background-size: contain;
+	align-items: center;
 	display: flex;
 }
 
-#zf #figurePokemonZf img {
+#figurePokemonZf #bgPokeball {
+	background-image: url('../IMG/Pokéball-Image-Fond.png');
+	position: absolute;
+	background-repeat: no-repeat;
+	background-size: contain;
+	width: 60rem;
+	height: 60rem;
+	transform: rotate(-45deg);
+}
+
+#figurePokemonZf img {
 	max-width: 100%;
 	max-height: 100%;
 	width: auto;
 	height: auto;
+	z-index: 1;
 }
 
-/* Section on the bill */
+/************** Section On bill **************/
 #pokemonPromoted {
 	padding: var(--padding-top-bottom-large);
 }
@@ -231,8 +358,17 @@ main {
 	gap: var(--gap-medium);
 }
 
-/* Acticles */
-#pokemonPromoted #gridPokemon article {
+#evolution #gridPokemon {
+	display: flex;
+	flex-direction: column;
+	gap: var(--gap-medium);
+	background-color: var(--color-black-1);
+	padding: var(--padding-medium);
+	border-radius: var(--border-radius-medium);
+}
+
+/************** Aticles **************/
+#gridPokemon article {
 	background-color: var(--color-black-1);
 	padding: var(--padding-medium);
 	border-radius: var(--border-radius-medium);
@@ -242,44 +378,65 @@ main {
 	align-items: center;
 }
 
-#pokemonPromoted #gridPokemon article:hover {
-	transition: 0.1s;
+/* Acticles On the bill */
+#pokemonPromoted #gridPokemon article {
+	background-color: var(--color-black-1);
+}
+
+/* Acticles Evolution */
+#evolution #gridPokemon article {
+	background-color: var(--color-black-2);
+}
+
+#evolution {
+	border-top: var(--color-gray) solid 1px;
+	padding: var(--padding-top-bottom-medium);
+	gap: var(--gap-large);
+}
+
+/* Class hidden */
+.hidden {
+	display: none;
+}
+
+#gridPokemon article:hover {
+	transition: transform 0.1s ease-in-out;
 	transform: scale(1.01);
 }
 
-#pokemonPromoted #gridPokemon img {
+#gridPokemon img {
 	max-width: 100%;
 	max-height: 100%;
 	width: auto;
 	height: auto;
 }
 
-#pokemonPromoted #gridPokemon .flexTypes {
+#gridPokemon .flexTypes {
 	display: flex;
 	align-items: center;
 	gap: var(--gap-medium);
 }
 
-#pokemonPromoted #gridPokemon article > div {
+#gridPokemon article > div {
 	display: flex;
 	flex-direction: column;
 	gap: var(--gap-small);
 	padding: var(--padding-medium);
 }
 
-#pokemonPromoted #gridPokemon article > div {
+#gridPokemon article > div {
 	display: flex;
 	flex-direction: column;
 	gap: var(--gap-small);
 	padding: var(--padding-medium);
 }
 
-#pokemonPromoted #gridPokemon article > div .cta {
+#gridPokemon article > div .cta {
 	margin-top: var(--margin-small);
 	align-self: flex-end;
 }
 
-/* Footer Pages */
+/************** Footer **************/
 #footerPage {
 	padding: var(--padding-top-bottom-large);
 	display: flex;
@@ -300,159 +457,9 @@ main {
 	justify-content: space-between;
 }
 
-#footerPage .secondaryContent div * {
-	padding: var(--padding-left-right-small);
-}
-
-/* Type Pokemon Style */
-#zf .PokemonInfos .sectionInformations #typesPokemons span,
-.typePokemon {
-	display: flex;
-	gap: var(--gap-small);
-	padding: var(--padding-small);
-	border-radius: var(--border-radius-big);
-}
-
-#zf .PokemonInfos .sectionInformations #typesPokemons {
-	padding: var(--padding-medium);
-}
-
-.typePokemon {
-	display: flex;
-	gap: var(--gap-small);
-	padding: var(--padding-small);
-	border-radius: var(--border-radius-big);
-}
-
-.typePokemon img {
-	width: 100%;
-	height: auto;
-}
-
-/* Type Pokemon Colors */
-.colorBtnEau {
-	background-color: var(--color-eau);
-	color: var(--color-white-only);
-}
-.colorBtnNormal {
-	background-color: var(--color-normal);
-	color: var(--color-white-only);
-}
-.colorBtnFeu {
-	background-color: var(--color-feu);
-	color: var(--color-white-only);
-}
-.colorBtnPlante {
-	background-color: var(--color-plante);
-	color: var(--color-white-only);
-}
-.colorBtnElectric {
-	background-color: var(--color-electric);
-	color: var(--color-white-only);
-}
-.colorBtnGlace {
-	background-color: var(--color-glace);
-	color: var(--color-white-only);
-}
-.colorBtnCombat {
-	background-color: var(--color-combat);
-	color: var(--color-white-only);
-}
-.colorBtnPoison {
-	background-color: var(--color-poison);
-	color: var(--color-white-only);
-}
-
-.colorBtnSol {
-	background-color: var(--color-sol);
-	color: var(--color-white-only);
-}
-.colorBtnVol {
-	background-color: var(--color-vol);
-	color: var(--color-white-only);
-}
-.colorBtnPsy {
-	background-color: var(--color-psy);
-	color: var(--color-white-only);
-}
-.colorBtnInsecte {
-	background-color: var(--color-insecte);
-	color: var(--color-white-only);
-}
-
-.colorBtnRoche {
-	background-color: var(--color-roche);
-	color: var(--color-white-only);
-}
-.colorBtnSpectre {
-	background-color: var(--color-spectre);
-	color: var(--color-white-only);
-}
-.colorBtnDragon {
-	background-color: var(--color-dragon);
-	color: var(--color-white-only);
-}
-.colorBtnTenebre {
-	background-color: var(--color-tenebre);
-	color: var(--color-white-only);
-}
-.colorBtnAcier {
-	background-color: var(--color-acier);
-	color: var(--color-white-only);
-}
-.colorBtnFee {
-	background-color: var(--color-fee);
-	color: var(--color-white-only);
-}
-
-.colorBtnUnknown {
-	background-color: var(--color-fee);
-	color: var(--color-white-only);
-}
-
-.colorBtnStar {
-	background-color: var(--color-fee);
-	color: var(--color-white-only);
-}
-
-/* Pokeball Circle */
-.circle {
-	background-color: var(--color-gray);
-	padding: var(--padding-small);
-	border-radius: 50%;
-	width: auto;
-	height: 2rem;
-}
-
-.typePokemon {
-	display: flex;
-	align-items: center;
-}
-
-.typePokemon div {
-	height: 1.5rem;
-	width: 1.5rem;
-	display: flex;
-	align-items: center;
-}
-
-.typePokemon img,
-.circle img {
-	width: auto;
-	height: 100%;
-	object-fit: contain;
-}
-
-.circleActive {
-	background-color: var(--color-red-1);
-}
-
+/************** Media **************/
 /* Media 1200px large screen */
 @media (max-width: 1440px) {
-	.container {
-		width: 1140px;
-	}
-
 	#pokemonPromoted #gridPokemon {
 		grid-template-columns: 1fr 1fr;
 		grid-template-rows: auto;
@@ -462,10 +469,6 @@ main {
 
 /* Media 1200px large screen */
 @media (max-width: 1200px) {
-	.container {
-		width: 992px;
-	}
-
 	#zf .PokemonInfos {
 		min-width: 0;
 	}
@@ -491,11 +494,6 @@ main {
 
 /* Media 992px small desktop */
 @media (max-width: 992px) {
-	.container {
-		width: 100%;
-		padding: var(--padding-large);
-	}
-
 	#zf {
 		grid-template-columns: 1fr;
 		grid-template-rows: 1fr 1fr;
@@ -565,10 +563,6 @@ main {
 		grid-column: 1/3;
 	}
 
-	#footerPage {
-		padding: 0;
-	}
-
 	#zf #team {
 		order: -1;
 		border: none;
@@ -578,7 +572,7 @@ main {
 		display: none;
 	}
 
-	#zf .PokemonInfos .sectionsStatistiques .team div {
+	.PokemonInfos .sectionsStatistiques .team div {
 		display: flex;
 		justify-content: center;
 	}
@@ -592,18 +586,23 @@ main {
 	#headerPage {
 		display: flex;
 		justify-content: center;
-		padding: 0;
+
 	}
 	#pokemonPromoted #gridPokemon {
 		grid-template-columns: 1fr;
 	}
 
-	#zf .PokemonInfos .sectionInformations {
+	.PokemonInfos .sectionInformations {
 		grid-template-columns: 1fr 1fr;
 	}
 
-	#zf .PokemonInfos .sectionInformations .sectionType {
+	.PokemonInfos .sectionInformations .sectionType {
 		grid-column: 1 / 3;
+	}
+
+	#figurePokemonZf #bgPokeball {
+		width: 40rem;
+		height: 40rem;
 	}
 }
 
@@ -612,12 +611,12 @@ main {
 	#zf {
 		grid-template-rows: 1fr auto;
 	}
-	#zf .PokemonInfos .sectionsStatistiques .statistiques {
+	.PokemonInfos .sectionsStatistiques .statistiques {
 		display: flex;
 		flex-direction: column;
 	}
 
-	#zf .PokemonInfos .sectionCardNav .cta {
+	.PokemonInfos .sectionCardNav .cta {
 		width: 100%;
 	}
 }
