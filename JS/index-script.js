@@ -1,6 +1,6 @@
 ('use strict');
 
-import {getPokemon, watchPokemon, searchPokemon, getData, updatePokemonGrid, updateSpeciesPokemonGrid} from './functions.js';
+import {getPokemon, getData,createArticle, updatePokemonGrid, updateSpeciesPokemonGrid} from './functions.js';
 
 /************** Call Random Pokemon **************/
 const randomNb = Math.floor(Math.random() * 1025 + 1);
@@ -15,21 +15,17 @@ async function callListPokemon() {
 		const dataSpeciesPokemon = await getData(urlSpeciesGrid);
 
 		if (dataPokemon && dataSpeciesPokemon) {
-			for (const pokemon of dataPokemon.results) {
-				const url = pokemon.url;
-				const data = await getData(url);
-				if (data) {
-					updatePokemonGrid(data);
-				} else {
-					console.error('Aucune info en français trouvée');
+			for (let i = 0; i < dataPokemon.results.length; i++) {
+				const pokemonData = await getData(dataPokemon.results[i].url);
+				const speciesData = await getData(dataSpeciesPokemon.results[i].url);
+
+				const getPokemon = await updatePokemonGrid(pokemonData);
+				const getSpecies = await updateSpeciesPokemonGrid(speciesData);
+				console.log(getPokemon,getSpecies, "ok" );
+				if (getPokemon && getSpecies) {
+					createArticle(getPokemon, getPokemon);
 				}
-			}
-			for (const pokemon of dataSpeciesPokemon.results) {
-				const url = pokemon.url;
-				const data = await getData(url);
-				if (data) {
-					updateSpeciesPokemonGrid(data);
-				} else {
+				else {
 					console.error('Aucune info en français trouvée');
 				}
 			}
@@ -39,25 +35,3 @@ async function callListPokemon() {
 	}
 }
 callListPokemon();
-
-/************** Form selection **************/
-document.querySelector(`form`).addEventListener(`submit`, async (event) => {
-	event.preventDefault();
-	const id = document.getElementById(`search`).value.toLowerCase();
-	const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
-	try {
-		const data = await getData(url);
-		if (data) {
-			searchPokemon(id);
-		} else {
-			console.error('Aucune donnée trouvée pour ce Pokémon !');
-		}
-	} catch (error) {
-		console.error('Erreur lors de la récupération des données :', error.message);
-	}
-});
-
-/************** View Pokemon **************/
-document.querySelector(`#watchPokemon`).addEventListener(`click`, () => {
-	watchPokemon();
-});

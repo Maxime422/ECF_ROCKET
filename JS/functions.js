@@ -111,14 +111,6 @@ const pokemonTypes = {
 		bgColor: '#FFB0FF',
 		icon: '../IMG/ICONS/Icons-Pokemon-fairy.png',
 	},
-	stellar: {
-		color: 'colorBtnStar',
-		icon: '../IMG/ICONS/Icons-Pokemon-',
-	},
-	unknown: {
-		color: 'colorBtnUnknown',
-		icon: '../IMG/ICONS/Icons-Pokemon-',
-	},
 };
 
 /************** Async Fetch **************/
@@ -156,7 +148,7 @@ async function pokemonEvolutions(url) {
 		// Fetch de la chain du pokemon de l'url
 		const dataSpecies = await getData(url);
 
-		if (dataSpecies !== undefined && dataSpecies !== null) {
+		if (dataSpecies) {
 			const pokemonName = dataSpecies.chain.species.name;
 			let data = dataSpecies.chain;
 			const list = [];
@@ -176,7 +168,6 @@ async function pokemonEvolutions(url) {
 				const dataPokemon = await getData(urlGrid);
 				const dataSpeciesPokemon = await getData(urlSpeciesGrid);
 				if (dataPokemon && dataSpeciesPokemon) {
-					console.log(dataPokemon, dataSpeciesPokemon, 'ok');
 					// Renovies les données des pokémon
 					updatePokemonGrid(dataPokemon);
 					updatePokemonGrid(dataSpeciesPokemon);
@@ -226,51 +217,16 @@ async function updatePokemon(url) {
 		// Fetch du pokemon
 		const dataPokemon = await getData(url);
 
-		if (dataPokemon !== undefined || dataPokemon !== null) {
-			const styleType1 = document.createElement('div');
-			const styleType2 = document.createElement('div');
-			const type1 = document.createElement('span');
-			const type2 = document.createElement('span');
-
-			// RRécupère les types
+		if (dataPokemon) {
+			// Récupère les types
 			const types = getType(dataPokemon);
-			type1.textContent = types[0];
-			type2.textContent = types[1];
-
-			// Change la couleur du type du pokémon en utilisant l'objet pokemonTypes
-			styleType1.style.backgroundColor = `var(${pokemonTypes[types[0]].color})`;
+			const div = document.querySelector('#typesPokemons');
+			div.innerHTML = '';
+			div.append = types;
 
 			// Change le fond de couleur en fonction du type de pokémon en utilisant l'objet pokemonTypes
 			const bgColor = document.querySelector('.bgColor');
 			bgColor.style.backgroundColor = `${pokemonTypes[types[0]].bgColor}`;
-
-			// Change l'icon du pokémon en utilisant l'objet pokemonTypes
-			const icon1 = document.createElement('img');
-			const circle1 = document.createElement('div');
-			icon1.src = pokemonTypes[types[0]].icon;
-			circle1.append(icon1);
-
-			styleType1.append(circle1, type1);
-			styleType1.classList.add('typePokemon');
-
-			const div = document.querySelector('#typesPokemons');
-			div.innerHTML = '';
-
-			// Ajoute le second type si présent
-			if (types[1]) {
-				styleType2.style.backgroundColor = `var(${pokemonTypes[types[1]].color})`;
-				styleType2.classList.add('typePokemon');
-
-				const icon2 = document.createElement('img');
-				const circle2 = document.createElement('div');
-				icon2.src = pokemonTypes[types[1]].icon;
-				circle2.append(icon2);
-				styleType2.append(circle2, type2);
-
-				div.append(styleType1, styleType2);
-			} else {
-				div.append(styleType1);
-			}
 
 			const stats = statsPokemon(dataPokemon);
 			const statsContainer = document.querySelector('.statistiques');
@@ -294,48 +250,21 @@ async function updatePokemon(url) {
 /************** Update Data Pokemon Grid **************/
 async function updatePokemonGrid(dataPokemon) {
 	try {
-		const styleType2 = document.createElement('div');
-		const styleType1 = document.createElement('div');
-
 		const id = document.createElement('span');
 		id.textContent = getId(dataPokemon);
 
 		const img = document.createElement('img');
 		img.src = getSprite(dataPokemon);
+		img.alt = `Sprite du Pokémon ${dataPokemon.name}`;
 
-		// Le type N°1
+		// Récupère les types
 		const types = getType(dataPokemon);
-		const type1 = document.createElement('span');
-		type1.textContent = types[0];
+		const div = document.createElement(`div`);
+		div.append(types);
 
-		// Change la couleur du type du pokémon en utilisant l'objet pokemonTypes
-		styleType1.style.backgroundColor = `var(${pokemonTypes[types[0]].color})`;
+		div.classList.add('flexTypes');
 
-		const icon1 = document.createElement('img');
-		const circle1 = document.createElement('div');
-		icon1.src = pokemonTypes[types[0]].icon;
-		circle1.append(icon1);
-		styleType1.classList.add('typePokemon');
-		styleType1.append(circle1, type1);
-		// A faire + faire une seule fois les types
-
-		if (types[1] !== undefined) {
-			const type2 = document.createElement('span');
-			type2.textContent = types[1];
-			styleType2.style.backgroundColor = `var(${pokemonTypes[types[1]].color})`;
-			styleType2.appendChild(type2);
-			const icon2 = document.createElement('img');
-			const circle2 = document.createElement('div');
-			icon2.src = pokemonTypes[types[1]].icon;
-			circle2.append(icon2);
-			styleType2.classList.add('typePokemon');
-
-			console.log([id, img, styleType1, styleType2]);
-			styleType2.append(circle2, type2);
-			createArticle([id, img, styleType1, styleType2]);
-		} else {
-			createArticle([id, img, styleType1]);
-		}
+		return [id, img, div];
 	} catch (error) {
 		console.error(error.message);
 	}
@@ -345,16 +274,14 @@ async function updatePokemonGrid(dataPokemon) {
 async function updateSpeciesPokemonGrid(dataSpecies) {
 	try {
 		const name = document.createElement(`h3`);
+		name.classList.add('secondaryText', 'subText');
 		name.textContent = dataSpecies.name;
+		console.log(name);
 
-		const gen = document.querySelector('.location');
+		const gen = document.createElement('span');
 		gen.textContent = getGeneration(dataSpecies);
 
-		let data: {
-			
-		}
-		console.log([name, gen]);
-		createArticle([name, gen]);
+		return [name, gen];
 	} catch (error) {
 		console.error(error.message);
 	}
@@ -362,19 +289,19 @@ async function updateSpeciesPokemonGrid(dataSpecies) {
 
 /************** Create Articles **************/
 function createArticle(dataPokemon, data) {
+	console.log(dataPokemon, data);
 	try {
 		// console.log(dataPokemon, data);
 		const article = document.createElement('article');
 		article.classList.add('articlePokemon');
 
-		const name = document.createElement('h3');
-		name.textContent = data[0];
-		name.classList.add('secondaryText', 'subText');
+		console.log(data, 'oh');
+		console.log(data, 'ok');
 
-		const figure = document.createElement('figure');
-		figure.classList.add(`articleFigurePokemon`);
 		const img = dataPokemon[1];
 		img.setAttribute('alt', `Pokemon de présentation ${name.textContent}`);
+
+		const figure = document.createElement('figure');
 		figure.appendChild(img);
 
 		const a = document.createElement(`a`);
@@ -389,29 +316,12 @@ function createArticle(dataPokemon, data) {
 		a.classList.add('cta');
 		a.classList.add('primaryButton');
 
-		const typesDiv = document.createElement('div');
-
-		const typesDiv1 = document.createElement('div');
-		typesDiv1.appendChild(dataPokemon[2]);
-		typesDiv1.classList.add('styleTypePokemon1');
-
-		if (dataPokemon[3] !== undefined && dataPokemon[3] !== undefined) {
-			const typesDiv2 = document.createElement('div');
-			typesDiv2.appendChild(dataPokemon[3]);
-			typesDiv2.classList.add('styleTypePokemon2');
-			typesDiv.append(typesDiv1, typesDiv2);
-		} else {
-			typesDiv.append(typesDiv1);
-		}
-
-		typesDiv.classList.add('flexTypes');
-
 		const content = document.createElement('div');
 
-		content.appendChild(name);
+		content.appendChild(dataPokemon[0]);
 
 		content.appendChild(dataPokemon[0]);
-		content.appendChild(typesDiv);
+		content.appendChild(dataPokemon[2]);
 		content.appendChild(a);
 
 		article.appendChild(figure);
@@ -452,6 +362,7 @@ function getDescription(dataSpecies) {
 
 /************** Search Generation Pokemon Return **************/
 function getGeneration(dataSpecies) {
+	console.log(dataSpecies);
 	try {
 		const generation = dataSpecies.generation.name;
 		return generationTransform(generation);
@@ -506,23 +417,6 @@ function generationTransform(generation) {
 	}
 }
 
-/************** Search Types Pokemon **************/
-function getType(dataPokemon) {
-	try {
-		const typePokemon1 = dataPokemon.types[0].type.name;
-
-		if (dataPokemon.types.length > 1) {
-			const typePokemon2 = dataPokemon.types[1].type.name;
-			return [typePokemon1, typePokemon2];
-		} else {
-			return [typePokemon1];
-		}
-	} catch (error) {
-		console.error(error.message);
-		return 'aucun type renseigné';
-	}
-}
-
 /************** Search Skills Pokemon **************/
 function getTalent(dataPokemon) {
 	try {
@@ -531,6 +425,57 @@ function getTalent(dataPokemon) {
 	} catch (error) {
 		console.error(error.message);
 		return 'talent inconnu';
+	}
+}
+
+/************** Search Types Pokemon **************/
+function getType(dataPokemon) {
+	try {
+		const types = [];
+		const styleType1 = document.createElement('div');
+		styleType1.classList.add('typePokemon');
+
+		const typePokemon1 = dataPokemon.types[0].type.name;
+		types.push(typePokemon1);
+
+		// Création du premier type (si un seul type)
+		const type1 = document.createElement('span');
+		type1.textContent = typePokemon1;
+		type1.style.backgroundColor = `var(${pokemonTypes[typePokemon1].color})`;
+
+		const icon1 = document.createElement('img');
+		icon1.src = pokemonTypes[typePokemon1].icon;
+		const circle1 = document.createElement('div');
+		circle1.append(icon1);
+
+		styleType1.append(circle1, type1);
+
+		// Vérifie dans si il y a un second type
+		if (dataPokemon.types.length > 1) {
+			const styleType2 = document.createElement('div');
+			styleType2.classList.add('typePokemon');
+
+			const typePokemon2 = dataPokemon.types[1].type.name;
+			types.push(typePokemon2);
+
+			const type2 = document.createElement('span');
+			type2.textContent = typePokemon2;
+			type2.style.backgroundColor = `var(${pokemonTypes[typePokemon2].color})`;
+
+			const icon2 = document.createElement('img');
+			icon2.src = pokemonTypes[typePokemon2].icon;
+			const circle2 = document.createElement('div');
+			circle2.append(icon2);
+
+			styleType2.append(circle2, type2);
+
+			return types;
+		}
+
+		return types;
+	} catch (error) {
+		console.error('Erreur dans getType :', error.message);
+		return [];
 	}
 }
 
@@ -566,16 +511,19 @@ function statsPokemon(dataPokemon) {
 }
 
 /************** Form selection **************/
-if (document.querySelector('form') === true) {
-	document.querySelector(`form`).addEventListener(`submit`, (event) => {
+const form = document.querySelector('form');
+if (form) {
+	form.addEventListener('submit', (event) => {
 		event.preventDefault();
-		getPokemon();
+		const currentUrl = document.getElementById(`search`).value.toLowerCase();
+		getPokemon(currentUrl);
 	});
 }
 
 /************** Event Listener Watch Pokemon **************/
-if (document.querySelector('#watchPokemon') !== null && document.querySelector('#watchPokemon') !== undefined) {
-	document.querySelector(`#watchPokemon`).addEventListener(`click`, () => {
+const watchBtn = document.querySelector('#watchPokemon');
+if (watchBtn) {
+	watchBtn.addEventListener('click', () => {
 		watchPokemon();
 	});
 }
@@ -605,32 +553,21 @@ function addPokemon() {
 			let pokemonID = document.querySelector('.IdPokemon').textContent;
 			pokemonID = pokemonID.replace(' du Pokédex', '');
 
-			if (btn) {
-				const count = localStorage.length;
-				const listPokemonLocal = [];
+			const tailleMax = localStorage.length;
+			const listPokemonLocal = [];
 
-				for (let i = 0; i < count; i++) {
-					listPokemonLocal.push(localStorage.key(i));
-				}
+			for (let i = 0; i < tailleMax; i++) {
+				listPokemonLocal.push(localStorage.key(i));
 				console.log(listPokemonLocal);
 
-				if (count >= 6) {
+				if (tailleMax >= 6) {
 					console.log('équipe déjà au maximum');
+				} else if (localStorage.getItem(pokemonID)) {
+					console.log('Pokémon déjà dans ton équipe');
+					return;
 				} else {
-					let pokemon = false;
-
-					for (let i = 0; i < listPokemonLocal.length; i++) {
-						if (listPokemonLocal[i] === pokemonID) {
-							pokemon = true;
-							console.log('pokemon déjà dans ton équipe');
-							break;
-						}
-					}
-
-					if (!pokemon) {
-						localStorage.setItem(pokemonID, 'added');
-						console.log(`Pokemon ${pokemonID} added to localStorage`);
-					}
+					localStorage.setItem(pokemonID, 'added');
+					console.log(`Pokemon ${pokemonID} added to localStorage`);
 				}
 			}
 		});
@@ -642,7 +579,7 @@ addPokemon();
 const pokemon = document.querySelector('#teamButton');
 if (pokemon) {
 	pokemon.addEventListener(`click`, () => {
-		if (window.localStorage.length === 0) {
+		if (window.localStorage.length === 0 || window.localStorage.length === null) {
 			alert('pas encore de pokémon');
 		} else {
 			const currentPath = window.location.pathname;
@@ -686,4 +623,4 @@ if (evolutionBtn && aboutBtn) {
 }
 
 /************** Export **************/
-export {updateSpeciesPokemon, updatePokemon, getData, updatePokemonGrid, addPokemon, getPokemon, watchPokemon, searchPokemon, pokemonEvolutions, updateSpeciesPokemonGrid};
+export {updateSpeciesPokemon, updatePokemon, getData, updatePokemonGrid, addPokemon, getPokemon, watchPokemon, searchPokemon, pokemonEvolutions, updateSpeciesPokemonGrid, createArticle};
