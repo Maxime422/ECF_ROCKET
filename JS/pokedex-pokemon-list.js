@@ -1,11 +1,4 @@
-import {getPokemon, searchPokemon, getData, updatePokemonGrid} from './functions.js';
-
-/************** Form selection **************/
-document.querySelector(`form`).addEventListener(`submit`, (event) => {
-	event.preventDefault();
-	const currentUrl = document.getElementById(`search`).value.toLowerCase();
-	getPokemon(currentUrl);
-});
+import {searchPokemon, getData, updatePokemonGrid} from './functions.js';
 
 /************** Form selection **************/
 document.querySelector(`#searchPokemon`).addEventListener(`submit`, async (event) => {
@@ -30,5 +23,4 @@ async function getPokemonByRegion(regionName) {
 	const data = getData(urlGen);
 	updatePokemonGrid(data.pokemon_entries);
 }
-
 getPokemonByRegion("kanto");
