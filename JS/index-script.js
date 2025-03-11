@@ -1,6 +1,6 @@
 ('use strict');
 
-import {getPokemon, watchPokemon, searchPokemon, getData, updatePokemonGrid, updateSpeciesPokemonGrid} from './functions.js';
+import {getPokemon, watchPokemon, searchPokemon, getData, updatePokemonGrid} from './functions.js';
 
 /************** Call Random Pokemon **************/
 const randomNb = Math.floor(Math.random() * 1025 + 1);
@@ -28,7 +28,7 @@ async function callListPokemon() {
 				const url = pokemon.url;
 				const data = await getData(url);
 				if (data) {
-					updateSpeciesPokemonGrid(data);
+					updatePokemonGrid(data);
 				} else {
 					console.error('Aucune info en français trouvée');
 				}

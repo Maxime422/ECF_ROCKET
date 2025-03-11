@@ -168,7 +168,6 @@ async function pokemonEvolutions(url) {
 				}
 				data = data.evolves_to[0];
 			}
-			console.log(list);
 			for (const pokemon of list) {
 				const urlGrid = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
 				const urlSpeciesGrid = `https://pokeapi.co/api/v2/pokemon-species/${pokemon}`;
@@ -176,7 +175,6 @@ async function pokemonEvolutions(url) {
 				const dataPokemon = await getData(urlGrid);
 				const dataSpeciesPokemon = await getData(urlSpeciesGrid);
 				if (dataPokemon && dataSpeciesPokemon) {
-					console.log(dataPokemon, dataSpeciesPokemon, 'ok');
 					// Renovies les données des pokémon
 					updatePokemonGrid(dataPokemon);
 					updatePokemonGrid(dataSpeciesPokemon);
@@ -200,17 +198,16 @@ async function updateSpeciesPokemon(url) {
 				await pokemonEvolutions(dataSpecies.evolution_chain.url);
 			}
 
-			const name = document.querySelector('.PokemonName');
+			const name = document.querySelector('#PokemonName');
 			name.textContent = getName(dataSpecies);
-			console.log(dataSpecies);
 
-			const description = document.querySelector('.description');
+			const description = document.querySelector('#description');
 			description.textContent = getDescription(dataSpecies);
 
-			const gen = document.querySelector('.location');
+			const gen = document.querySelector('#generation');
 			gen.textContent = getGeneration(dataSpecies);
 
-			const id = document.querySelector('.IdPokemon');
+			const id = document.querySelector('#IdPokemon');
 			id.textContent = getId(dataSpecies);
 		} else {
 			console.error('Erreur lors dans les données species pokemon');
@@ -246,6 +243,8 @@ async function updatePokemon(url) {
 
 			// Change l'icon du pokémon en utilisant l'objet pokemonTypes
 			const icon1 = document.createElement('img');
+			icon1.setAttribute('alt', `Type ${type1.textContent}`);
+			icon1.setAttribute('loading', `lazy`);
 			const circle1 = document.createElement('div');
 			icon1.src = pokemonTypes[types[0]].icon;
 			circle1.append(icon1);
@@ -262,6 +261,7 @@ async function updatePokemon(url) {
 				styleType2.classList.add('typePokemon');
 
 				const icon2 = document.createElement('img');
+				icon2.setAttribute('alt', `Type ${type2.textContent}`);
 				const circle2 = document.createElement('div');
 				icon2.src = pokemonTypes[types[1]].icon;
 				circle2.append(icon2);
@@ -278,7 +278,7 @@ async function updatePokemon(url) {
 
 			statsContainer.appendChild(stats);
 
-			const talent = document.querySelector('.talentPokemon');
+			const talent = document.querySelector('#talent');
 			talent.textContent = getTalent(dataPokemon);
 
 			const sprites = document.querySelector('#imgPokemon');
@@ -302,6 +302,7 @@ async function updatePokemonGrid(dataPokemon) {
 
 		const img = document.createElement('img');
 		img.src = getSprite(dataPokemon);
+		img.setAttribute('loading', `lazy`);
 
 		// Le type N°1
 		const types = getType(dataPokemon);
@@ -316,6 +317,8 @@ async function updatePokemonGrid(dataPokemon) {
 		icon1.src = pokemonTypes[types[0]].icon;
 		circle1.append(icon1);
 		styleType1.classList.add('typePokemon');
+		icon1.setAttribute('alt', `Type ${type1.textContent}`);
+		icon1.setAttribute('loading', `lazy`);
 		styleType1.append(circle1, type1);
 		// A faire + faire une seule fois les types
 
@@ -325,56 +328,54 @@ async function updatePokemonGrid(dataPokemon) {
 			styleType2.style.backgroundColor = `var(${pokemonTypes[types[1]].color})`;
 			styleType2.appendChild(type2);
 			const icon2 = document.createElement('img');
+			icon2.setAttribute('loading', `lazy`);
+			icon2.setAttribute('alt', `Type ${type2.textContent}`);
 			const circle2 = document.createElement('div');
 			icon2.src = pokemonTypes[types[1]].icon;
 			circle2.append(icon2);
 			styleType2.classList.add('typePokemon');
 
-			console.log([id, img, styleType1, styleType2]);
+
 			styleType2.append(circle2, type2);
-			createArticle([id, img, styleType1, styleType2]);
+			createArticle([id, img, dataPokemon.name, styleType1, styleType2]);
 		} else {
-			createArticle([id, img, styleType1]);
+			createArticle([id, img, dataPokemon.name, styleType1]);
 		}
 	} catch (error) {
 		console.error(error.message);
 	}
 }
 
-/************** Update Species Pokemons Grids **************/
-async function updateSpeciesPokemonGrid(dataSpecies) {
-	try {
-		const name = document.createElement(`h3`);
-		name.textContent = dataSpecies.name;
+// /************** Update Species Pokemons Grids **************/
+// async function updateSpeciesPokemonGrid(dataSpecies) {
+// 	try {
+// 		const name = document.createElement(`h3`);
+// 		name.textContent = dataSpecies.name;
 
-		const gen = document.querySelector('.location');
-		gen.textContent = getGeneration(dataSpecies);
+// 		const gen = document.querySelector('.location');
+// 		gen.textContent = getGeneration(dataSpecies);
 
-		let data: {
-			
-		}
-		console.log([name, gen]);
-		createArticle([name, gen]);
-	} catch (error) {
-		console.error(error.message);
-	}
-}
+// 		return ([name, gen]);
+// 	} catch (error) {
+// 		console.error(error.message);
+// 	}
+// }
 
 /************** Create Articles **************/
-function createArticle(dataPokemon, data) {
+function createArticle(dataPokemon) {
 	try {
-		// console.log(dataPokemon, data);
 		const article = document.createElement('article');
 		article.classList.add('articlePokemon');
 
 		const name = document.createElement('h3');
-		name.textContent = data[0];
+		name.textContent = dataPokemon[2];
 		name.classList.add('secondaryText', 'subText');
 
 		const figure = document.createElement('figure');
 		figure.classList.add(`articleFigurePokemon`);
 		const img = dataPokemon[1];
 		img.setAttribute('alt', `Pokemon de présentation ${name.textContent}`);
+		img.setAttribute('loading', `lazy`);
 		figure.appendChild(img);
 
 		const a = document.createElement(`a`);
@@ -392,10 +393,10 @@ function createArticle(dataPokemon, data) {
 		const typesDiv = document.createElement('div');
 
 		const typesDiv1 = document.createElement('div');
-		typesDiv1.appendChild(dataPokemon[2]);
+		typesDiv1.appendChild(dataPokemon[3]);
 		typesDiv1.classList.add('styleTypePokemon1');
 
-		if (dataPokemon[3] !== undefined && dataPokemon[3] !== undefined) {
+		if (dataPokemon[4] !== undefined && dataPokemon[4] !== undefined) {
 			const typesDiv2 = document.createElement('div');
 			typesDiv2.appendChild(dataPokemon[3]);
 			typesDiv2.classList.add('styleTypePokemon2');
@@ -409,7 +410,6 @@ function createArticle(dataPokemon, data) {
 		const content = document.createElement('div');
 
 		content.appendChild(name);
-
 		content.appendChild(dataPokemon[0]);
 		content.appendChild(typesDiv);
 		content.appendChild(a);
@@ -536,7 +536,6 @@ function getTalent(dataPokemon) {
 
 /************** Search Sprites Pokemon **************/
 function getSprite(data) {
-	console.log(data);
 	const sprites = data.sprites.other['official-artwork'].front_default;
 	return sprites;
 }
@@ -574,8 +573,8 @@ if (document.querySelector('form') === true) {
 }
 
 /************** Event Listener Watch Pokemon **************/
-if (document.querySelector('#watchPokemon') !== null && document.querySelector('#watchPokemon') !== undefined) {
-	document.querySelector(`#watchPokemon`).addEventListener(`click`, () => {
+if (document.querySelector('#viewPokemon') !== null && document.querySelector('#viewPokemon') !== undefined) {
+	document.querySelector(`#viewPokemon`).addEventListener(`click`, () => {
 		watchPokemon();
 	});
 }
@@ -599,7 +598,7 @@ function searchPokemon(id) {
 
 /************** LocalStorage Pokemon For Team **************/
 function addPokemon() {
-	const btn = document.querySelector('#addPokemonTeam');
+	const btn = document.querySelector('#addPokemon');
 	if (btn) {
 		btn.addEventListener(`click`, () => {
 			let pokemonID = document.querySelector('.IdPokemon').textContent;
@@ -612,7 +611,6 @@ function addPokemon() {
 				for (let i = 0; i < count; i++) {
 					listPokemonLocal.push(localStorage.key(i));
 				}
-				console.log(listPokemonLocal);
 
 				if (count >= 6) {
 					console.log('équipe déjà au maximum');
@@ -670,7 +668,6 @@ if (evolutionBtn && aboutBtn) {
 
 			evolutionSection.classList.remove('hidden');
 			aboutBtn.classList.remove('redText');
-			console.log(evolutionBtn, aboutSection, evolutionSection, aboutBtn);
 		}
 	});
 
@@ -686,4 +683,4 @@ if (evolutionBtn && aboutBtn) {
 }
 
 /************** Export **************/
-export {updateSpeciesPokemon, updatePokemon, getData, updatePokemonGrid, addPokemon, getPokemon, watchPokemon, searchPokemon, pokemonEvolutions, updateSpeciesPokemonGrid};
+export {updateSpeciesPokemon, updatePokemon, getData, updatePokemonGrid, addPokemon, getPokemon, watchPokemon, searchPokemon, pokemonEvolutions};
