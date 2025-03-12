@@ -191,17 +191,17 @@ async function updateSpeciesPokemon(url) {
 				await pokemonEvolutions(dataSpecies.evolution_chain.url);
 			}
 
-			const name = document.querySelector('#PokemonName');
+			const name = document.querySelector('.PokemonName');
 			name.textContent = getName(dataSpecies);
 			console.log(dataSpecies);
 
-			const description = document.querySelector('#description');
+			const description = document.querySelector('.description');
 			description.textContent = getDescription(dataSpecies);
 
-			const gen = document.querySelector('#generation');
+			const gen = document.querySelector('.location');
 			gen.textContent = getGeneration(dataSpecies);
 
-			const id = document.querySelector('#IdPokemon');
+			const id = document.querySelector('.IdPokemon');
 			id.textContent = getId(dataSpecies);
 		} else {
 			console.error('Erreur lors dans les données species pokemon');
@@ -229,7 +229,7 @@ async function updatePokemon(url) {
 			bgColor.style.backgroundColor = `${pokemonTypes[types[0]].bgColor}`;
 
 			const stats = statsPokemon(dataPokemon);
-			const statsContainer = document.querySelector('#statistiques');
+			const statsContainer = document.querySelector('.statistiques');
 			statsContainer.innerHTML = '';
 
 			statsContainer.appendChild(stats);
