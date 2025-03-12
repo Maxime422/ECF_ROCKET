@@ -21,7 +21,6 @@ async function callListPokemon() {
 
 				const getPokemon = await updatePokemonGrid(pokemonData);
 				const getSpecies = await updateSpeciesPokemonGrid(speciesData);
-				console.log(getPokemon,getSpecies, "ok" );
 				if (getPokemon && getSpecies) {
 					createArticle(getPokemon, getPokemon);
 				}
