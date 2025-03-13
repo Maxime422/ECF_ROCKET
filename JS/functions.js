@@ -245,7 +245,6 @@ async function updatePokemon(url) {
 			const stats = statsPokemon(url);
 			const statsContainer = document.querySelector('.statistiques');
 
-
 			statsContainer.appendChild(stats);
 
 			const talent = document.querySelector('.talentPokemon');
@@ -292,7 +291,6 @@ async function updatePokemonGrid(dataPokemon) {
 		a.classList.add('cta');
 		a.classList.add('primaryButton');
 
-
 		div.classList.add('flexTypes');
 		return [img, div, a];
 	} catch (error) {
@@ -318,24 +316,24 @@ async function updateSpeciesPokemonGrid(dataSpecies) {
 
 /************** Create Articles **************/
 function createArticle([pokemon, species]) {
-		const article = document.createElement('article');
-		article.classList.add('articlePokemon');
+	const article = document.createElement('article');
+	article.classList.add('articlePokemon');
 
-		const figure = document.createElement('figure');
-		figure.append(pokemon[0]);
+	const figure = document.createElement('figure');
+	figure.append(pokemon[0]);
 
-		const content = document.createElement('div');
-		content.append(species[1]);
+	const content = document.createElement('div');
+	content.append(species[1]);
 
-		content.append(pokemon[1]);
-		content.append(species[0]);
-		content.append(pokemon[2]);
+	content.append(pokemon[1]);
+	content.append(species[0]);
+	content.append(pokemon[2]);
 
-		article.append(figure);
-		article.append(content);
+	article.append(figure);
+	article.append(content);
 
-		const grid = document.querySelector('#gridPokemon');
-		grid.append(article);
+	const grid = document.querySelector('#gridPokemon');
+	grid.append(article);
 }
 
 /************** Search Name Pokemon **************/
@@ -445,7 +443,13 @@ function getType(dataPokemon) {
 		type1.textContent = typePokemon1;
 
 		const icon1 = document.createElement('img');
-		icon1.src = pokemonTypes[typePokemon1].icon;
+		const currentPath = window.location.pathname;
+		if (currentPath.includes('/HTML_PAGES/')) {
+			icon1.src = pokemonTypes[typePokemon1].icon;
+		} else {
+			icon1.src = `./HTML_PAGES/${pokemonTypes[typePokemon1].icon}`;
+		}
+
 		const circle1 = document.createElement('div');
 		circle1.append(icon1);
 		styleType1.style.backgroundColor = `var(${pokemonTypes[typePokemon1].color})`;
@@ -462,7 +466,11 @@ function getType(dataPokemon) {
 			type2.textContent = typePokemon2;
 
 			const icon2 = document.createElement('img');
-			icon2.src = pokemonTypes[typePokemon2].icon;
+			if (currentPath.includes('/HTML_PAGES/')) {
+				icon2.src = pokemonTypes[typePokemon2].icon;
+			} else {
+				icon2.src = `./HTML_PAGES/${pokemonTypes[typePokemon2].icon}`;
+			}
 			const circle2 = document.createElement('div');
 			circle2.append(icon2);
 			styleType2.style.backgroundColor = `var(${pokemonTypes[typePokemon2].color})`;
@@ -477,7 +485,7 @@ function getType(dataPokemon) {
 		return [];
 	}
 }
-
+localStorage.clear();
 /************** Search Sprites Pokemon **************/
 function getSprite(data) {
 	const sprites = data.sprites.other['official-artwork'].front_default;
@@ -587,6 +595,7 @@ function addPokemon() {
 }
 addPokemon();
 
+console.log(window.localStorage);
 /************** Team Button **************/
 const pokemon = document.querySelector('#teamButton');
 if (pokemon) {

@@ -1,26 +1,24 @@
-import {searchPokemon, getData, updatePokemonGrid} from './functions.js';
-
-/************** Form selection **************/
-document.querySelector(`#searchPokemon`).addEventListener(`submit`, async (event) => {
-	event.preventDefault();
-	const id = document.getElementById(`search`).value.toLowerCase();
-	const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
-	try {
-		const data = await getData(url);
-		if (data) {
-			searchPokemon(id);
-		} else {
-			console.error('Aucune donnée trouvée pour ce Pokémon !');
-		}
-	} catch (error) {
-		console.error('Erreur lors de la récupération des données :', error.message);
-	}
-});
+import {getData, callListPokemon} from './functions.js';
 
 /************** Call List Pokemon **************/
-async function getPokemonByRegion(regionName) {
-	const urlGen = `https://pokeapi.co/api/v2/pokedex/${regionName}`;
-	const data = getData(urlGen);
-	updatePokemonGrid(data.pokemon_entries);
+const btn = document.querySelector(`#GenSelecting`);
+btn.addEventListener('change', () => {
+	event.preventDefault();
+	const tags = document.querySelector(`#GenSelecting`).value;
+	console.log(tags);
+	getPokemonByRegion(tags);
+});
+
+getPokemonByRegion('kanto');
+async function getPokemonByRegion(data) {
+	try {
+		const dataPokemonList = await getData(`https://pokeapi.co/api/v2/pokedex/${data}`);
+		const div = document.querySelector(`#gridPokemon`);
+		div.innerHTML = '';
+		dataPokemonList.pokemon_entries.forEach((pokemon) => {
+			callListPokemon(pokemon.entry_number);
+		});
+	} catch (error) {
+		console.error(error.message);
+	}
 }
-getPokemonByRegion("kanto");
