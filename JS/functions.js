@@ -467,9 +467,9 @@ function getType(dataPokemon) {
 
 			const icon2 = document.createElement('img');
 			if (currentPath.includes('/HTML_PAGES/')) {
-				icon1.src = pokemonTypes[typePokemon1].icon;
+				icon2.src = pokemonTypes[typePokemon1].icon;
 			} else {
-				icon1.src = `./HTML_PAGES/${pokemonTypes[typePokemon2].icon}`;
+				icon2.src = `./HTML_PAGES/${pokemonTypes[typePokemon2].icon}`;
 			}
 			const circle2 = document.createElement('div');
 			circle2.append(icon2);
