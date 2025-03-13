@@ -1,6 +1,6 @@
 ('use strict');
 
-import {updatePokemon, updateSpeciesPokemon, searchPokemon, getData} from './functions.js';
+import {getData, getPokemon, searchPokemon, TransformUrl} from './functions.js';
 
 /************** Form selection **************/
 document.querySelector(`#searchPokemon`).addEventListener(`submit`, (event) => {
@@ -13,11 +13,9 @@ document.querySelector(`#searchPokemon`).addEventListener(`submit`, (event) => {
 let currentUrl = window.location.search;
 currentUrl = currentUrl.replace('?p=', '');
 console.log(currentUrl);
-const url = `https://pokeapi.co/api/v2/pokemon/${currentUrl}`;
-const urlSpecies = `https://pokeapi.co/api/v2/pokemon-species/${currentUrl}`;
+const url = TransformUrl(currentUrl);
+getPokemon(url);
 
-updatePokemon(url);
-updateSpeciesPokemon(urlSpecies);
 
 document.querySelector(`form`).addEventListener(`submit`, async (event) => {
 	event.preventDefault();

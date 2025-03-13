@@ -114,9 +114,9 @@ const pokemonTypes = {
 };
 
 /************** Async Fetch **************/
-async function getData(urlFetch) {
+async function getData(url) {
 	try {
-		const response = await fetch(urlFetch);
+		const response = await fetch(url);
 		if (!response.ok) {
 			throw new Error(`Response status: ${response.status}`);
 		}
@@ -129,19 +129,41 @@ async function getData(urlFetch) {
 }
 
 /************** Search Pokemon **************/
-async function getPokemon(currentUrl) {
+function TransformUrl(urlPokemon) {
 	try {
-		const type1 = document.querySelector(`#typesPokemons`);
-		type1.innerHTML = '';
-		const url = `https://pokeapi.co/api/v2/pokemon/${currentUrl}`;
-		const urlSpecies = `https://pokeapi.co/api/v2/pokemon-species/${currentUrl}`;
-		await updatePokemon(url);
-		await updateSpeciesPokemon(urlSpecies);
+		const url = `https://pokeapi.co/api/v2/pokemon/${urlPokemon}`;
+		const urlSpecies = `https://pokeapi.co/api/v2/pokemon-species/${urlPokemon}`;
+		return [url, urlSpecies];
 	} catch (error) {
 		console.error(error.message);
 	}
 }
 
+/************** Get Pokemon Pokemon **************/
+async function getPokemon(urlText) {
+	console.log(urlText);
+	const dataPokemon = await getData(urlText[0]);
+	const dataSpecies = await getData(urlText[1]);
+	if (dataPokemon && dataSpecies) {
+		console.log(dataPokemon, dataSpecies);
+		await updatePokemon(dataPokemon);
+		await updateSpeciesPokemon(dataSpecies);
+	}
+}
+
+/************** Get List Pokemon **************/
+async function callListPokemon(data) {
+	if (data) {
+		const url = TransformUrl(data);
+
+		const pokemon = await getData(url[0]);
+		const species = await getData(url[1]);
+
+		const pokemonElements = await updatePokemonGrid(pokemon);
+		const SpeciesElements = await updateSpeciesPokemonGrid(species);
+		createArticle([pokemonElements, SpeciesElements]);
+	}
+}
 /************** Get Evolutions Pokemon **************/
 async function pokemonEvolutions(url) {
 	try {
@@ -151,27 +173,23 @@ async function pokemonEvolutions(url) {
 		if (dataSpecies) {
 			const pokemonName = dataSpecies.chain.species.name;
 			let data = dataSpecies.chain;
-			const list = [];
-
+			const evo = [];
 			// Boucle qui vérifie les évolution du pokémon, si c'est le pokémon du fetch, alors on passe au suivant
-			while (data) {
-				if (pokemonName !== data.species.name && data.species.name !== undefined) {
-					list.push(data.species.name);
-				}
+			while (data.evolves_to.length > 0) {
 				data = data.evolves_to[0];
+				if (pokemonName !== data.species.name) {
+					evo.push(data.species.name);
+				}
 			}
-			for (const pokemon of list) {
-				const urlGrid = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
-				const urlSpeciesGrid = `https://pokeapi.co/api/v2/pokemon-species/${pokemon}`;
-				// Fait un fetch des évolutions
-				const dataPokemon = await getData(urlGrid);
-				const dataSpeciesPokemon = await getData(urlSpeciesGrid);
-				if (dataPokemon && dataSpeciesPokemon) {
-					// Renovies les données des pokémon
-					updatePokemonGrid(dataPokemon);
-					updatePokemonGrid(dataSpeciesPokemon);
-				} else {
-					console.error('Aucune info en français trouvée');
+			if (evo.length === 0) {
+				const div = document.querySelector('#gridPokemon');
+				const alert = document.createElement('p');
+				alert.textContent = 'Pas d’évolution pour ce Pokémon : Contacter le support Pokémon ;)';
+				div.append(alert);
+				return;
+			} else {
+				for (let i = 0; i < evo.length; i++) {
+					callListPokemon(evo[i]);
 				}
 			}
 		}
@@ -183,24 +201,21 @@ async function pokemonEvolutions(url) {
 /************** Update Species Pokemon **************/
 async function updateSpeciesPokemon(url) {
 	try {
-		// Fetch du pokemon
-		const dataSpecies = await getData(url);
-		if (dataSpecies !== undefined && dataSpecies !== null) {
+		if (url) {
 			if (document.querySelector('#evolutionBtn')) {
-				await pokemonEvolutions(dataSpecies.evolution_chain.url);
+				await pokemonEvolutions(url.evolution_chain.url);
 			}
-
 			const name = document.querySelector('.PokemonName');
-			name.textContent = getName(dataSpecies);
+			name.textContent = getName(url);
 
 			const description = document.querySelector('.description');
-			description.textContent = getDescription(dataSpecies);
+			description.textContent = getDescription(url);
 
 			const gen = document.querySelector('.location');
-			gen.textContent = getGeneration(dataSpecies);
+			gen.textContent = getGeneration(url);
 
 			const id = document.querySelector('.IdPokemon');
-			id.textContent = getId(dataSpecies);
+			id.textContent = getId(url);
 		} else {
 			console.error('Erreur lors dans les données species pokemon');
 		}
@@ -212,12 +227,8 @@ async function updateSpeciesPokemon(url) {
 /************** Update Data Pokemon **************/
 async function updatePokemon(url) {
 	try {
-		// Fetch du pokemon
-		const dataPokemon = await getData(url);
-
-		if (dataPokemon) {
-			// Récupère les types
-			const types = getType(dataPokemon);
+		if (url) {
+			const types = getType(url);
 			const div = document.querySelector('#typesPokemons');
 			div.innerHTML = '';
 			if (types[1] !== undefined) {
@@ -226,23 +237,24 @@ async function updatePokemon(url) {
 				div.append(types[0]);
 			}
 
-
 			const typeRef = types[0].textContent;
 			const bgColor = document.querySelector('.bgColor');
 
 			bgColor.style.backgroundColor = `${pokemonTypes[typeRef].bgColor}`;
 
-			const stats = statsPokemon(dataPokemon);
+			const stats = statsPokemon(url);
 			const statsContainer = document.querySelector('.statistiques');
-			statsContainer.innerHTML = '';
+
 
 			statsContainer.appendChild(stats);
 
 			const talent = document.querySelector('.talentPokemon');
-			talent.textContent = getTalent(dataPokemon);
+			talent.textContent = getTalent(url);
 
 			const sprites = document.querySelector('#imgPokemon');
-			sprites.src = getSprite(dataPokemon);
+			sprites.alt = `Sprite du Pokémon ${url.name}`;
+			sprites.src = getSprite(url);
+			sprites.setAttribute('loading', `lazy`);
 		} else {
 			console.error('Aucune info en français trouvée');
 		}
@@ -254,12 +266,11 @@ async function updatePokemon(url) {
 /************** Update Data Pokemon Grid **************/
 async function updatePokemonGrid(dataPokemon) {
 	try {
-		const id = document.createElement('span');
-		id.textContent = getId(dataPokemon);
-
 		const img = document.createElement('img');
 		img.src = getSprite(dataPokemon);
 		img.alt = `Sprite du Pokémon ${dataPokemon.name}`;
+		img.setAttribute('alt', `Pokemon de présentation ${dataPokemon.name}`);
+		img.setAttribute('loading', `lazy`);
 
 		// Récupère les types
 		const types = getType(dataPokemon);
@@ -270,9 +281,20 @@ async function updatePokemonGrid(dataPokemon) {
 			div.append(types[0]);
 		}
 
-		div.classList.add('flexTypes');
+		const a = document.createElement(`a`);
+		const currentPath = window.location.pathname;
+		if (currentPath.includes('/HTML_PAGES/')) {
+			a.href = `pokemon.html?p=${dataPokemon.name}`;
+		} else {
+			a.href = `./HTML_PAGES/pokemon.html?p=${dataPokemon.name}`;
+		}
+		a.textContent = 'voir plus';
+		a.classList.add('cta');
+		a.classList.add('primaryButton');
 
-		return [id, img, div];
+
+		div.classList.add('flexTypes');
+		return [img, div, a];
 	} catch (error) {
 		console.error(error.message);
 	}
@@ -283,64 +305,44 @@ async function updateSpeciesPokemonGrid(dataSpecies) {
 	try {
 		const name = document.createElement(`h3`);
 		name.classList.add('secondaryText', 'subText');
-		name.textContent = dataSpecies.name;
+		name.textContent = getName(dataSpecies);
 
-		const gen = document.createElement('span');
-		gen.textContent = getGeneration(dataSpecies);
+		const id = document.createElement('span');
+		id.textContent = getId(dataSpecies);
 
-		return [name, gen];
+		return [id, name];
 	} catch (error) {
 		console.error(error.message);
 	}
 }
 
 /************** Create Articles **************/
-function createArticle(dataPokemon, data) {
-	try {
+function createArticle([pokemon, species]) {
 		const article = document.createElement('article');
 		article.classList.add('articlePokemon');
 
-		const img = dataPokemon[1];
-		img.setAttribute('alt', `Pokemon de présentation ${name.textContent}`);
-
 		const figure = document.createElement('figure');
-		figure.appendChild(img);
-
-		const a = document.createElement(`a`);
-		const currentPath = window.location.pathname;
-		if (currentPath.includes('/HTML_PAGES/')) {
-			a.href = `pokemon.html?p=${name.textContent}`;
-		} else {
-			a.href = `./HTML_PAGES/pokemon.html?p=${name.textContent}`;
-		}
-
-		a.textContent = 'voir plus';
-		a.classList.add('cta');
-		a.classList.add('primaryButton');
+		figure.append(pokemon[0]);
 
 		const content = document.createElement('div');
+		content.append(species[1]);
 
-		content.appendChild(dataPokemon[0]);
+		content.append(pokemon[1]);
+		content.append(species[0]);
+		content.append(pokemon[2]);
 
-		content.appendChild(dataPokemon[0]);
-		content.appendChild(dataPokemon[2]);
-		content.appendChild(a);
-
-		article.appendChild(figure);
-		article.appendChild(content);
+		article.append(figure);
+		article.append(content);
 
 		const grid = document.querySelector('#gridPokemon');
-		grid.appendChild(article);
-	} catch (error) {
-		console.error(error.message);
-	}
+		grid.append(article);
 }
 
 /************** Search Name Pokemon **************/
 function getName(dataSpecies) {
 	try {
-		const frLang = dataSpecies.names.find((entry) => entry.language.name === 'fr');
-		if (frLang !== undefined || frLang !== null) {
+		const frLang = dataSpecies.names.find((poke) => poke.language.name === 'fr');
+		if (frLang !== undefined && frLang !== null) {
 			return frLang.name;
 		}
 	} catch (error) {
@@ -353,7 +355,7 @@ function getName(dataSpecies) {
 function getDescription(dataSpecies) {
 	try {
 		const frLang = dataSpecies.flavor_text_entries.find((entry) => entry.language.name === 'fr');
-		if (frLang !== undefined || frLang !== null) {
+		if (frLang !== undefined && frLang !== null) {
 			return frLang.flavor_text;
 		}
 	} catch (error) {
@@ -370,16 +372,6 @@ function getGeneration(dataSpecies) {
 	} catch (error) {
 		console.error(error.message);
 		return 'génération inconnue';
-	}
-}
-
-/************** Search ID Pokemon **************/
-function getId(data) {
-	try {
-		return `${String(data.id)} du Pokédex`;
-	} catch (error) {
-		console.error(error.message);
-		return 'numéro de pokédex inconnu';
 	}
 }
 
@@ -415,6 +407,16 @@ function generationTransform(generation) {
 
 		default:
 			return 'Région inconnue';
+	}
+}
+
+/************** Search ID Pokemon **************/
+function getId(data) {
+	try {
+		return `${String(data.id)} du Pokédex`;
+	} catch (error) {
+		console.error(error.message);
+		return 'numéro de pokédex inconnu';
 	}
 }
 
@@ -458,7 +460,6 @@ function getType(dataPokemon) {
 
 			const type2 = document.createElement('span');
 			type2.textContent = typePokemon2;
-
 
 			const icon2 = document.createElement('img');
 			icon2.src = pokemonTypes[typePokemon2].icon;
@@ -513,7 +514,7 @@ if (form) {
 	form.addEventListener('submit', (event) => {
 		event.preventDefault();
 		const currentUrl = document.getElementById(`search`).value.toLowerCase();
-		getPokemon(currentUrl);
+		searchPokemon(currentUrl);
 	});
 }
 
@@ -529,16 +530,31 @@ if (watchBtn) {
 function watchPokemon() {
 	let pokemon = document.querySelector(`.IdPokemon`).textContent;
 	pokemon = pokemon.replace('du Pokédex', '');
-	location.assign(`./HTML_PAGES/pokemon.html?p=${pokemon}`);
+	const currentUrl = window.location.pathname.toLowerCase();
+	if (currentUrl.includes('html_pages')) {
+		location.assign(`./pokemon.html?p=${pokemon}`);
+	} else {
+		location.assign(`./HTML_PAGES/pokemon.html?p=${pokemon}`);
+	}
 }
 
 /************** Function Move To Pokemon Page **************/
-function searchPokemon(id) {
+async function searchPokemon(data) {
+	try {
+		const url = await getData(`https://pokeapi.co/api/v2/pokemon/${data}`);
+		if (!url) {
+			alert(`Aucun Pokémon existant pour ${data}`);
+			return;
+		}
+	} catch (error) {
+		alert(`Erreur lors de la récupération des données. ${error}`);
+		return;
+	}
 	const currentUrl = window.location.pathname.toLowerCase();
 	if (currentUrl.includes('html_pages')) {
-		location.assign(`./pokemon.html?p=${id}`);
+		location.assign(`./pokemon.html?p=${data}`);
 	} else {
-		location.assign(`./HTML_PAGES/pokemon.html?p=${id}`);
+		location.assign(`./HTML_PAGES/pokemon.html?p=${data}`);
 	}
 }
 
@@ -618,4 +634,18 @@ if (evolutionBtn && aboutBtn) {
 }
 
 /************** Export **************/
-export {updateSpeciesPokemon, updatePokemon, getData, updatePokemonGrid, addPokemon, getPokemon, watchPokemon, searchPokemon, pokemonEvolutions, updateSpeciesPokemonGrid, createArticle};
+export {
+	getData,
+	getPokemon,
+	TransformUrl,
+	callListPokemon,
+	updateSpeciesPokemon,
+	updatePokemon,
+	updatePokemonGrid,
+	addPokemon,
+	watchPokemon,
+	searchPokemon,
+	pokemonEvolutions,
+	updateSpeciesPokemonGrid,
+	createArticle,
+};

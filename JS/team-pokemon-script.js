@@ -1,6 +1,6 @@
 ('use strict');
 
-import {getData, getPokemon, searchPokemon} from './functions.js';
+import {getData, getPokemon, TransformUrl, searchPokemon} from './functions.js';
 /************** Starting Pokemon1 **************/
 const btn1 = document.querySelector(`#pokemon1`);
 btn1.addEventListener(`click`, () => {
@@ -12,8 +12,8 @@ onLoad(0, btn1);
 function onLoad(i, btn) {
 	const key = localStorage.key(i);
 	if (localStorage.key(i)) {
-		getPokemon(key);
-
+		const url = TransformUrl(key);
+		getPokemon(url);
 		document.querySelectorAll('.circleActive').forEach((clRemove) => clRemove.classList.remove('circleActive'));
 		btn.classList.add('circleActive');
 	}
