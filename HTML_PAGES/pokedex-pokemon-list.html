@@ -64,10 +64,27 @@
 							<span class="redText subText">Pokédex</span>
 							<div class="spaceGap">
 								<!-- Select pokemons -->
-								<button id="GenSelecting" class="cta secondaryButton">
-									Trier par région
-									<i class="fa-solid fa-chevron-right"></i>
-								</button>
+								<select name="GenSelecting" id="GenSelecting" class="cta secondaryButton">
+									<option value="">Trier par région</option>
+									<option value="national">National</option>
+
+									<option value="kanto">Kanto</option>
+									<option value="original-johto">Johto</option>
+									<option value="hoenn">Hoenn</option>
+									<option value="original-sinnoh">Sinnoh</option>
+
+									<option value="original-alola">Alola</option>
+									<option value="original-unova">Unova</option>
+									<option value="kalos-central">Kalos (Central)</option>
+
+									<option value="original-melemele">Alola (Melemele)</option>
+									<option value="original-akala">Alola (Akala)</option>
+									<option value="original-ulaula">Alola (Ulaula)</option>
+									<option value="original-poni">Alola (Poni)</option>
+									<option value="updated-alola">Alola (Update)</option>
+								</select>
+
+
 								<button id="typeSelecting" class="cta secondaryButton">
 									Trier par type
 									<i class="fa-solid fa-chevron-right"></i>
