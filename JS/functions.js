@@ -467,7 +467,7 @@ function getType(dataPokemon) {
 
 			const icon2 = document.createElement('img');
 			if (currentPath.includes('/HTML_PAGES/')) {
-				icon2.src = pokemonTypes[typePokemon1].icon;
+				icon2.src = pokemonTypes[typePokemon2].icon;
 			} else {
 				icon2.src = `./HTML_PAGES/${pokemonTypes[typePokemon2].icon}`;
 			}
@@ -597,6 +597,7 @@ addPokemon();
 
 /************** Team Button **************/
 const pokemon = document.querySelector('#teamButton');
+console.log(window.localStorage);
 if (pokemon) {
 	pokemon.addEventListener(`click`, () => {
 		if (window.localStorage.length === 0 || window.localStorage.length === null) {
