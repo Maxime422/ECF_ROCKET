@@ -445,7 +445,13 @@ function getType(dataPokemon) {
 		type1.textContent = typePokemon1;
 
 		const icon1 = document.createElement('img');
-		icon1.src = pokemonTypes[typePokemon1].icon;
+		const currentPath = window.location.pathname;
+		if (currentPath.includes('/HTML_PAGES/')) {
+			icon1.src = pokemonTypes[typePokemon1].icon;
+		} else {
+			icon1.src = `./HTML_PAGES/${pokemonTypes[typePokemon1].icon}`;
+		}
+		
 		const circle1 = document.createElement('div');
 		circle1.append(icon1);
 		styleType1.style.backgroundColor = `var(${pokemonTypes[typePokemon1].color})`;
