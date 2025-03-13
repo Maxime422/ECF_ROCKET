@@ -1,7 +1,7 @@
 # La Rocket Dev Pokédex – L’outil web ultime pour tous les dresseurs Pokémon
 
 ![Visuel Figma Maquette](
-./IMG/VISUAL_PRESENTATION.png)
+./IMG/visual-presentation.png)
 
 ## 🚀 Description
 
