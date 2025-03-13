@@ -485,7 +485,7 @@ function getType(dataPokemon) {
 		return [];
 	}
 }
-
+localStorage.clear();
 /************** Search Sprites Pokemon **************/
 function getSprite(data) {
 	const sprites = data.sprites.other['official-artwork'].front_default;
