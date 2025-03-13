@@ -595,9 +595,9 @@ function addPokemon() {
 }
 addPokemon();
 
+console.log(window.localStorage);
 /************** Team Button **************/
 const pokemon = document.querySelector('#teamButton');
-console.log(window.localStorage);
 if (pokemon) {
 	pokemon.addEventListener(`click`, () => {
 		if (window.localStorage.length === 0 || window.localStorage.length === null) {
