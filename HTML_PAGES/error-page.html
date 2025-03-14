@@ -34,7 +34,7 @@
 				<!-- Navigation and Search -->
 				<div class="spaceGap">
 					<button id="darkLightMode">
-						<img src="../IMG/POKEMON__ICONS/Icon-Moon.png" loading="lazy" alt="Icon Dark Light Mode">
+						<img src="../IMG/POKEMON__ICONS/Icon-Moon.png" loading="lazy" alt="Icon Dark Light Mode" />
 					</button>
 					<form id="searchPokemon">
 						<input id="search" type="search" id="searchInput" required placeholder="Recherche" />
@@ -53,48 +53,19 @@
 
 		<!-- Main -->
 		<main>
-			<!-- Pokemon on the bill -->
-			<section id="pokemonPromoted">
-				<div class="container">
-					<header>
-						<h1>Pokédex Pokemon</h1>
-						<p>Retrouvez tout vos Pokémons préférés !</p>
-
-						<div>
-							<span class="redText subText">Pokédex</span>
-							<div class="spaceGap">
-								<!-- Select pokemons -->
-								<select name="GenSelecting" id="GenSelecting" class="cta secondaryButton">
-									<option value="">Trier par région</option>
-									<option value="national">National</option>
-
-									<option value="kanto">Kanto</option>
-									<option value="original-johto">Johto</option>
-									<option value="hoenn">Hoenn</option>
-									<option value="original-sinnoh">Sinnoh</option>
-
-									<option value="original-alola">Alola</option>
-									<option value="original-unova">Unova</option>
-									<option value="kalos-central">Kalos (Central)</option>
-
-									<option value="original-melemele">Alola (Melemele)</option>
-									<option value="original-akala">Alola (Akala)</option>
-									<option value="original-ulaula">Alola (Ulaula)</option>
-									<option value="original-poni">Alola (Poni)</option>
-									<option value="updated-alola">Alola (Update)</option>
-								</select>
-
-
-								<button id="typeSelecting" class="cta secondaryButton">
-									Trier par type
-									<i class="fa-solid fa-chevron-right"></i>
-								</button>
-							</div>
-						</div>
-					</header>
-
-					<!-- Grid pokedex -->
-					<div class="grid" id="gridPokemon"></div>
+			<section class="bgColor">
+				<div id="zf" class="container">
+					<!-- Section informations pokemon Zf -->
+					<div>
+						<!-- Name pokemon -->
+						<h2>Erreur, un Missingno est apparu !</h2>
+						<span>Hé, attends! Ne pars pas! C'est super dangereux! Des Pokémon sauvages infestent les hautes herbes! Il te faut un Pokémon pour te protéger... Je sais! Suis-moi!</span>
+						<a href="../index.html" class="cta primaryButton">Revenir en lieu sûr</a>
+					</div>
+					<!-- Img pokemon -->
+					<figure id="figurePokemonZf">
+						<img src="../IMG/Missingo-Pokemon-Image.png" id="imgPokemon" alt="Pokemon de présentation" />
+					</figure>
 				</div>
 			</section>
 		</main>
@@ -132,7 +103,7 @@
 		</footer>
 
 		<!-- Script JS -->
-		<script type="module" src="../JS/pokedex-pokemon-list.js"></script>
+		<script type="module" src="../JS/index-script.js"></script>
 		<script type="module" src="../JS/functions.js"></script>
 		<script>
 			window.addEventListener('load', () => {

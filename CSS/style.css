@@ -45,6 +45,11 @@
 	cursor: pointer;
 }
 
+#darkLightMode img {
+	width: 24px;
+	height: auto;
+}
+
 /* Form Search */
 #search {
 	background-color: var(--color-black-1);

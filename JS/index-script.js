@@ -12,7 +12,7 @@ console.log(urlText);
 async function pokemonList() {
 	try {
 		const dataPokemonList = await getData(`https://pokeapi.co/api/v2/pokemon/`);
-		for (let i = 0; i < dataPokemonList.results.length; i++) {
+		for (let i = 0; i < 18; i++) {
 			const pokemonList = await getData(dataPokemonList.results[i].url);
 			callListPokemon(pokemonList.id);
 		}

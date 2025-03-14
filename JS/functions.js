@@ -3,7 +3,7 @@
 /************** Dark Mode / Light Mode **************/
 document.querySelector(`#darkLightMode`).addEventListener(`click`, () => {
 	const mode = document.querySelector(`#mode`);
-
+	const icon = document.querySelector(`#darkLightMode img`);
 	const linkMode = mode.getAttribute(`href`);
 	const pathPrefix = linkMode.substring(0, linkMode.indexOf('CSS/'));
 
@@ -12,8 +12,10 @@ document.querySelector(`#darkLightMode`).addEventListener(`click`, () => {
 
 	if (mode.getAttribute(`href`) === `${light}`) {
 		mode.setAttribute(`href`, `${dark}`);
+		icon.src = `${pathPrefix}IMG/POKEMON__ICONS/Icon-Moon.png`;
 	} else if (mode.getAttribute(`href`) === `${dark}`) {
 		mode.setAttribute(`href`, `${light}`);
+		icon.src = `${pathPrefix}IMG/POKEMON__ICONS/Icon-Sun.png`;
 	} else {
 		console.log(`Erreur inattendue lors du changement de mode`);
 	}
@@ -141,7 +143,6 @@ function TransformUrl(urlPokemon) {
 
 /************** Get Pokemon Pokemon **************/
 async function getPokemon(urlText) {
-	console.log(urlText);
 	const dataPokemon = await getData(urlText[0]);
 	const dataSpecies = await getData(urlText[1]);
 	if (dataPokemon && dataSpecies) {
@@ -168,21 +169,28 @@ async function callListPokemon(data) {
 async function pokemonEvolutions(url) {
 	try {
 		// Fetch de la chain du pokemon de l'url
-		const dataSpecies = await getData(url);
-
+		const dataSpecies = await getData(url[0]);
+		console.log(url[0], dataSpecies);
 		if (dataSpecies) {
-			const pokemonName = dataSpecies.chain.species.name;
+			const pokemonName = url[1].toLowerCase();
+			console.log(pokemonName);
 			let data = dataSpecies.chain;
 			const evo = [];
 			// Boucle qui vérifie les évolution du pokémon, si c'est le pokémon du fetch, alors on passe au suivant
-			while (data.evolves_to.length > 0) {
-				data = data.evolves_to[0];
+			while (data) {
 				if (pokemonName !== data.species.name) {
 					evo.push(data.species.name);
 				}
+				if (data.evolves_to.length > 0) {
+					data = data.evolves_to[0];
+				} else {
+					data = null;
+				}
 			}
+			console.log(evo);
 			if (evo.length === 0) {
 				const div = document.querySelector('#gridPokemon');
+				div.innerHTML = '';
 				const alert = document.createElement('p');
 				alert.textContent = 'Pas d’évolution pour ce Pokémon : Contacter le support Pokémon ;)';
 				div.append(alert);
@@ -202,11 +210,12 @@ async function pokemonEvolutions(url) {
 async function updateSpeciesPokemon(url) {
 	try {
 		if (url) {
-			if (document.querySelector('#evolutionBtn')) {
-				await pokemonEvolutions(url.evolution_chain.url);
-			}
 			const name = document.querySelector('.PokemonName');
 			name.textContent = getName(url);
+
+			if (document.querySelector('#evolutionBtn')) {
+				await pokemonEvolutions([url.evolution_chain.url, url.name]);
+			}
 
 			const description = document.querySelector('.description');
 			description.textContent = getDescription(url);
@@ -244,6 +253,7 @@ async function updatePokemon(url) {
 
 			const stats = statsPokemon(url);
 			const statsContainer = document.querySelector('.statistiques');
+			statsContainer.innerHTML = '';
 
 			statsContainer.appendChild(stats);
 
@@ -485,7 +495,7 @@ function getType(dataPokemon) {
 		return [];
 	}
 }
-localStorage.clear();
+
 /************** Search Sprites Pokemon **************/
 function getSprite(data) {
 	const sprites = data.sprites.other['official-artwork'].front_default;
@@ -497,6 +507,7 @@ function statsPokemon(dataPokemon) {
 	try {
 		if (dataPokemon) {
 			const statContainer = document.createElement(`div`);
+			statContainer.classList.add('statistiquesContainer');
 			for (let i = 0; i < 6; i++) {
 				const containData = document.createElement('span');
 				const dataText = document.createElement('span');
@@ -522,7 +533,11 @@ if (form) {
 	form.addEventListener('submit', (event) => {
 		event.preventDefault();
 		const currentUrl = document.getElementById(`search`).value.toLowerCase();
-		searchPokemon(currentUrl);
+		if (currentUrl === 'prof chen') {
+			alert('Ce n’est pas le moment d’utiliser ça !');
+		} else {
+			searchPokemon(currentUrl);
+		}
 	});
 }
 
@@ -567,35 +582,34 @@ async function searchPokemon(data) {
 }
 
 /************** LocalStorage Pokemon For Team **************/
-function addPokemon() {
-	const btn = document.querySelector('#addPokemonTeam');
-	if (btn) {
-		btn.addEventListener(`click`, () => {
-			let pokemonID = document.querySelector('.IdPokemon').textContent;
-			pokemonID = pokemonID.replace(' du Pokédex', '');
 
-			const tailleMax = localStorage.length;
-			const listPokemonLocal = [];
-
-			for (let i = 0; i < tailleMax; i++) {
-				listPokemonLocal.push(localStorage.key(i));
-
-				if (tailleMax >= 6) {
-					console.log('équipe déjà au maximum');
-				} else if (localStorage.getItem(pokemonID)) {
-					console.log('Pokémon déjà dans ton équipe');
-					return;
-				} else {
-					localStorage.setItem(pokemonID, 'added');
-					console.log(`Pokemon ${pokemonID} added to localStorage`);
-				}
-			}
-		});
-	}
+const btn = document.querySelector('#addPokemonTeam');
+if (btn) {
+	btn.addEventListener(`click`, () => {
+		addPokemon();
+	});
 }
-addPokemon();
+function addPokemon() {
+	console.log('Bonjour');
+	
+	let pokemonID = document.querySelector('.IdPokemon').textContent;
+	pokemonID = pokemonID.replace(' du Pokédex', '');
+  
+	const tailleMax = localStorage.length;
+	if (tailleMax >= 6) {
+	  console.log('L\'équipe est déjà au maximum (6 Pokémon).');
+	  return;
+	}
 
-console.log(window.localStorage);
+	if (localStorage.getItem(pokemonID)) {
+	  console.log('Ce Pokémon est déjà dans ton équipe.');
+	  return;
+	}
+
+	localStorage.setItem(pokemonID, 'added');
+	console.log(`Le Pokémon ${pokemonID} a été ajouté à ton équipe.`);
+  }
+  
 /************** Team Button **************/
 const pokemon = document.querySelector('#teamButton');
 if (pokemon) {
@@ -641,6 +655,12 @@ if (evolutionBtn && aboutBtn) {
 		}
 	});
 }
+
+/************** Switch Evolution About Button **************/
+addEventListener(`DOMContentLoaded`, () => {
+	const img = document.createElement('img');
+	img.src = `../`;
+});
 
 /************** Export **************/
 export {

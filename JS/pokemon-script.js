@@ -1,13 +1,6 @@
 ('use strict');
 
-import {getData, getPokemon, searchPokemon, TransformUrl} from './functions.js';
-
-/************** Form selection **************/
-document.querySelector(`#searchPokemon`).addEventListener(`submit`, (event) => {
-	event.preventDefault();
-	const id = document.getElementById(`search`).value.toLowerCase();
-	searchPokemon(id);
-});
+import {getPokemon, TransformUrl} from './functions.js';
 
 /************** Call Pokemon **************/
 let currentUrl = window.location.search;
@@ -16,20 +9,18 @@ console.log(currentUrl);
 const url = TransformUrl(currentUrl);
 getPokemon(url);
 
+/************** It's Ditto !!! **************/
+let pokemon = document.querySelector(`.IdPokemon`).textContent;
+pokemon = pokemon.replace('du Pokédex', '');
+if (pokemon !== 132) {
+	const interval = setInterval(() => {
+		const randomNb = Math.floor(Math.random() * 11);
 
-document.querySelector(`form`).addEventListener(`submit`, async (event) => {
-	event.preventDefault();
-	const id = document.getElementById(`search`).value.toLowerCase();
-
-	const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
-	try {
-		const data = await getData(url);
-		if (data) {
-			searchPokemon(id);
-		} else {
-			console.error('Aucune donnée trouvée pour ce Pokémon !');
+		console.log(randomNb);
+		if (randomNb === 10) {
+			const urlText = TransformUrl(132);
+			getPokemon(urlText);
+			clearInterval(interval);
 		}
-	} catch (error) {
-		console.error('Erreur lors de la récupération des données :', error.message);
-	}
-});
+	}, 100000);
+}
