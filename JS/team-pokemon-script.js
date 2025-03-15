@@ -1,6 +1,6 @@
 ('use strict');
 
-import {getPokemon, TransformUrl} from './functions.js';
+import {getPokemon, TransformUrl, alertMessage} from './functions.js';
 
 // Ajoute les pokémon du localStorage au tableau teamPokemons pour éviter les problèmes de theme
 const teamPokemons = [];
@@ -33,6 +33,9 @@ function Team(data, btn) {
 		const classBtn = document.querySelector('.circleActive');
 		classBtn.classList.remove('circleActive');
 		btn.classList.add('circleActive');
+	}
+	else {
+		location.assign(`../index.html`);
 	}
 }
 
@@ -97,10 +100,14 @@ function removePokemon() {
 			// Si le pokémon a la class circleActive, alors je supprime le pokémon de la liste
 			if (pokemon.classList.contains('circleActive')) {
 				localStorage.removeItem(`pokemon_${pokemonKey}`);
+				alertMessage('Votre pokémon est parti rejoindre le Professeur Chen');
 				teamPokemons.splice(i, 1);
 				teamPokemon();
 
-				removeBtn.classList.replace('secondaryButton', 'primaryButton');
+				removeBtn.classList.replace('secondaryButton', 'disableButton');
+				const icon = document.querySelector('#styleIconDelete');
+				icon.className = '';
+				icon.classList.add('fa-solid', 'fa-xmark');
 				break;
 			}
 		}

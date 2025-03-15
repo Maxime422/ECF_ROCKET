@@ -24,10 +24,11 @@
 	</head>
 	<body>
 		<!-- Animation on Load -->
-		<div class="loaderWrapper">
+		<!-- <div class="loaderWrapper">
+			<img class="loader" src="../IMG/Pokeball-Image-Color.png" alt="Pokeball animation chargement de page" loading="lazy">
 			<div class="loaderSection sectionLeft"></div>
 			<div class="loaderSection sectionRight"></div>
-		</div>
+		</div> -->
 		<!-- Header page -->
 		<header class="container">
 			<div id="headerPage">
@@ -56,6 +57,10 @@
 		<main>
 			<section class="bgColor">
 				<div id="zf" class="container">
+					<div id="alertMessage" class="containerColor">
+						<i id="styleIconAlert" class="fa-solid fa-plus redText"></i>
+						<span id="alertMessageText"></span>
+					</div>
 					<!-- Section informations pokemon Zf -->
 					<div class="PokemonInfos">
 						<!-- Name pokemon -->
@@ -70,7 +75,7 @@
 							<div>
 								<button class="cta secondaryButton" id="removePokemon">
 									Supprimer
-									<i class="fa-solid fa-plus"></i>
+									<i id="styleIconDelete" class="fa-solid fa-plus"></i>
 								</button>
 								<a href="#" id="watchPokemon" class="cta primaryButton">
 									Voir
@@ -103,10 +108,10 @@
 						<!-- Stats pokemon -->
 						<div class="sectionsStatistiques">
 							<span class="secondaryText subText">Statistiques</span>
-							<div class="statistiques zones"></div>
+							<div class="statistiques containerColor"></div>
 						</div>
 						<div class="sectionsStatistiques" id="team">
-							<div class="zones team">
+							<div class="team containerColor">
 								<span class="secondaryText subText">Pokémons</span>
 								<div>
 									<button class="circle circleActive" id="pokemon1">
@@ -147,7 +152,7 @@
 					<div>
 						<h2>Une aventure inoubliable</h2>
 						<p>
-							Le Pokédex de La Rocket Dev, l’outil idéal pour tout dresseur en formation ! Explorez, découvrez et apprenez tout sur vos Pokémon préférés, de Bulbizarre à Dracaufeu en
+							Le Pokédex de Rocket Dev, l’outil idéal pour tout dresseur en formation ! Explorez, découvrez et apprenez tout sur vos Pokémon préférés, de Bulbizarre à Dracaufeu en
 							passant par Pikachu !
 						</p>
 					</div>
@@ -163,7 +168,7 @@
 					</ul>
 				</div>
 				<div class="secondaryContent">
-					<span>©2025 - Rocket Dev</span>
+					<span>© 2025 - Rocket Dev</span>
 					<div>
 						<span>Langue - fr</span>
 						<span>Cookies</span>

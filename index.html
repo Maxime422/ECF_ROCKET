@@ -27,6 +27,7 @@
 	<body>
 		<!-- Animation on Load -->
 		<div class="loaderWrapper">
+			<img class="loader" src="./IMG/Pokeball-Image-Color.png" alt="Pokeball animation chargement de page" />
 			<div class="loaderSection sectionLeft"></div>
 			<div class="loaderSection sectionRight"></div>
 		</div>
@@ -61,6 +62,10 @@
 		<main>
 			<section class="bgColor">
 				<div id="zf" class="container">
+					<div id="alertMessage" class="containerColor">
+						<i id="styleIconAlert" class="fa-solid fa-plus redText"></i>
+						<span id="alertMessageText"></span>
+					</div>
 					<!-- Section informations pokemon Zf -->
 					<div class="PokemonInfos">
 						<!-- Name pokemon -->
@@ -124,10 +129,10 @@
 				<div class="container">
 					<header>
 						<h1>Pokédex Pokemon</h1>
-						<p>Retrouvez tout vos Pokémons préférés !</p>
+						<p>Retrouvez tous vos Pokémons préférés !</p>
 
 						<div>
-							<span class="redText subText">Pokémon à l’affiche</span>
+							<span class="redText subText">Pokémon à l’affiche aujourd'hui</span>
 							<div class="spaceGap">
 								<!-- Select pokemons -->
 								<a href="./HTML_PAGES/pokedex-pokemon-list.html" id="referech" class="cta primaryButton">
@@ -167,7 +172,7 @@
 					</ul>
 				</div>
 				<div class="secondaryContent">
-					<span>©2025 - Rocket Dev</span>
+					<span>© 2025 - Rocket Dev</span>
 					<div>
 						<span>Langue - fr</span>
 						<span>Cookies</span>

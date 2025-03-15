@@ -1,5 +1,13 @@
 'use strict';
 
+// Easter egg pour changer les sprites (voir ligne 633)
+let toggle = '';
+if (localStorage.getItem('sprites')) {
+	toggle = localStorage.getItem('sprites');
+} else {
+	toggle = 'base';
+}
+
 // Véfifie si il y a bien un theme dans le localStorage, si aucun, alors ajoute un theme
 if (localStorage.getItem('theme')) {
 	const theme = localStorage.getItem('theme');
@@ -192,6 +200,8 @@ async function getPokemon(urlText) {
 		// Appelle les structures des Pokémon
 		await updatePokemon(dataPokemon);
 		await updateSpeciesPokemon(dataSpecies);
+	} else {
+		location.assign(`${getUrl()}error-page.html`);
 	}
 }
 
@@ -236,9 +246,14 @@ async function pokemonEvolutions(url) {
 			if (evo.length === 0) {
 				const div = document.querySelector('#gridPokemon');
 				div.innerHTML = '';
-				const alert = document.createElement('p');
-				alert.textContent = 'Pas d’évolution pour ce Pokémon : Contacter le support Pokémon ;)';
-				div.append(alert);
+				const alert = document.createElement('span');
+				const link = document.createElement('a');
+				link.setAttribute('href', 'https://support.pokemon.com/hc/fr/categories/115000426353-Informations-g%C3%A9n%C3%A9rales');
+				link.innerHTML = 'Contacter le support Pokémon';
+				link.classList.add('redText');
+				link.setAttribute('title', 'Support Pokémon');
+				alert.textContent = `Pas d’évolution pour ce Pokémon`;
+				div.append(alert, link);
 				return;
 			} else {
 				// On boucle l'appelle au pokemon
@@ -312,7 +327,7 @@ async function updatePokemon(url) {
 
 			const sprites = document.querySelector('#imgPokemon');
 			sprites.alt = `Sprite du Pokémon ${url.name}`;
-			sprites.src = getSprite(url);
+			sprites.src = getSprite([url, toggle]);
 			sprites.setAttribute('loading', `lazy`);
 		} else {
 			console.error('Aucune info en français trouvée');
@@ -326,7 +341,7 @@ async function updatePokemon(url) {
 async function updatePokemonGrid(dataPokemon) {
 	try {
 		const img = document.createElement('img');
-		img.src = getSprite(dataPokemon);
+		img.src = getSprite([dataPokemon, toggle]);
 		img.alt = `Sprite du Pokémon ${dataPokemon.name}`;
 		img.setAttribute('loading', `lazy`);
 
@@ -343,8 +358,9 @@ async function updatePokemonGrid(dataPokemon) {
 		// Création du bouton voir plus du pokémon qui redirige vers le bon pokémon
 		const a = document.createElement(`a`);
 		a.href = `${getUrl()}pokemon.html?p=${dataPokemon.name}`;
+		a.setAttribute('title', 'Accéder au Pokémon');
 
-		a.textContent = 'voir plus';
+		a.textContent = 'Voir plus';
 		a.classList.add('cta');
 		a.classList.add('primaryButton');
 
@@ -406,11 +422,11 @@ function getDescription(dataSpecies) {
 		if (frLang !== undefined && frLang !== null) {
 			return frLang.flavor_text;
 		} else {
-			return 'pas de description pour ce pokémon :(';
+			return 'pas de description pour ce Pokémon';
 		}
 	} catch (error) {
 		console.error(error.message);
-		return 'pas de description pour ce pokémon';
+		return 'pas de description pour ce Pokémon';
 	}
 }
 
@@ -422,11 +438,11 @@ function getName(dataSpecies) {
 		if (frLang !== undefined && frLang !== null) {
 			return frLang.name;
 		} else {
-			return 'pas de nom pour ce pokémon';
+			return 'pas de nom pour ce Pokémon';
 		}
 	} catch (error) {
 		console.error(error.message);
-		return 'pas de nom pour ce pokémon';
+		return 'pas de nom pour ce Pokémon';
 	}
 }
 
@@ -488,11 +504,11 @@ function getId(data) {
 		if (data.id) {
 			return `${data.id} du Pokédex`;
 		} else {
-			return 'numéro de pokédex inconnu';
+			return 'Numéro de Pokédex inconnu';
 		}
 	} catch (error) {
 		console.error(error.message);
-		return 'numéro de pokédex inconnu';
+		return 'Numéro de Pokédex inconnu';
 	}
 }
 
@@ -503,11 +519,11 @@ function getTalent(dataPokemon) {
 		if (talent) {
 			return talent;
 		} else {
-			return 'talent inconnu';
+			return 'Talent inconnu';
 		}
 	} catch (error) {
 		console.error(error.message);
-		return 'talent inconnu';
+		return 'Talent inconnu';
 	}
 }
 
@@ -563,16 +579,32 @@ function getType(dataPokemon) {
 
 /************** Search Sprites Pokemon **************/
 function getSprite(data) {
-	// Récupère le sprite officiel du pokémon
-	const sprites = data.sprites.other['official-artwork'].front_default;
-	if (sprites) {
-		return sprites;
-	} else {
-		const url = window.location.pathname;
-		if (url.includes('/HTML_PAGES/')) {
-			return `../IMG/Missingo-Pokemon-Image.png`;
+	if (data[1] === 'base') {
+		// Récupère le sprite officiel du pokémon
+		const sprites = data[0].sprites.other['official-artwork'].front_default;
+		if (sprites) {
+			return sprites;
 		} else {
-			return `./IMG/Missingo-Pokemon-Image.png`;
+			const url = window.location.pathname;
+			if (url.includes('/HTML_PAGES/')) {
+				return `../IMG/Missingo-Pokemon-Image.png`;
+			} else {
+				return `./IMG/Missingo-Pokemon-Image.png`;
+			}
+		}
+	}
+	if (data[1] === 'shiny') {
+		// Récupère le sprite officiel du pokémon
+		const sprites = data[0].sprites.other['official-artwork'].front_shiny;
+		if (sprites) {
+			return sprites;
+		} else {
+			const url = window.location.pathname;
+			if (url.includes('/HTML_PAGES/')) {
+				return `../IMG/Missingo-Pokemon-Image.png`;
+			} else {
+				return `./IMG/Missingo-Pokemon-Image.png`;
+			}
 		}
 	}
 }
@@ -610,10 +642,28 @@ if (form) {
 		event.preventDefault();
 		const pokemon = document.getElementById(`search`).value.toLowerCase();
 		// Easter EGG sympa
-		if (pokemon === 'prof chen') {
-			alert('Ce n’est pas le moment d’utiliser ça !');
-		} else {
-			searchPokemon(pokemon);
+		switch (pokemon) {
+			case 'prof chen':
+				alertMessage('Ce n’est pas le moment d’utiliser ça !');
+				break;
+
+			case 'shiny':
+				localStorage.setItem('sprites', 'shiny');
+				alertMessage('Quoi ? les pokémons changent de couleur ?');
+				setTimeout(() => {
+					location.reload();
+				}, 2200);
+				break;
+			case 'base':
+				localStorage.setItem('sprites', 'base');
+				alertMessage('Ils sont beaux pourtant, non ?');
+				setTimeout(() => {
+					location.reload();
+				}, 2200);
+				break;
+			default:
+				searchPokemon(pokemon);
+				break;
 		}
 	});
 }
@@ -624,7 +674,7 @@ async function searchPokemon(data) {
 		// Fonction de recherche de pokemon, si pokemon existe, alors je change de page
 		const url = await getData(`https://pokeapi.co/api/v2/pokemon/${data}`);
 		if (url === null || url === undefined) {
-			alert(`Aucun Pokémon existant pour ${data}`);
+			alertMessage(`Aucun Pokémon existant pour ${data}`);
 		} else {
 			location.assign(`${getUrl()}pokemon.html?p=${data}`);
 		}
@@ -659,26 +709,25 @@ if (btn) {
 }
 function addPokemon() {
 	// Je récupère l'id du pokémon actuel, et si la taille est inférieure à 6 j'ajoute le pokémon
+	const pokemonName = document.querySelector('.PokemonName').textContent;
 	let pokemonID = document.querySelector('.IdPokemon').textContent;
 	pokemonID = pokemonID.replace(' du Pokédex', '');
 
 	if (localStorage.length >= 7) {
-		console.log("L'équipe est déjà au maximum (6 Pokémon).");
+		alertMessage("L'équipe est déjà au maximum (6 Pokémon)");
 	} else {
 		// J'essaie de récupérer le pokémon du localStorage, pour voir si il existe
 		if (localStorage.getItem(`pokemon_${pokemonID}`)) {
-			console.log('Ce Pokémon est déjà dans ton équipe.');
+			alertMessage('Ce Pokémon est déjà dans ton équipe');
 		} else {
 			localStorage.setItem(`pokemon_${pokemonID}`, pokemonID);
 			btn.classList.replace('secondaryButton', 'primaryButton');
-			console.log(icon);
 			icon.className = '';
 			icon.classList.add('fa-solid', 'fa-check');
-			console.log(`Le Pokémon ${pokemonID} a été ajouté à ton équipe.`);
+			alertMessage(`Le Pokémon ${pokemonName} a été ajouté à ton équipe`);
 		}
 	}
 }
-
 
 /************** Team Button **************/
 const pokemon = document.querySelector('#teamButton');
@@ -686,7 +735,7 @@ if (pokemon) {
 	// Si j'ai des pokemons dans mon équipe, je peux accéder à la liste des pokémons
 	pokemon.addEventListener(`click`, () => {
 		if (window.localStorage.length < 2) {
-			alert('pas encore de pokémon');
+			alertMessage('Pas encore de Pokémon');
 		} else {
 			location.assign(`${getUrl()}team-pokemon.html`);
 		}
@@ -723,8 +772,23 @@ if (evolutionBtn && aboutBtn) {
 document.addEventListener('DOMContentLoaded', () => {
 	setTimeout(() => {
 		document.body.classList.add('loaded');
-	}, 250);
+	}, 350);
 });
+
+function alertMessage(message) {
+	const div = document.querySelector('#alertMessage');
+	const text = document.querySelector('#alertMessageText');
+	text.textContent = message;
+	div.classList.add('show');
+
+	setTimeout(() => {
+		div.classList.add('hide');
+
+		setTimeout(() => {
+			div.classList.remove('show', 'hide');
+		}, 200);
+	}, 4000);
+}
 
 /************** Export **************/
 export {
@@ -741,4 +805,5 @@ export {
 	pokemonEvolutions,
 	updateSpeciesPokemonGrid,
 	createArticle,
+	alertMessage,
 };
