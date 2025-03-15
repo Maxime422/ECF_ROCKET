@@ -1,11 +1,23 @@
 'use strict';
 
+// Véfifie si il y a bien un theme dans le localStorage, si aucun, alors ajoute un theme
+if (localStorage.getItem('theme')) {
+	const theme = localStorage.getItem('theme');
+	if (theme === 'dark') {
+		LightDark(theme);
+	} else {
+		LightDark(theme);
+	}
+} else {
+	localStorage.setItem('theme', 'dark');
+}
+
 /************** Dark Mode / Light Mode **************/
 document.querySelector(`#darkLightMode`).addEventListener(`click`, () => {
 	// Véfifie si il y a bien un theme dans le localStorage, si aucun, alors ajoute un theme
 	if (localStorage.getItem('theme')) {
 		const theme = localStorage.getItem('theme');
-			// Inverse le theme pour le changement de mode
+		// Inverse le theme pour le changement de mode
 		if (theme === 'dark') {
 			LightDark('light');
 		} else {
@@ -40,22 +52,6 @@ function LightDark(theme) {
 		console.log(`Erreur inattendue lors du changement de mode`);
 	}
 }
-
-/************** DOMContentLoaded Theme **************/
-document.addEventListener(`DOMContentLoaded`, () => {
-	// Véfifie si il y a bien un theme dans le localStorage, si aucun, alors ajoute un theme
-	if (localStorage.getItem('theme')) {
-		const theme = localStorage.getItem('theme');
-		console.log(theme);
-		if (theme === 'dark') {
-			LightDark(theme);
-		} else {
-			LightDark(theme);
-		}
-	} else {
-		localStorage.setItem('theme', 'dark');
-	}
-});
 
 /************** Type Style Pokemon Object **************/
 const pokemonTypes = {
@@ -655,6 +651,7 @@ function watchPokemon() {
 
 /************** LocalStorage Pokemon For Team **************/
 const btn = document.querySelector('#addPokemonTeam');
+const icon = document.querySelector('#addPokemonIcon');
 if (btn) {
 	btn.addEventListener(`click`, () => {
 		addPokemon();
@@ -665,19 +662,23 @@ function addPokemon() {
 	let pokemonID = document.querySelector('.IdPokemon').textContent;
 	pokemonID = pokemonID.replace(' du Pokédex', '');
 
-	const tailleMax = localStorage.length;
-	if (tailleMax >= 7) {
+	if (localStorage.length >= 7) {
 		console.log("L'équipe est déjà au maximum (6 Pokémon).");
 	} else {
 		// J'essaie de récupérer le pokémon du localStorage, pour voir si il existe
-		if (localStorage.getItem(pokemonID)) {
+		if (localStorage.getItem(`pokemon_${pokemonID}`)) {
 			console.log('Ce Pokémon est déjà dans ton équipe.');
 		} else {
-			localStorage.setItem(pokemonID, 'added');
+			localStorage.setItem(`pokemon_${pokemonID}`, pokemonID);
+			btn.classList.replace('secondaryButton', 'primaryButton');
+			console.log(icon);
+			icon.className = '';
+			icon.classList.add('fa-solid', 'fa-check');
 			console.log(`Le Pokémon ${pokemonID} a été ajouté à ton équipe.`);
 		}
 	}
 }
+
 
 /************** Team Button **************/
 const pokemon = document.querySelector('#teamButton');
@@ -719,9 +720,10 @@ if (evolutionBtn && aboutBtn) {
 }
 
 /************** DOM Loaded **************/
-addEventListener(`DOMContentLoaded`, () => {
-	const img = document.createElement('img');
-	img.src = `../`;
+document.addEventListener('DOMContentLoaded', () => {
+	setTimeout(() => {
+		document.body.classList.add('loaded');
+	}, 250);
 });
 
 /************** Export **************/

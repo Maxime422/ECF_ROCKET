@@ -25,6 +25,11 @@
 		<link rel="manifest" href="./manifest.json" />
 	</head>
 	<body>
+		<!-- Animation on Load -->
+		<div class="loaderWrapper">
+			<div class="loaderSection sectionLeft"></div>
+			<div class="loaderSection sectionRight"></div>
+		</div>
 		<!-- Header page -->
 		<header class="container">
 			<div id="headerPage">
@@ -36,7 +41,7 @@
 				<!-- Navigation and Search -->
 				<div class="spaceGap">
 					<button id="darkLightMode">
-						<img src="./IMG/POKEMON__ICONS/Icon-Moon.png" loading="lazy" alt="Icon Dark Light Mode">
+						<img src="./IMG/POKEMON__ICONS/Icon-Moon.png" loading="lazy" alt="Icon Dark Light Mode" />
 					</button>
 					<form id="searchPokemon">
 						<input id="search" type="search" id="searchInput" required placeholder="Recherche" />
@@ -70,7 +75,7 @@
 							<div>
 								<button class="cta secondaryButton" id="addPokemonTeam">
 									Ajouter
-									<i class="fa-solid fa-plus"></i>
+									<i id="addPokemonIcon" class="fa-solid fa-plus"></i>
 								</button>
 								<a href="#" id="watchPokemon" class="cta primaryButton">
 									Voir
@@ -103,8 +108,7 @@
 						<!-- Stats pokemon -->
 						<div class="sectionsStatistiques">
 							<span class="secondaryText subText">Statistiques</span>
-							<div class="statistiques zones">
-							</div>
+							<div class="statistiques zones"></div>
 						</div>
 					</div>
 					<!-- Img pokemon -->

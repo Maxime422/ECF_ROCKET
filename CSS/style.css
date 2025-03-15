@@ -462,6 +462,55 @@ main {
 	justify-content: space-between;
 }
 
+
+/* Loader Wrapper (animation de https://lazyjinchuriki.github.io/) */
+.loaderWrapper {
+    --curtain-color: var(--color-black);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+
+/* Rideaux */
+.loaderWrapper .loaderSection {
+    position: fixed;
+    top: 0;
+    background: var(--curtain-color);
+    width: 51%;
+    height: 100%;
+    z-index: 1000;
+}
+
+.loaderWrapper .loaderSection.sectionLeft {
+    left: 0;
+}
+
+.loaderWrapper .loaderSection.sectionRight {
+    right: 0;
+}
+
+/* Animation de disparition */
+.loaded .loaderWrapper .loaderSection.sectionLeft {
+    transform: translateX(-100%);
+    transition: transform 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.loaded .loaderWrapper .loaderSection.sectionRight {
+    transform: translateX(100%);
+    transition: transform 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.loaded .loaderWrapper {
+    visibility: hidden;
+    transform: translateY(-100%);
+    transition: transform 0.3s 1s ease-out, visibility 0s 1.3s;
+}
+
+
+
 /************** Media **************/
 /* Media 1200px large screen */
 @media (max-width: 1440px) {

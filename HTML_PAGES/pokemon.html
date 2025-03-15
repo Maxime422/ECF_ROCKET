@@ -23,6 +23,12 @@
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;900&display=swap" rel="stylesheet" />
 	</head>
 	<body>
+		<!-- Animation on Load -->
+		<div class="loaderWrapper">
+			<div class="loaderSection sectionLeft"></div>
+			<div class="loaderSection sectionRight"></div>
+		</div>
+
 		<!-- Header page -->
 		<header class="container">
 			<div id="headerPage">
@@ -69,7 +75,7 @@
 							<div>
 								<button class="cta secondaryButton" id="addPokemonTeam">
 									Ajouter
-									<i class="fa-solid fa-plus"></i>
+									<i id="addPokemonIcon" class="fa-solid fa-plus"></i>
 								</button>
 							</div>
 						</nav>
