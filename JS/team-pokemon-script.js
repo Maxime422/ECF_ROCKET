@@ -1,96 +1,90 @@
 ('use strict');
 
-import {getData, getPokemon, TransformUrl, searchPokemon} from './functions.js';
-/************** Starting Pokemon1 **************/
-const btn1 = document.querySelector(`#pokemon1`);
-btn1.addEventListener(`click`, () => {
-	if (localStorage.key(0)) {
-		onLoad(0, btn1);
-	}
-});
-onLoad(0, btn1);
-function onLoad(i, btn) {
-	const key = localStorage.key(i);
-	if (localStorage.key(i)) {
-		const url = TransformUrl(key);
+import {getPokemon, TransformUrl} from './functions.js';
+
+// Bouton de suppression du pokémon
+const removeBtn = document.querySelector('#removePokemon');
+removeBtn.addEventListener('click', removePokemon);
+
+/************** Get Pokemon and add Class Active **************/
+function Team(data, btn) {
+	removeBtn.classList.replace('primaryButton', 'secondaryButton');
+	// Récupère la clé du pokémon via le numéro (1,2,3...)
+	if (data) {
+		// Si la clé existe alors, je l'envoie à getPokemon()
+		const url = TransformUrl(data);
 		getPokemon(url);
-		document.querySelectorAll('.circleActive').forEach((clRemove) => clRemove.classList.remove('circleActive'));
+		// Suprrime la class circleActive pour tout le monde et l'ajoute au bouton correspondant
+		const classBtn = document.querySelector('.circleActive');
+		classBtn.classList.remove('circleActive');
 		btn.classList.add('circleActive');
 	}
 }
 
-/************** Pokemon2 **************/
+/************** Pokemon n°1 **************/
+const btn1 = document.querySelector(`#pokemon1`);
+btn1.addEventListener(`click`, () => {
+	if (localStorage.key(1)) {
+		Team(localStorage.key(1), btn1);
+	}
+});
+
+/************** Pokemon n°2 **************/
 const btn2 = document.querySelector(`#pokemon2`);
 btn2.addEventListener(`click`, () => {
-	if (localStorage.key(1)) {
-		onLoad(1, btn2);
+	// Si le pokémon 1 existe dans le local storage, j'enovie 1
+	if (localStorage.key(2)) {
+		Team(localStorage.key(2), btn2);
 	}
 });
 
-/************** Starting Pokemon3 **************/
+/************** Pokemon n°3 **************/
 const btn3 = document.querySelector(`#pokemon3`);
 btn3.addEventListener(`click`, () => {
-	if (localStorage.key(2)) {
-		onLoad(2, btn3);
+	if (localStorage.key(3)) {
+		Team(localStorage.key(3), btn3);
 	}
 });
 
-/************** Starting Pokemon4 **************/
+/************** Pokemon n°4 **************/
 const btn4 = document.querySelector(`#pokemon4`);
 btn4.addEventListener(`click`, () => {
-	if (localStorage.key(3)) {
-		onLoad(3, btn4);
+	if (localStorage.key(4)) {
+		Team(localStorage.key(4), btn4);
 	}
 });
 
-/************** Starting Pokemon5 **************/
+/************** Pokemon n°5 **************/
 const btn5 = document.querySelector(`#pokemon5`);
 btn5.addEventListener(`click`, () => {
-	if (localStorage.key(4)) {
-		onLoad(4, btn5);
+	if (localStorage.key(5)) {
+		Team(localStorage.key(5), btn5);
 	}
 });
 
-/************** Starting Pokemon6 **************/
+/************** Pokemon n°6 **************/
 const btn6 = document.querySelector(`#pokemon6`);
 btn6.addEventListener(`click`, () => {
-	if (localStorage.key(5)) {
-		onLoad(5, btn6);
+	if (localStorage.key(6)) {
+		Team(localStorage.key(6), btn6);
 	}
 });
 
-function removePokemon() {
-	for (let i = 0; i < localStorage.length; i++) {
-		const pokemonKey = localStorage.key(i);
-		if (document.querySelector(`#pokemon${i + 1}`).classList.contains('circleActive')) {
-			localStorage.removeItem(pokemonKey);
-			console.log(`Pokemon ${pokemonKey} removed from localStorage`);
+// Ajoute d'office le pokémon 1
+Team(localStorage.key(1), btn1);
 
-			document.querySelector(`#pokemon${i + 1}`).classList.remove('circleActive');
-			break;
+/************** Remove Pokemon List **************/
+function removePokemon() {
+	// boucle tous les Pokémons
+	for (let i = 1; i < 7; i++) {
+		const pokemon = document.querySelector(`#pokemon${i}`);
+		const pokemonKey = localStorage.key(i);
+		if (pokemon) {
+			// Si le pokémon a la class circleActive, alors je supprime le pokémon de la list
+			if (pokemon.classList.contains('circleActive')) {
+				localStorage.removeItem(pokemonKey);
+				removeBtn.classList.replace('secondaryButton', 'primaryButton');
+			}
 		}
 	}
 }
-
-const removeBtn = document.querySelector('#removePokemon');
-removeBtn.addEventListener('click', removePokemon);
-
-console.log(localStorage);
-
-/************** Form selection **************/
-document.querySelector(`form`).addEventListener(`submit`, async (event) => {
-	event.preventDefault();
-	const id = document.getElementById(`search`).value.toLowerCase();
-
-	const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
-	try {
-		const data = await getData(url);
-		if (data) {
-			searchPokemon(id);
-		} else {
-			console.error('Aucune donnée trouvée pour ce Pokémon !');
-		}
-	} catch (error) {
-		console.error('Erreur lors de la récupération des données :', error.message);
-	}
-});

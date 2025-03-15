@@ -2,7 +2,22 @@
 
 /************** Dark Mode / Light Mode **************/
 document.querySelector(`#darkLightMode`).addEventListener(`click`, () => {
+	// Véfifie si il y a bien un theme dans le localStorage, si aucun, alors ajoute un theme
+	if (localStorage.getItem('theme')) {
+		const theme = localStorage.getItem('theme');
+			// Inverse le theme pour le changement de mode
+		if (theme === 'dark') {
+			LightDark('light');
+		} else {
+			LightDark('dark');
+		}
+	}
+});
+
+function LightDark(theme) {
+	// Je récupère l'url de mon CSS dark ou Light mode
 	const mode = document.querySelector(`#mode`);
+	// Je récupère mon icon light ou darkMode
 	const icon = document.querySelector(`#darkLightMode img`);
 	const linkMode = mode.getAttribute(`href`);
 	const pathPrefix = linkMode.substring(0, linkMode.indexOf('CSS/'));
@@ -10,14 +25,35 @@ document.querySelector(`#darkLightMode`).addEventListener(`click`, () => {
 	const light = `${pathPrefix}CSS/light-mode.css`;
 	const dark = `${pathPrefix}CSS/dark-mode.css`;
 
-	if (mode.getAttribute(`href`) === `${light}`) {
+	// Si le theme actuel est dark, alors on set le mode en dark et on change l'icon
+	if (theme === 'dark') {
 		mode.setAttribute(`href`, `${dark}`);
 		icon.src = `${pathPrefix}IMG/POKEMON__ICONS/Icon-Moon.png`;
-	} else if (mode.getAttribute(`href`) === `${dark}`) {
+		localStorage.setItem('theme', 'dark');
+
+		// Si le theme actuel est light, alors on set le mode en light et on change l'icon
+	} else if (theme === 'light') {
 		mode.setAttribute(`href`, `${light}`);
 		icon.src = `${pathPrefix}IMG/POKEMON__ICONS/Icon-Sun.png`;
+		localStorage.setItem('theme', 'light');
 	} else {
 		console.log(`Erreur inattendue lors du changement de mode`);
+	}
+}
+
+/************** DOMContentLoaded Theme **************/
+document.addEventListener(`DOMContentLoaded`, () => {
+	// Véfifie si il y a bien un theme dans le localStorage, si aucun, alors ajoute un theme
+	if (localStorage.getItem('theme')) {
+		const theme = localStorage.getItem('theme');
+		console.log(theme);
+		if (theme === 'dark') {
+			LightDark(theme);
+		} else {
+			LightDark(theme);
+		}
+	} else {
+		localStorage.setItem('theme', 'dark');
 	}
 });
 
@@ -115,6 +151,16 @@ const pokemonTypes = {
 	},
 };
 
+/************** Get URL and Return Page Location **************/
+function getUrl() {
+	const url = window.location.pathname;
+	if (url.includes('/HTML_PAGES/')) {
+		return `./`;
+	} else {
+		return `./HTML_PAGES/`;
+	}
+}
+
 /************** Async Fetch **************/
 async function getData(url) {
 	try {
@@ -143,10 +189,11 @@ function TransformUrl(urlPokemon) {
 
 /************** Get Pokemon Pokemon **************/
 async function getPokemon(urlText) {
+	// Fetch les données du pokémon
 	const dataPokemon = await getData(urlText[0]);
 	const dataSpecies = await getData(urlText[1]);
 	if (dataPokemon && dataSpecies) {
-		console.log(dataPokemon, dataSpecies);
+		// Appelle les structures des Pokémon
 		await updatePokemon(dataPokemon);
 		await updateSpeciesPokemon(dataSpecies);
 	}
@@ -160,8 +207,10 @@ async function callListPokemon(data) {
 		const pokemon = await getData(url[0]);
 		const species = await getData(url[1]);
 
+		// Appelle les structrures de pokémons pour les grids
 		const pokemonElements = await updatePokemonGrid(pokemon);
 		const SpeciesElements = await updateSpeciesPokemonGrid(species);
+		// Envoies les éléments à createArticle()
 		createArticle([pokemonElements, SpeciesElements]);
 	}
 }
@@ -170,24 +219,24 @@ async function pokemonEvolutions(url) {
 	try {
 		// Fetch de la chain du pokemon de l'url
 		const dataSpecies = await getData(url[0]);
-		console.log(url[0], dataSpecies);
 		if (dataSpecies) {
+			// Récupère le pokémon actuel (pour éviter les doublons)
 			const pokemonName = url[1].toLowerCase();
-			console.log(pokemonName);
 			let data = dataSpecies.chain;
 			const evo = [];
-			// Boucle qui vérifie les évolution du pokémon, si c'est le pokémon du fetch, alors on passe au suivant
+			// Boucle qui vérifie les évolution du pokémon,
 			while (data) {
+				// si c'est le pokémon du fetch, alors on l'ajoute pas
 				if (pokemonName !== data.species.name) {
 					evo.push(data.species.name);
 				}
 				if (data.evolves_to.length > 0) {
 					data = data.evolves_to[0];
 				} else {
-					data = null;
+					break;
 				}
 			}
-			console.log(evo);
+
 			if (evo.length === 0) {
 				const div = document.querySelector('#gridPokemon');
 				div.innerHTML = '';
@@ -196,6 +245,7 @@ async function pokemonEvolutions(url) {
 				div.append(alert);
 				return;
 			} else {
+				// On boucle l'appelle au pokemon
 				for (let i = 0; i < evo.length; i++) {
 					callListPokemon(evo[i]);
 				}
@@ -213,6 +263,7 @@ async function updateSpeciesPokemon(url) {
 			const name = document.querySelector('.PokemonName');
 			name.textContent = getName(url);
 
+			// Récupère la liste des évolutions
 			if (document.querySelector('#evolutionBtn')) {
 				await pokemonEvolutions([url.evolution_chain.url, url.name]);
 			}
@@ -240,12 +291,14 @@ async function updatePokemon(url) {
 			const types = getType(url);
 			const div = document.querySelector('#typesPokemons');
 			div.innerHTML = '';
-			if (types[1] !== undefined) {
+			// Si il y a deux types alors div récupère les deux
+			if (types[1] !== undefined && types[1] !== null) {
 				div.append(types[0], types[1]);
 			} else {
 				div.append(types[0]);
 			}
 
+			// En fonction du type, ajoute la bonne couleur au fond
 			const typeRef = types[0].textContent;
 			const bgColor = document.querySelector('.bgColor');
 
@@ -253,6 +306,7 @@ async function updatePokemon(url) {
 
 			const stats = statsPokemon(url);
 			const statsContainer = document.querySelector('.statistiques');
+			// Nettoie la div statistiques avant d'ajouter les stats
 			statsContainer.innerHTML = '';
 
 			statsContainer.appendChild(stats);
@@ -278,30 +332,29 @@ async function updatePokemonGrid(dataPokemon) {
 		const img = document.createElement('img');
 		img.src = getSprite(dataPokemon);
 		img.alt = `Sprite du Pokémon ${dataPokemon.name}`;
-		img.setAttribute('alt', `Pokemon de présentation ${dataPokemon.name}`);
 		img.setAttribute('loading', `lazy`);
 
 		// Récupère les types
 		const types = getType(dataPokemon);
 		const div = document.createElement(`div`);
-		if (types[1] !== undefined) {
+		// Si il y a deux types alors div récupère les deux
+		if (types[1] !== undefined && types[1] !== null) {
 			div.append(types[0], types[1]);
 		} else {
 			div.append(types[0]);
 		}
 
+		// Création du bouton voir plus du pokémon qui redirige vers le bon pokémon
 		const a = document.createElement(`a`);
-		const currentPath = window.location.pathname;
-		if (currentPath.includes('/HTML_PAGES/')) {
-			a.href = `pokemon.html?p=${dataPokemon.name}`;
-		} else {
-			a.href = `./HTML_PAGES/pokemon.html?p=${dataPokemon.name}`;
-		}
+		a.href = `${getUrl()}pokemon.html?p=${dataPokemon.name}`;
+
 		a.textContent = 'voir plus';
 		a.classList.add('cta');
 		a.classList.add('primaryButton');
 
 		div.classList.add('flexTypes');
+
+		// Retourne l'image, les types et le bouton "voir plus"
 		return [img, div, a];
 	} catch (error) {
 		console.error(error.message);
@@ -318,6 +371,7 @@ async function updateSpeciesPokemonGrid(dataSpecies) {
 		const id = document.createElement('span');
 		id.textContent = getId(dataSpecies);
 
+		// Retourne l'id du pokémon et le nom
 		return [id, name];
 	} catch (error) {
 		console.error(error.message);
@@ -326,6 +380,7 @@ async function updateSpeciesPokemonGrid(dataSpecies) {
 
 /************** Create Articles **************/
 function createArticle([pokemon, species]) {
+	// Création de l'article à partir des éléments de updateSpeciesPokemonGrid, updatePokemonGrid
 	const article = document.createElement('article');
 	article.classList.add('articlePokemon');
 
@@ -342,29 +397,20 @@ function createArticle([pokemon, species]) {
 	article.append(figure);
 	article.append(content);
 
+	// Ajoute l'article à la grid
 	const grid = document.querySelector('#gridPokemon');
 	grid.append(article);
-}
-
-/************** Search Name Pokemon **************/
-function getName(dataSpecies) {
-	try {
-		const frLang = dataSpecies.names.find((poke) => poke.language.name === 'fr');
-		if (frLang !== undefined && frLang !== null) {
-			return frLang.name;
-		}
-	} catch (error) {
-		console.error(error.message);
-		return 'pas de nom pour ce pokémon';
-	}
 }
 
 /************** Search Description Pokemon Return **************/
 function getDescription(dataSpecies) {
 	try {
+		// Parcours dans le tableau et cherche le fr et retourne la description du Pokémon
 		const frLang = dataSpecies.flavor_text_entries.find((entry) => entry.language.name === 'fr');
 		if (frLang !== undefined && frLang !== null) {
 			return frLang.flavor_text;
+		} else {
+			return 'pas de description pour ce pokémon :(';
 		}
 	} catch (error) {
 		console.error(error.message);
@@ -372,11 +418,32 @@ function getDescription(dataSpecies) {
 	}
 }
 
+/************** Search Name Pokemon **************/
+function getName(dataSpecies) {
+	try {
+		// Parcours dans le tableau et cherche le fr et retourne le nom du Pokémon
+		const frLang = dataSpecies.names.find((entry) => entry.language.name === 'fr');
+		if (frLang !== undefined && frLang !== null) {
+			return frLang.name;
+		} else {
+			return 'pas de nom pour ce pokémon';
+		}
+	} catch (error) {
+		console.error(error.message);
+		return 'pas de nom pour ce pokémon';
+	}
+}
+
 /************** Search Generation Pokemon Return **************/
 function getGeneration(dataSpecies) {
 	try {
+		// Récupère la génération et l'envoie à generationTransform()
 		const generation = dataSpecies.generation.name;
-		return generationTransform(generation);
+		if (generation) {
+			return generationTransform(generation);
+		} else {
+			return 'génération inconnue';
+		}
 	} catch (error) {
 		console.error(error.message);
 		return 'génération inconnue';
@@ -385,6 +452,7 @@ function getGeneration(dataSpecies) {
 
 /************** Transform Generation Pokemon To Text **************/
 function generationTransform(generation) {
+	// Transforme la génération en nom et en fr et la retourne
 	switch (generation) {
 		case 'generation-i':
 			return 'Kanto';
@@ -421,7 +489,11 @@ function generationTransform(generation) {
 /************** Search ID Pokemon **************/
 function getId(data) {
 	try {
-		return `${String(data.id)} du Pokédex`;
+		if (data.id) {
+			return `${data.id} du Pokédex`;
+		} else {
+			return 'numéro de pokédex inconnu';
+		}
 	} catch (error) {
 		console.error(error.message);
 		return 'numéro de pokédex inconnu';
@@ -432,7 +504,11 @@ function getId(data) {
 function getTalent(dataPokemon) {
 	try {
 		const talent = dataPokemon.abilities[0].ability.name;
-		return talent;
+		if (talent) {
+			return talent;
+		} else {
+			return 'talent inconnu';
+		}
 	} catch (error) {
 		console.error(error.message);
 		return 'talent inconnu';
@@ -453,12 +529,8 @@ function getType(dataPokemon) {
 		type1.textContent = typePokemon1;
 
 		const icon1 = document.createElement('img');
-		const currentPath = window.location.pathname;
-		if (currentPath.includes('/HTML_PAGES/')) {
-			icon1.src = pokemonTypes[typePokemon1].icon;
-		} else {
-			icon1.src = `./HTML_PAGES/${pokemonTypes[typePokemon1].icon}`;
-		}
+		// Récupère l'url de l'icon depuis l'objet pokemonTypes
+		icon1.src = `${getUrl()}${pokemonTypes[typePokemon1].icon}`;
 
 		const circle1 = document.createElement('div');
 		circle1.append(icon1);
@@ -476,11 +548,7 @@ function getType(dataPokemon) {
 			type2.textContent = typePokemon2;
 
 			const icon2 = document.createElement('img');
-			if (currentPath.includes('/HTML_PAGES/')) {
-				icon2.src = pokemonTypes[typePokemon2].icon;
-			} else {
-				icon2.src = `./HTML_PAGES/${pokemonTypes[typePokemon2].icon}`;
-			}
+			icon2.src = `${getUrl()}${pokemonTypes[typePokemon2].icon}`;
 			const circle2 = document.createElement('div');
 			circle2.append(icon2);
 			styleType2.style.backgroundColor = `var(${pokemonTypes[typePokemon2].color})`;
@@ -488,24 +556,36 @@ function getType(dataPokemon) {
 
 			return [styleType1, styleType2];
 		}
-
+		// Si deux types je retournes les deux, sinon je retourne un tableau de un type
 		return [styleType1];
 	} catch (error) {
 		console.error('Erreur dans getType :', error.message);
-		return [];
+		const message = (document.createElement('span').textContent = 'pas de statistiques');
+		return [message];
 	}
 }
 
 /************** Search Sprites Pokemon **************/
 function getSprite(data) {
+	// Récupère le sprite officiel du pokémon
 	const sprites = data.sprites.other['official-artwork'].front_default;
-	return sprites;
+	if (sprites) {
+		return sprites;
+	} else {
+		const url = window.location.pathname;
+		if (url.includes('/HTML_PAGES/')) {
+			return `../IMG/Missingo-Pokemon-Image.png`;
+		} else {
+			return `./IMG/Missingo-Pokemon-Image.png`;
+		}
+	}
 }
 
 /************** Create Stats Pokemon Return Div **************/
 function statsPokemon(dataPokemon) {
 	try {
 		if (dataPokemon) {
+			// Boucle la récupération des statistiques et renvoie une div
 			const statContainer = document.createElement(`div`);
 			statContainer.classList.add('statistiquesContainer');
 			for (let i = 0; i < 6; i++) {
@@ -532,13 +612,29 @@ const form = document.querySelector('form');
 if (form) {
 	form.addEventListener('submit', (event) => {
 		event.preventDefault();
-		const currentUrl = document.getElementById(`search`).value.toLowerCase();
-		if (currentUrl === 'prof chen') {
+		const pokemon = document.getElementById(`search`).value.toLowerCase();
+		// Easter EGG sympa
+		if (pokemon === 'prof chen') {
 			alert('Ce n’est pas le moment d’utiliser ça !');
 		} else {
-			searchPokemon(currentUrl);
+			searchPokemon(pokemon);
 		}
 	});
+}
+
+/************** Function Move To Pokemon Page **************/
+async function searchPokemon(data) {
+	try {
+		// Fonction de recherche de pokemon, si pokemon existe, alors je change de page
+		const url = await getData(`https://pokeapi.co/api/v2/pokemon/${data}`);
+		if (url === null || url === undefined) {
+			alert(`Aucun Pokémon existant pour ${data}`);
+		} else {
+			location.assign(`${getUrl()}pokemon.html?p=${data}`);
+		}
+	} catch (error) {
+		alert(`Erreur lors de la récupération des données. ${error}`);
+	}
 }
 
 /************** Event Listener Watch Pokemon **************/
@@ -551,38 +647,13 @@ if (watchBtn) {
 
 /************** Function Move To Pokemon Page **************/
 function watchPokemon() {
+	// Bouton pour accéder au pokémon en fonction de l'id
 	let pokemon = document.querySelector(`.IdPokemon`).textContent;
 	pokemon = pokemon.replace('du Pokédex', '');
-	const currentUrl = window.location.pathname.toLowerCase();
-	if (currentUrl.includes('html_pages')) {
-		location.assign(`./pokemon.html?p=${pokemon}`);
-	} else {
-		location.assign(`./HTML_PAGES/pokemon.html?p=${pokemon}`);
-	}
-}
-
-/************** Function Move To Pokemon Page **************/
-async function searchPokemon(data) {
-	try {
-		const url = await getData(`https://pokeapi.co/api/v2/pokemon/${data}`);
-		if (!url) {
-			alert(`Aucun Pokémon existant pour ${data}`);
-			return;
-		}
-	} catch (error) {
-		alert(`Erreur lors de la récupération des données. ${error}`);
-		return;
-	}
-	const currentUrl = window.location.pathname.toLowerCase();
-	if (currentUrl.includes('html_pages')) {
-		location.assign(`./pokemon.html?p=${data}`);
-	} else {
-		location.assign(`./HTML_PAGES/pokemon.html?p=${data}`);
-	}
+	location.assign(`${getUrl()}pokemon.html?p=${pokemon}`);
 }
 
 /************** LocalStorage Pokemon For Team **************/
-
 const btn = document.querySelector('#addPokemonTeam');
 if (btn) {
 	btn.addEventListener(`click`, () => {
@@ -590,39 +661,33 @@ if (btn) {
 	});
 }
 function addPokemon() {
-	console.log('Bonjour');
-	
+	// Je récupère l'id du pokémon actuel, et si la taille est inférieure à 6 j'ajoute le pokémon
 	let pokemonID = document.querySelector('.IdPokemon').textContent;
 	pokemonID = pokemonID.replace(' du Pokédex', '');
-  
+
 	const tailleMax = localStorage.length;
-	if (tailleMax >= 6) {
-	  console.log('L\'équipe est déjà au maximum (6 Pokémon).');
-	  return;
+	if (tailleMax >= 7) {
+		console.log("L'équipe est déjà au maximum (6 Pokémon).");
+	} else {
+		// J'essaie de récupérer le pokémon du localStorage, pour voir si il existe
+		if (localStorage.getItem(pokemonID)) {
+			console.log('Ce Pokémon est déjà dans ton équipe.');
+		} else {
+			localStorage.setItem(pokemonID, 'added');
+			console.log(`Le Pokémon ${pokemonID} a été ajouté à ton équipe.`);
+		}
 	}
+}
 
-	if (localStorage.getItem(pokemonID)) {
-	  console.log('Ce Pokémon est déjà dans ton équipe.');
-	  return;
-	}
-
-	localStorage.setItem(pokemonID, 'added');
-	console.log(`Le Pokémon ${pokemonID} a été ajouté à ton équipe.`);
-  }
-  
 /************** Team Button **************/
 const pokemon = document.querySelector('#teamButton');
 if (pokemon) {
+	// Si j'ai des pokemons dans mon équipe, je peux accéder à la liste des pokémons
 	pokemon.addEventListener(`click`, () => {
-		if (window.localStorage.length === 0 || window.localStorage.length === null) {
+		if (window.localStorage.length < 2) {
 			alert('pas encore de pokémon');
 		} else {
-			const currentPath = window.location.pathname;
-			if (currentPath.includes('/HTML_PAGES/')) {
-				location.assign('team-pokemon.html');
-			} else {
-				location.assign('./HTML_PAGES/team-pokemon.html');
-			}
+			location.assign(`${getUrl()}team-pokemon.html`);
 		}
 	});
 }
@@ -630,16 +695,14 @@ if (pokemon) {
 /************** Switch Evolution About Button **************/
 const evolutionBtn = document.querySelector('#evolutionBtn');
 const aboutBtn = document.querySelector('#aboutBtn');
-
-const aboutSection = document.querySelector('#about');
-const evolutionSection = document.querySelector('#evolution');
-
+// Boutons à propos et évolution (switch)
 if (evolutionBtn && aboutBtn) {
+	const aboutSection = document.querySelector('#about');
+	const evolutionSection = document.querySelector('#evolution');
 	evolutionBtn.addEventListener(`click`, () => {
 		if (aboutSection.classList !== 'hidden') {
 			evolutionBtn.classList.add('redText');
 			aboutSection.classList.add('hidden');
-
 			evolutionSection.classList.remove('hidden');
 			aboutBtn.classList.remove('redText');
 		}
@@ -649,14 +712,13 @@ if (evolutionBtn && aboutBtn) {
 		if (evolutionSection.classList !== 'hidden') {
 			aboutBtn.classList.add('redText');
 			evolutionSection.classList.add('hidden');
-
 			aboutSection.classList.remove('hidden');
 			evolutionBtn.classList.remove('redText');
 		}
 	});
 }
 
-/************** Switch Evolution About Button **************/
+/************** DOM Loaded **************/
 addEventListener(`DOMContentLoaded`, () => {
 	const img = document.createElement('img');
 	img.src = `../`;
