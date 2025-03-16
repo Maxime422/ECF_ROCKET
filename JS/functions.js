@@ -737,7 +737,6 @@ function addPokemon() {
 	}
 }
 
-console.log(localStorage);
 /************** Team Button **************/
 const pokemon = document.querySelector('#teamButton');
 if (pokemon) {
