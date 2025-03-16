@@ -14,8 +14,6 @@ if (localStorage.getItem('theme')) {
 	const theme = localStorage.getItem('theme');
 	if (theme === 'dark') {
 		LightDark(theme);
-	} else {
-		LightDark(theme);
 	}
 } else {
 	localStorage.setItem('theme', 'dark');
@@ -244,25 +242,29 @@ async function pokemonEvolutions(url) {
 					break;
 				}
 			}
-
-			if (evo.length === 0) {
-				const div = document.querySelector('#gridPokemon');
-				div.innerHTML = '';
-				const alert = document.createElement('span');
-				const link = document.createElement('a');
-				link.setAttribute('href', 'https://support.pokemon.com/hc/fr/categories/115000426353-Informations-g%C3%A9n%C3%A9rales');
-				link.innerHTML = 'Contacter le support Pokémon';
-				link.classList.add('redText');
-				link.setAttribute('title', 'Support Pokémon');
-				alert.textContent = `Pas d’évolution pour ce Pokémon`;
-				div.append(alert, link);
-				return;
-			} else {
-				// On boucle l'appelle au pokemon
-				for (let i = 0; i < evo.length; i++) {
-					callListPokemon(evo[i]);
-				}
-			}
+			pokemonEvolutionsCall(evo);
+		}
+	} catch (error) {
+		console.error(error.message);
+	}
+}
+function pokemonEvolutionsCall(data) {
+	try {
+		if (data.length === 0) {
+			const div = document.querySelector('#gridPokemon');
+			div.innerHTML = '';
+			const alert = document.createElement('span');
+			const link = document.createElement('a');
+			link.setAttribute('href', 'https://support.pokemon.com/hc/fr/categories/115000426353-Informations-g%C3%A9n%C3%A9rales');
+			link.innerHTML = 'Contacter le support Pokémon';
+			link.classList.add('redText');
+			link.setAttribute('title', 'Support Pokémon');
+			alert.textContent = `Pas d’évolution pour ce Pokémon`;
+			div.append(alert, link);
+			return;
+		} else {
+			// On boucle l'appelle au pokemon
+			data.forEach((pokemon) => callListPokemon(pokemon));
 		}
 	} catch (error) {
 		console.error(error.message);
@@ -586,42 +588,40 @@ function getType(dataPokemon) {
 /************** Search Sprites Pokemon **************/
 function getSprite(data) {
 	if (data[1] === 'base') {
-		// Récupère le sprite officiel du pokémon
-		const sprites = data[0].sprites.other['official-artwork'].front_default;
-		if (sprites) {
+		if (data[0].sprites.other['official-artwork'].front_default) {
+			// Récupère le sprite officiel du pokémon
+			const sprites = data[0].sprites.other['official-artwork'].front_default;
 			return sprites;
 		} else {
-			const url = window.location.pathname;
-			if (url.includes('/HTML_PAGES/')) {
-				return `../IMG/Missingo-Pokemon-Image.png`;
-			} else {
-				return `./IMG/Missingo-Pokemon-Image.png`;
-			}
+			return Missingo();
 		}
+	} else if (data[1] === 'shiny') {
+		if (data[0].sprites.other['official-artwork'].front_shiny) {
+			// Récupère le sprite officiel du pokémon
+			const sprites = data[0].sprites.other['official-artwork'].front_shiny;
+			return sprites;
+		}
+	} else {
+		return Missingo();
 	}
-	if (data[1] === 'shiny') {
-		// Récupère le sprite officiel du pokémon
-		const sprites = data[0].sprites.other['official-artwork'].front_shiny;
-		if (sprites) {
-			return sprites;
-		} else {
-			const url = window.location.pathname;
-			if (url.includes('/HTML_PAGES/')) {
-				return `../IMG/Missingo-Pokemon-Image.png`;
-			} else {
-				return `./IMG/Missingo-Pokemon-Image.png`;
-			}
-		}
+}
+/************** Get Missingo **************/
+function Missingo() {
+	const url = window.location.pathname;
+	if (url.includes('/HTML_PAGES/')) {
+		return `../IMG/Missingo-Pokemon-Image.png`;
+	} else {
+		return `./IMG/Missingo-Pokemon-Image.png`;
 	}
 }
 
 /************** Create Stats Pokemon Return Div **************/
 function statsPokemon(dataPokemon) {
+	const statContainer = document.createElement(`div`);
+	statContainer.classList.add('statistiquesContainer');
 	try {
 		if (dataPokemon) {
 			// Boucle la récupération des statistiques et renvoie une div
-			const statContainer = document.createElement(`div`);
-			statContainer.classList.add('statistiquesContainer');
 			for (let i = 0; i < 6; i++) {
 				const containData = document.createElement('span');
 				const dataText = document.createElement('span');
@@ -634,10 +634,14 @@ function statsPokemon(dataPokemon) {
 			return statContainer;
 		} else {
 			const message = (document.createElement('span').textContent = 'Pas de statistiques');
+			statContainer.appendChild(message);
 			return message;
 		}
 	} catch (error) {
 		console.error(error.message);
+		const message = (document.createElement('span').textContent = 'Pas de statistiques');
+		statContainer.appendChild(message);
+		return message;
 	}
 }
 
@@ -722,17 +726,16 @@ function addPokemon() {
 
 	if (localStorage.length >= 8) {
 		alertMessage(["L'équipe est déjà au maximum (6 Pokémon)", 'alert']);
+	}
+	// J'essaie de récupérer le pokémon du localStorage, pour voir si il existe
+	else if (localStorage.getItem(`pokemon_${pokemonID}`)) {
+		alertMessage(['Ce Pokémon est déjà dans ton équipe', 'alert']);
 	} else {
-		// J'essaie de récupérer le pokémon du localStorage, pour voir si il existe
-		if (localStorage.getItem(`pokemon_${pokemonID}`)) {
-			alertMessage(['Ce Pokémon est déjà dans ton équipe', 'alert']);
-		} else {
-			localStorage.setItem(`pokemon_${pokemonID}`, pokemonID);
-			btn.classList.replace('secondaryButton', 'primaryButton');
-			icon.className = '';
-			icon.classList.add('fa-solid', 'fa-check');
-			alertMessage([`Le Pokémon ${pokemonName} a été ajouté à ton équipe`, 'check']);
-		}
+		localStorage.setItem(`pokemon_${pokemonID}`, pokemonID);
+		btn.classList.replace('secondaryButton', 'primaryButton');
+		icon.className = '';
+		icon.classList.add('fa-solid', 'fa-check');
+		alertMessage([`Le Pokémon ${pokemonName} a été ajouté à ton équipe`, 'check']);
 	}
 }
 
@@ -758,7 +761,7 @@ if (evolutionBtn && aboutBtn) {
 	const aboutSection = document.querySelector('#about');
 	const evolutionSection = document.querySelector('#evolution');
 	evolutionBtn.addEventListener(`click`, () => {
-		if (aboutSection.classList !== 'hidden') {
+		if (aboutSection.classList != 'hidden') {
 			evolutionBtn.classList.add('redText');
 			aboutSection.classList.add('hidden');
 			evolutionSection.classList.remove('hidden');
@@ -767,7 +770,7 @@ if (evolutionBtn && aboutBtn) {
 	});
 
 	aboutBtn.addEventListener(`click`, () => {
-		if (evolutionSection.classList !== 'hidden') {
+		if (evolutionSection.classList != 'hidden') {
 			aboutBtn.classList.add('redText');
 			evolutionSection.classList.add('hidden');
 			aboutSection.classList.remove('hidden');

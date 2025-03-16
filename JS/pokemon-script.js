@@ -13,7 +13,7 @@ getPokemon(url);
 let pokemon = document.querySelector(`.IdPokemon`).textContent;
 pokemon = pokemon.replace('du Pokédex', '');
 // Si ditto existe pas, faire un math floor.  Si le numéro du Pokémon est identique, remplace par Ditto :)
-if (pokemon !== 132) {
+if (pokemon != 132) {
 	const interval = setInterval(() => {
 		const randomNb = Math.floor(Math.random() * 11);
 		if (randomNb === 10) {
@@ -21,5 +21,5 @@ if (pokemon !== 132) {
 			getPokemon(urlText);
 			clearInterval(interval);
 		}
-	}, 100000);
+	}, 10000);
 }
