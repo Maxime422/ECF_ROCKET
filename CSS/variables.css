@@ -80,12 +80,13 @@ h2,
 .titleText {
 	font-size: var(--text-size-extra);
 	font-weight: var(--font-weight-black);
+	display: block;
 }
 
-.subText,
-h3 {
+.subText {
 	font-size: var(--text-size-large);
 	font-weight: var(--font-weight-extra-bold);
+	display: block;
 }
 
 i {
@@ -108,7 +109,7 @@ select {
 }
 
 .secondaryText,
-h3 {
+.subText {
 	color: var(--color-gray);
 	font-weight: var(--font-weight-bold);
 }

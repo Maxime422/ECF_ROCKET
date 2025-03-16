@@ -380,7 +380,7 @@ async function updatePokemonGrid(dataPokemon) {
 /************** Update Species Pokemons Grids **************/
 async function updateSpeciesPokemonGrid(dataSpecies) {
 	try {
-		const name = document.createElement(`h3`);
+		const name = document.createElement(`span`);
 		name.classList.add('secondaryText', 'subText');
 		name.textContent = getName(dataSpecies);
 
