@@ -40,14 +40,14 @@
 
 				<!-- Navigation and Search -->
 				<div class="spaceGap">
-					<button id="darkLightMode">
-						<img src="../IMG/POKEMON__ICONS/Icon-Moon.png" loading="lazy" alt="Icon Dark Light Mode" />
+					<button id="darkLightMode" aria-label="Changer de mode (mode clair ou mode sombre)">
+						<img src="../IMG/POKEMON__ICONS/Icon-Moon.png" loading="lazy" aria-hidden="true" />
 					</button>
 					<form id="searchPokemon">
-						<input id="search" type="search" id="searchInput" required placeholder="Recherche" />
+						<input id="search" type="search" required placeholder="Recherche" />
 						<div>
 							<input type="submit" id="searchSubmit" placeholder="Rechercher" />
-							<i class="fa-solid fa-magnifying-glass"></i>
+							<i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
 						</div>
 					</form>
 					<button class="cta primaryButton" id="teamButton">

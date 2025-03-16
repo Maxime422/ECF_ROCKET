@@ -35,20 +35,20 @@
 		<header class="container">
 			<div id="headerPage">
 				<!-- Logo -->
-				<a href="#">
+				<a href="#" aria-label="Retour à l'accueil">
 					<img src="./IMG/Logo-Pokemon-128.png" alt="Logo RocketDev" />
 				</a>
 
 				<!-- Navigation and Search -->
 				<div class="spaceGap">
-					<button id="darkLightMode">
-						<img src="./IMG/POKEMON__ICONS/Icon-Moon.png" loading="lazy" alt="Icon Dark Light Mode" />
+					<button id="darkLightMode" aria-label="Changer de mode (mode clair ou mode sombre)">
+						<img src="./IMG/POKEMON__ICONS/Icon-Moon.png" loading="lazy" aria-hidden="true" />
 					</button>
 					<form id="searchPokemon">
-						<input id="search" type="search" id="searchInput" required placeholder="Recherche" />
+						<input id="search" type="search" required placeholder="Recherche" />
 						<div>
 							<input type="submit" id="searchSubmit" placeholder="Rechercher" />
-							<i class="fa-solid fa-magnifying-glass"></i>
+							<i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
 						</div>
 					</form>
 					<button class="cta primaryButton" id="teamButton">
@@ -80,11 +80,11 @@
 							<div>
 								<button class="cta secondaryButton" id="addPokemonTeam">
 									Ajouter
-									<i id="addPokemonIcon" class="fa-solid fa-plus"></i>
+									<i id="addPokemonIcon" class="fa-solid fa-plus" aria-hidden="true"></i>
 								</button>
-								<a href="#" id="watchPokemon" class="cta primaryButton">
+								<a href="#" aria-label="Voir le Pokémon" id="watchPokemon" class="cta primaryButton">
 									Voir
-									<i class="fa-solid fa-chevron-right"></i>
+									<i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
 								</a>
 							</div>
 						</nav>
@@ -135,9 +135,9 @@
 							<span class="redText subText">Pokémon à l’affiche aujourd'hui</span>
 							<div class="spaceGap">
 								<!-- Select pokemons -->
-								<a href="./HTML_PAGES/pokedex-pokemon-list.html" id="referech" class="cta primaryButton">
+								<a href="./HTML_PAGES/pokedex-pokemon-list.html" title="Page du Pokédex Pokémon" id="referech" class="cta primaryButton">
 									Voir la liste complète
-									<i class="fa-solid fa-chevron-right"></i>
+									<i class="fa-solid fa-rectangle-list"></i>
 								</a>
 							</div>
 						</div>
@@ -162,21 +162,18 @@
 					</div>
 					<ul>
 						<li class="secondaryText">Navigation</li>
-						<li><a href="#">Accueil</a></li>
-						<li><a href="./HTML_PAGES/pokedex-pokemon-list.html">Pokédex</a></li>
+						<li><a title="Page d'Accueil" href="#">Accueil</a></li>
+						<li><a title="Page du Pokédex" href="./HTML_PAGES/pokedex-pokemon-list.html">Pokédex</a></li>
+						<li><a title="Page de l'Équipe" href="./HTML_PAGES/team-pokemon.html">Équipe</a></li>
 					</ul>
 					<ul>
-						<li class="secondaryText">Ressources</li>
-						<li><a href="./HTML_PAGES/team-pokemon.html">Équipe</a></li>
-						<li><a href="./HTML_PAGES/rgpd.html">Mentions légales</a></li>
+						<li title="Page des Ressources" class="secondaryText">Ressources</li>
+						<li><a title="Page des Mentions légales" href="./HTML_PAGES/rgpd.html">Mentions légales</a></li>
+						<li><a title="Voir le profil GitHub de Maxime422" href="https://github.com/Maxime422">Créateur</a></li>
 					</ul>
 				</div>
 				<div class="secondaryContent">
 					<span>© 2025 - Rocket Dev</span>
-					<div>
-						<span>Langue - fr</span>
-						<span>Cookies</span>
-					</div>
 				</div>
 			</div>
 		</footer>

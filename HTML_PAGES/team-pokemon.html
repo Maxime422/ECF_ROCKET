@@ -24,29 +24,29 @@
 	</head>
 	<body>
 		<!-- Animation on Load -->
-		<!-- <div class="loaderWrapper">
+		<div class="loaderWrapper">
 			<img class="loader" src="../IMG/Pokeball-Image-Color.png" alt="Pokeball animation chargement de page" loading="lazy">
 			<div class="loaderSection sectionLeft"></div>
 			<div class="loaderSection sectionRight"></div>
-		</div> -->
+		</div>
 		<!-- Header page -->
 		<header class="container">
 			<div id="headerPage">
 				<!-- Logo -->
-				<a href="../index.html">
+				<a href="../index.html" aria-label="Retour à l'accueil">
 					<img src="../IMG/Logo-Pokemon-128.png" alt="Logo RocketDev" />
 				</a>
 
 				<!-- Navigation and Search -->
 				<div class="spaceGap">
-					<button id="darkLightMode">
-						<img src="../IMG/POKEMON__ICONS/Icon-Moon.png" loading="lazy" alt="Icon Dark Light Mode" />
+					<button id="darkLightMode" aria-label="Changer de mode (mode clair ou mode sombre)">
+						<img src="../IMG/POKEMON__ICONS/Icon-Moon.png" loading="lazy" aria-hidden="true" />
 					</button>
 					<form id="searchPokemon">
-						<input id="search" type="search" id="searchInput" required placeholder="Recherche" />
+						<input id="search" type="search" required placeholder="Recherche" />
 						<div>
 							<input type="submit" id="searchSubmit" placeholder="Rechercher" />
-							<i class="fa-solid fa-magnifying-glass"></i>
+							<i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
 						</div>
 					</form>
 				</div>
@@ -73,13 +73,13 @@
 							</div>
 							<!-- Add pokemon team -->
 							<div>
-								<button class="cta secondaryButton" id="removePokemon">
+								<button class="cta secondaryButton" aria-label="Supprimer le Pokémon" id="removePokemon">
 									Supprimer
-									<i id="styleIconDelete" class="fa-solid fa-plus"></i>
+									<i id="styleIconDelete" class="fa-solid fa-plus" aria-hidden="true"></i>
 								</button>
-								<a href="#" id="watchPokemon" class="cta primaryButton">
+								<a href="#" aria-label="Voir le Pokémon" id="watchPokemon" class="cta primaryButton">
 									Voir
-									<i class="fa-solid fa-chevron-right"></i>
+									<i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
 								</a>
 							</div>
 						</nav>

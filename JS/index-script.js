@@ -3,20 +3,17 @@
 import {TransformUrl, getData, getPokemon, callListPokemon} from './functions.js';
 
 /************** Call Random Pokemon **************/
-const randomNb = Math.floor(Math.random() * 1025 + 1);
+const randomNb = Math.floor(Math.random() * 1026);
 const urlText = TransformUrl(randomNb);
 // Appelle un pokémon random
 getPokemon(urlText);
 
-
-
-
 // /************** Call Grid Pokemon **************/
 
 // Appelle une liste de 18 Pokémons randoms parmis les 1020 pokémons
-	let randomNbList = Math.floor(Math.random() * 52 + 1);
-	randomNbList = randomNbList * 20;
-	pokemonList(randomNbList);
+let randomNbList = Math.floor(Math.random() * 52);
+randomNbList = randomNbList * 20;
+pokemonList(randomNbList);
 
 async function pokemonList(nb) {
 	try {
@@ -30,4 +27,3 @@ async function pokemonList(nb) {
 		console.error(error.message);
 	}
 }
-

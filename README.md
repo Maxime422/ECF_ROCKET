@@ -1,7 +1,6 @@
 # La Rocket Dev Pokédex – L’outil web ultime pour tous les dresseurs Pokémon
 
-![Visuel Figma Maquette](
-./IMG/visual-presentation.png)
+![Visuel Figma Maquette](./IMG/visual-presentation.png)
 
 ## 🚀 Description
 
@@ -9,7 +8,7 @@ Le Pokédex de La Rocket Dev, l’outil idéal pour tout dresseur en formation !
 
 ## 🎨 Identité Visuelle
 
-- **Couleur principale :** Red : ` #E3455A`
+- **Couleur principale :** Red : `#E3455A`
 - **Couleur secondaire :** Noir : `#1B1925`
 - **Blanc :** `#FAFAFA`
 - **Noir :** `#0D0A16`

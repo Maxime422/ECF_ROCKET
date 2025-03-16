@@ -68,7 +68,8 @@ body {
 	border: none;
 }
 
-button, select {
+button,
+select {
 	all: unset;
 	display: inline-block;
 }

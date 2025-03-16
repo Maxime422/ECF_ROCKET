@@ -544,6 +544,7 @@ function getType(dataPokemon) {
 		const icon1 = document.createElement('img');
 		// Récupère l'url de l'icon depuis l'objet pokemonTypes
 		icon1.src = `${getUrl()}${pokemonTypes[typePokemon1].icon}`;
+		icon1.setAttribute(`role`, `presentation`);
 
 		const circle1 = document.createElement('div');
 		circle1.append(icon1);
@@ -562,6 +563,7 @@ function getType(dataPokemon) {
 
 			const icon2 = document.createElement('img');
 			icon2.src = `${getUrl()}${pokemonTypes[typePokemon2].icon}`;
+			icon2.setAttribute(`role`, `presentation`);
 			const circle2 = document.createElement('div');
 			circle2.append(icon2);
 			styleType2.style.backgroundColor = `var(${pokemonTypes[typePokemon2].color})`;

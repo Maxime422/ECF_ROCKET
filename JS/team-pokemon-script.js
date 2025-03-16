@@ -33,8 +33,7 @@ function Team(data, btn) {
 		const classBtn = document.querySelector('.circleActive');
 		classBtn.classList.remove('circleActive');
 		btn.classList.add('circleActive');
-	}
-	else {
+	} else {
 		location.assign(`../index.html`);
 	}
 }
