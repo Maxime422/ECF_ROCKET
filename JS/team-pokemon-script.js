@@ -20,10 +20,13 @@ teamPokemon();
 // Bouton de suppression du pokémon
 const removeBtn = document.querySelector('#removePokemon');
 removeBtn.addEventListener('click', removePokemon);
+const icon = document.querySelector('#styleIconDelete');
 
 /************** Get Pokemon and add Class Active **************/
 function Team(data, btn) {
-	removeBtn.classList.replace('primaryButton', 'secondaryButton');
+	removeBtn.classList.replace('disableButton', 'secondaryButton');
+	icon.className = '';
+	icon.classList.add('fa-solid', 'fa-xmark');
 	// Récupère la clé du pokémon via le numéro (1,2,3...)
 	if (data) {
 		// Si la clé existe alors, je l'envoie à getPokemon()
@@ -87,6 +90,18 @@ btn6.addEventListener(`click`, () => {
 	}
 });
 
+function Update() {
+	for (let i = 0; i < 6; i++) {
+		const btn = document.querySelector(`#pokemon${i + 1}`);
+		if (teamPokemons[i]) {
+			btn.classList.add('activeHover');
+		} else {
+			btn.classList.remove('activeHover');
+		}
+	}
+}
+Update();
+
 // Ajoute d'office le pokémon 1
 Team(teamPokemons[0], btn1);
 /************** Remove Pokemon List **************/
@@ -104,9 +119,10 @@ function removePokemon() {
 				teamPokemon();
 
 				removeBtn.classList.replace('secondaryButton', 'disableButton');
-				const icon = document.querySelector('#styleIconDelete');
 				icon.className = '';
-				icon.classList.add('fa-solid', 'fa-xmark');
+				icon.classList.add('fa-solid', 'fa-check');
+
+				Update();
 				break;
 			}
 		}

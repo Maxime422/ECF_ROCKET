@@ -196,13 +196,14 @@ function TransformUrl(urlPokemon) {
 async function getPokemon(urlText) {
 	// Fetch les données du pokémon
 	const dataPokemon = await getData(urlText[0]);
+	if (dataPokemon === null) {
+		location.assign(`${getUrl()}error-page.html`);
+	}
 	const dataSpecies = await getData(urlText[1]);
 	if (dataPokemon && dataSpecies) {
 		// Appelle les structures des Pokémon
 		await updatePokemon(dataPokemon);
 		await updateSpeciesPokemon(dataSpecies);
-	} else {
-		location.assign(`${getUrl()}error-page.html`);
 	}
 }
 
@@ -661,7 +662,7 @@ if (form) {
 				break;
 			case 'base':
 				localStorage.setItem('sprites', 'base');
-				alertMessage(['Ils sont beaux pourtant, non ?','easter-egg']);
+				alertMessage(['Ils sont beaux pourtant, non ?', 'easter-egg']);
 				setTimeout(() => {
 					location.reload();
 				}, 2200);
@@ -680,7 +681,7 @@ async function searchPokemon(data) {
 		// Fonction de recherche de pokemon, si pokemon existe, alors je change de page
 		const url = await getData(`https://pokeapi.co/api/v2/pokemon/${data}`);
 		if (url === null || url === undefined) {
-			alertMessage([`Aucun Pokémon existant pour ${data}`,'remove']);
+			alertMessage([`Aucun Pokémon existant pour ${data}`, 'remove']);
 		} else {
 			location.assign(`${getUrl()}pokemon.html?p=${data}`);
 		}
@@ -720,17 +721,17 @@ function addPokemon() {
 	pokemonID = pokemonID.replace(' du Pokédex', '');
 
 	if (localStorage.length >= 8) {
-		alertMessage(["L'équipe est déjà au maximum (6 Pokémon)",'alert']);
+		alertMessage(["L'équipe est déjà au maximum (6 Pokémon)", 'alert']);
 	} else {
 		// J'essaie de récupérer le pokémon du localStorage, pour voir si il existe
 		if (localStorage.getItem(`pokemon_${pokemonID}`)) {
-			alertMessage(['Ce Pokémon est déjà dans ton équipe','alert']);
+			alertMessage(['Ce Pokémon est déjà dans ton équipe', 'alert']);
 		} else {
 			localStorage.setItem(`pokemon_${pokemonID}`, pokemonID);
 			btn.classList.replace('secondaryButton', 'primaryButton');
 			icon.className = '';
 			icon.classList.add('fa-solid', 'fa-check');
-			alertMessage([`Le Pokémon ${pokemonName} a été ajouté à ton équipe`,'check']);
+			alertMessage([`Le Pokémon ${pokemonName} a été ajouté à ton équipe`, 'check']);
 		}
 	}
 }
@@ -742,7 +743,7 @@ if (pokemon) {
 	// Si j'ai des pokemons dans mon équipe, je peux accéder à la liste des pokémons
 	pokemon.addEventListener(`click`, () => {
 		if (window.localStorage.length < 3) {
-			alertMessage(['Pas encore de Pokémon','alert']);
+			alertMessage(['Pas encore de Pokémon', 'alert']);
 		} else {
 			location.assign(`${getUrl()}team-pokemon.html`);
 		}
@@ -803,9 +804,9 @@ function alertMessage(message) {
 			icon.classList.add('fa-solid', 'fa-xmark');
 			break;
 
-			case 'easter-egg':
-				icon.classList.add('fa-solid', 'fa-medal');
-				break;
+		case 'easter-egg':
+			icon.classList.add('fa-solid', 'fa-medal');
+			break;
 
 		default:
 			icon.classList.add('fa-solid', 'fa-circle-info');

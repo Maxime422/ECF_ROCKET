@@ -4,6 +4,13 @@
 }
 
 /************** Header **************/
+#sticky {
+	position: sticky;
+	top: 0;
+	z-index: 1000;
+	background-color: var(--color-black);
+}
+
 #headerPage {
 	padding: var(--padding-top-bottom-medium);
 	display: flex;
@@ -86,8 +93,7 @@ input #darkLightMode {
 	color: var(--color-white-only);
 }
 
-.primaryButton:hover,
-.circleActive:hover {
+.primaryButton:hover {
 	background-color: var(--color-red-2);
 }
 
@@ -107,22 +113,33 @@ input #darkLightMode {
 }
 
 /* Team Pokémon */
-.secondaryButton:hover,
-.circle:not(.circleActive):hover {
-	background-color: var(--color-black-2);
-}
-
-.circle:not(.circleActive):hover {
-	transition: transform 0.1s ease-in-out;
+.secondaryButton:hover {
 	background-color: var(--color-gray-1);
 }
 
-/************** Zf **************/
-/* Variables Bg color */
-.bgColor {
-	background-color: var(--dynamic-color);
+.activeHover {
+	background-color: var(--color-gray);
 }
 
+/* Icônes de pokéballs pour l'équipe */
+.circle {
+	padding: var(--padding-small);
+	border-radius: 50%;
+	width: auto;
+	height: 2rem;
+	transition: transform 0.4s ease-in-out;
+}
+
+.circle:not(.circleActive):not(.activeHover) {
+background-color: var(--color-black-2);
+}
+
+.circleActive,
+.activeHover:not(.circleActive):hover {
+	background-color: var(--color-red-1);
+}
+
+/************** Zf **************/
 /* Zf sur toutes les pages */
 #zf {
 	position: relative;
@@ -215,19 +232,6 @@ input #darkLightMode {
 	display: flex;
 	gap: var(--gap-medium);
 	flex-wrap: wrap;
-}
-
-/* Icônes de pokéballs pour l'équipe */
-.circle {
-	background-color: var(--color-gray);
-	padding: var(--padding-small);
-	border-radius: 50%;
-	width: auto;
-	height: 2rem;
-}
-
-.circleActive {
-	background-color: var(--color-red-1);
 }
 
 /* Page d'erreur */
