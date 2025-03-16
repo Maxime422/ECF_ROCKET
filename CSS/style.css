@@ -43,10 +43,12 @@
 form {
 	display: flex;
 	align-items: center;
+	gap: var(--gap-small);
 }
 
 #searchSubmit {
 	opacity: 0;
+	width: 3rem;
 	z-index: 1;
 }
 
@@ -571,6 +573,11 @@ ul {
 	transition: all 0.4s ease-out;
 }
 
+fieldset {
+	display: flex;
+	gap: var(--gap-small);
+}
+
 /* Animation de disparition */
 .loaded .loaderWrapper .loaderSection.sectionLeft {
 	transform: translateX(-100%);
@@ -654,7 +661,13 @@ ul {
 	}
 
 	#pokemonPromoted #header .spaceGap {
+		gap: var(--gap-small);
 		justify-content: center;
+		flex-wrap: wrap;
+	}
+
+	#pokemonPromoted #header legend {
+		padding-bottom: var(--padding-small);
 	}
 
 	#pokemonPromoted #gridPokemon article {
@@ -713,12 +726,13 @@ ul {
 /* Media 768px tablette */
 @media (max-width: 768px) {
 	#headerPage .spaceGap {
-		display: none;
+		gap: var(--gap-small);
 	}
-	#headerPage {
-		display: flex;
-		justify-content: space-between;
+
+	#headerPage #search {
+		width: 8rem;
 	}
+
 	#pokemonPromoted #gridPokemon {
 		grid-template-columns: 1fr;
 	}
@@ -744,8 +758,45 @@ ul {
 
 /* Media 520px smartphone */
 @media (max-width: 520px) {
+	#headerPage {
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: auto min-content;
+		flex-wrap: wrap;
+		gap: var(--gap-small);
+	}
+
+	#headerPage a {
+		justify-self: center;
+	}
+
+	#headerPage .spaceGap {
+		display: grid;
+		grid-template-columns: min-content 1fr min-content;
+		gap: var(--gap-small);
+		grid-template-rows: min-content;
+		justify-content: space-between;
+		width: 100%;
+	}
+
+	#headerPage form {
+		grid-column: 2/3;
+	}
+	#headerPage #search {
+		width: 100%;
+		min-width: 4rem;
+	}
+
+	#headerPage #teamButton {
+		grid-column: 3/4;
+	}
+
+	#headerPage #teamButton span {
+		display: none;
+	}
+
 	#zf {
-		grid-template-rows: auto 1fr;
+		grid-template-rows: 40rem 1fr;
 	}
 	.sectionCardNav div {
 		width: 100%;

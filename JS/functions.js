@@ -639,9 +639,6 @@ function statsPokemon(dataPokemon) {
 		}
 	} catch (error) {
 		console.error(error.message);
-		const message = (document.createElement('span').textContent = 'Pas de statistiques');
-		statContainer.appendChild(message);
-		return message;
 	}
 }
 

@@ -108,8 +108,7 @@ select {
 	font-weight: var(--font-weight-bold);
 }
 
-.secondaryText,
-.subText {
+.secondaryText {
 	color: var(--color-gray);
 	font-weight: var(--font-weight-bold);
 }
