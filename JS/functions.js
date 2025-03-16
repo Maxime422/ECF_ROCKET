@@ -723,16 +723,17 @@ function addPokemon() {
 
 	if (localStorage.length >= 8) {
 		alertMessage(["L'équipe est déjà au maximum (6 Pokémon)", 'alert']);
-	}
-	// J'essaie de récupérer le pokémon du localStorage, pour voir si il existe
-	else if (localStorage.getItem(`pokemon_${pokemonID}`)) {
-		alertMessage(['Ce Pokémon est déjà dans ton équipe', 'alert']);
 	} else {
-		localStorage.setItem(`pokemon_${pokemonID}`, pokemonID);
-		btn.classList.replace('secondaryButton', 'primaryButton');
-		icon.className = '';
-		icon.classList.add('fa-solid', 'fa-check');
-		alertMessage([`Le Pokémon ${pokemonName} a été ajouté à ton équipe`, 'check']);
+		// J'essaie de récupérer le pokémon du localStorage, pour voir si il existe
+		if (localStorage.getItem(`pokemon_${pokemonID}`)) {
+			alertMessage(['Ce Pokémon est déjà dans ton équipe', 'alert']);
+		} else {
+			localStorage.setItem(`pokemon_${pokemonID}`, pokemonID);
+			btn.classList.replace('secondaryButton', 'primaryButton');
+			icon.className = '';
+			icon.classList.add('fa-solid', 'fa-check');
+			alertMessage([`Le Pokémon ${pokemonName} a été ajouté à ton équipe`, 'check']);
+		}
 	}
 }
 
