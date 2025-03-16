@@ -25,16 +25,15 @@
 	<body>
 		<!-- Animation on Load -->
 		<div class="loaderWrapper">
-			<img class="loader" src="../IMG/Pokeball-Image-Color.png" alt="Pokeball animation chargement de page" loading="lazy" />
+			<img class="loader" src="../IMG/Pokeball-Image-Color.png" alt="Pokeball animation chargement de page" />
 			<div class="loaderSection sectionLeft"></div>
 			<div class="loaderSection sectionRight"></div>
 		</div>
-
 		<!-- Header page -->
 		<header class="container">
 			<div id="headerPage">
 				<!-- Logo -->
-				<a href="../index.html">
+				<a href="../index.html" aria-label="Retour à l'accueil">
 					<img src="../IMG/Logo-Pokemon-128.png" alt="Logo RocketDev" />
 				</a>
 
@@ -43,39 +42,63 @@
 					<button id="darkLightMode" aria-label="Changer de mode (mode clair ou mode sombre)">
 						<img src="../IMG/POKEMON__ICONS/Icon-Moon.png" loading="lazy" aria-hidden="true" />
 					</button>
-					<form id="searchPokemon">
-						<input id="search" type="search" required placeholder="Recherche" />
-						<div>
-							<input type="submit" id="searchSubmit" placeholder="Rechercher" />
-							<i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-						</div>
-					</form>
-					<button class="cta primaryButton" id="teamButton">
-						Équipe
-						<i id="styleIcon" class="fa-solid fa-certificate"></i>
-					</button>
 				</div>
 			</div>
 		</header>
-
 		<!-- Main -->
 		<main>
 			<section class="bgColor">
 				<div id="zf" class="container">
 					<div id="alertMessage" class="containerColor">
-						<i id="styleIconAlert" class="fa-solid fa-plus redText"></i>
+						<i id="styleIconAlert" class="fa-solid fa-plus redText" aria-hidden="true"></i>
 						<span id="alertMessageText"></span>
 					</div>
 					<!-- Section informations pokemon Zf -->
-					<div>
+					<div class="PokemonInfos">
 						<!-- Name pokemon -->
-						<h2>Erreur, un Missingno est apparu !</h2>
-						<span>Hé, attends! Ne pars pas! C'est super dangereux! Des Pokémon sauvages infestent les hautes herbes! Il te faut un Pokémon pour te protéger... Je sais! Suis-moi!</span>
-						<a href="../index.html" class="cta primaryButton">Revenir en lieu sûr</a>
+						<h2 class="PokemonName">Erreur 404, un Missingno est apparu !</h2>
+						<span class="IdPokemon">"C'est trop dangereux ici, tu dois partir avant qu'il ne soit trop tard !"</span>
+
+						<nav class="sectionCardNav">
+							<!-- Add pokemon team -->
+							<div>
+								<a href="../index.html" aria-label="Revenir à l'accueil" class="cta primaryButton">
+									Revenir en lieu sûr
+									<i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+								</a>
+							</div>
+						</nav>
+						<div class="sectionInformations">
+							<div class="sectionType">
+								<span class="secondaryText subText">Type</span>
+								<!-- Type pokemon -->
+								<div id="typesPokemons">???</div>
+							</div>
+							<!-- Skills pokemon -->
+							<div class="sectionTalent">
+								<span class="secondaryText subText">Talent</span>
+								<span class="talentPokemon subText">???</span>
+							</div>
+							<!-- Generation pokemon -->
+							<div class="sectionGen">
+								<span class="secondaryText subText">Région</span>
+								<span class="location subText">???</span>
+							</div>
+						</div>
+						<!-- Description pokemon -->
+						<div class="sectionDescription">
+							<span class="secondaryText subText">Description</span>
+							<span class="description">???</span>
+						</div>
+						<!-- Stats pokemon -->
+						<div class="sectionsStatistiques">
+							<span class="secondaryText subText">Statistiques</span>
+							<div class="statistiques containerColor">???</div>
+						</div>
 					</div>
 					<!-- Img pokemon -->
 					<figure id="figurePokemonZf">
-						<img src="../IMG/Missingo-Pokemon-Image.png" id="imgPokemon" alt="Pokemon de présentation" />
+						<img src="../IMG/Missingo-Pokemon-Image.png" id="Missingno" alt="Sprite du pokémon Missingno" />
 					</figure>
 				</div>
 			</section>
@@ -88,33 +111,30 @@
 					<div>
 						<h2>Une aventure inoubliable</h2>
 						<p>
-							Le Pokédex de Rocket Dev, l’outil idéal pour tout dresseur en formation ! Explorez, découvrez et apprenez tout sur vos Pokémon préférés, de Bulbizarre à Dracaufeu en
+							Le Pokédex de La Rocket Dev, l’outil idéal pour tout dresseur en formation ! Explorez, découvrez et apprenez tout sur vos Pokémon préférés, de Bulbizarre à Dracaufeu en
 							passant par Pikachu !
 						</p>
 					</div>
 					<ul>
 						<li class="secondaryText">Navigation</li>
-						<li><a href="../index.html">Accueil</a></li>
-						<li><a href="./pokedex-pokemon-list.html">Pokédex</a></li>
+						<li><a title="Page d'Accueil" href="../index.html">Accueil</a></li>
+						<li><a title="Page du Pokédex" href="./pokedex-pokemon-list.html">Pokédex</a></li>
+						<li><a title="Page de l'Équipe" href="./team-pokemon.html">Équipe</a></li>
 					</ul>
 					<ul>
-						<li class="secondaryText">Ressources</li>
-						<li><a href="./team-pokemon.html">Équipe</a></li>
-						<li><a href="./rgpd.html">Mentions légales</a></li>
+						<li title="Page des Ressources" class="secondaryText">Ressources</li>
+						<li><a title="Page des Mentions légales" href="./rgpd.html">Mentions légales</a></li>
+						<li><a title="Voir le profil GitHub de Maxime422" href="https://github.com/Maxime422">Créateur</a></li>
 					</ul>
 				</div>
 				<div class="secondaryContent">
 					<span>© 2025 - Rocket Dev</span>
-					<div>
-						<span>Langue - fr</span>
-						<span>Cookies</span>
-					</div>
 				</div>
 			</div>
 		</footer>
 
 		<!-- Script JS -->
-		<script type="module" src="../JS/index-script.js"></script>
+		<script type="module" src="../JS/error-page-script.js"></script>
 		<script type="module" src="../JS/functions.js"></script>
 		<script>
 			window.addEventListener('load', () => {

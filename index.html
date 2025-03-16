@@ -51,9 +51,10 @@
 							<i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
 						</div>
 					</form>
-					<button class="cta primaryButton" id="teamButton">
+					<!-- Button Team -->
+					<button class="cta primaryButton" id="teamButton" aria-label="Gérer l'équipe Pokémon">
 						Équipe
-						<i id="styleIcon" class="fa-solid fa-certificate"></i>
+						<i id="styleIcon" class="fa-solid fa-certificate" aria-hidden="true"></i>
 					</button>
 				</div>
 			</div>
@@ -63,7 +64,7 @@
 			<section class="bgColor">
 				<div id="zf" class="container">
 					<div id="alertMessage" class="containerColor">
-						<i id="styleIconAlert" class="fa-solid fa-plus redText"></i>
+						<i id="styleIconAlert" class="fa-solid fa-plus redText" aria-hidden="true"></i>
 						<span id="alertMessageText"></span>
 					</div>
 					<!-- Section informations pokemon Zf -->
@@ -74,11 +75,11 @@
 
 						<nav class="sectionCardNav">
 							<div>
-								<button id="about" class="subText redText">À propos</button>
+								<span id="about" class="subText redText">À propos</span>
 							</div>
 							<!-- Add pokemon team -->
 							<div>
-								<button class="cta secondaryButton" id="addPokemonTeam">
+								<button class="cta secondaryButton" aria-label="Ajouter un Pokémon à l'équipe" id="addPokemonTeam">
 									Ajouter
 									<i id="addPokemonIcon" class="fa-solid fa-plus" aria-hidden="true"></i>
 								</button>
@@ -113,21 +114,21 @@
 						<!-- Stats pokemon -->
 						<div class="sectionsStatistiques">
 							<span class="secondaryText subText">Statistiques</span>
-							<div class="statistiques zones"></div>
+							<div class="statistiques containerColor"></div>
 						</div>
 					</div>
 					<!-- Img pokemon -->
 					<figure id="figurePokemonZf">
 						<img src="#" id="imgPokemon" alt="Pokemon de présentation" />
-						<div id="bgPokeball"></div>
+						<div id="bgPokeball" aria-hidden="true"></div>
 					</figure>
 				</div>
 			</section>
 
-			<!-- Pokemon on the bill -->
+			<!-- Pokemon on the Featured -->
 			<section id="pokemonPromoted">
 				<div class="container">
-					<header>
+					<div id="header">
 						<h1>Pokédex Pokemon</h1>
 						<p>Retrouvez tous vos Pokémons préférés !</p>
 
@@ -135,13 +136,13 @@
 							<span class="redText subText">Pokémon à l’affiche aujourd'hui</span>
 							<div class="spaceGap">
 								<!-- Select pokemons -->
-								<a href="./HTML_PAGES/pokedex-pokemon-list.html" title="Page du Pokédex Pokémon" id="referech" class="cta primaryButton">
+								<a href="./HTML_PAGES/pokedex-pokemon-list.html" title="Page du Pokédex Pokémon" class="cta primaryButton">
 									Voir la liste complète
-									<i class="fa-solid fa-rectangle-list"></i>
+									<i class="fa-solid fa-rectangle-list" aria-hidden="true"></i>
 								</a>
 							</div>
 						</div>
-					</header>
+					</div>
 
 					<!-- Grid pokedex -->
 					<div class="grid" id="gridPokemon"></div>
@@ -177,7 +178,6 @@
 				</div>
 			</div>
 		</footer>
-
 		<!-- Script JS -->
 		<script type="module" src="./JS/index-script.js"></script>
 		<script type="module" src="./JS/functions.js"></script>

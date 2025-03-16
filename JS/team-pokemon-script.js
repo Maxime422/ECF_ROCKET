@@ -99,7 +99,7 @@ function removePokemon() {
 			// Si le pokémon a la class circleActive, alors je supprime le pokémon de la liste
 			if (pokemon.classList.contains('circleActive')) {
 				localStorage.removeItem(`pokemon_${pokemonKey}`);
-				alertMessage('Votre pokémon est parti rejoindre le Professeur Chen');
+				alertMessage(['Votre pokémon est parti rejoindre le Professeur Chen', 'check']);
 				teamPokemons.splice(i, 1);
 				teamPokemon();
 

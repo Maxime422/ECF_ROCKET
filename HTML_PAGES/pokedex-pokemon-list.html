@@ -34,7 +34,7 @@
 		<header class="container">
 			<div id="headerPage">
 				<!-- Logo -->
-				<a href="../index.html">
+				<a href="../index.html" aria-label="Retour à l'accueil">
 					<img src="../IMG/Logo-Pokemon-128.png" alt="Logo RocketDev" />
 				</a>
 
@@ -50,9 +50,9 @@
 							<i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
 						</div>
 					</form>
-					<button class="cta primaryButton" id="teamButton">
+					<button class="cta primaryButton" id="teamButton" aria-label="Gérer l'équipe Pokémon">
 						Équipe
-						<i id="styleIcon" class="fa-solid fa-certificate"></i>
+						<i id="styleIcon" class="fa-solid fa-certificate" aria-hidden="true"></i>
 					</button>
 				</div>
 			</div>
@@ -60,22 +60,22 @@
 
 		<!-- Main -->
 		<main>
-			<!-- Pokemon on the bill -->
+			<!-- Pokemon on the Featured -->
 			<section id="pokemonPromoted">
 				<div class="container">
 					<div id="alertMessage" class="containerColor">
 						<i id="styleIconAlert" class="fa-solid fa-plus redText"></i>
 						<span id="alertMessageText"></span>
 					</div>
-					<header>
+					<div id="header">
 						<h1>Pokédex Pokemon</h1>
 						<p>Retrouvez tout vos Pokémons préférés !</p>
 
 						<div>
 							<span class="subText redText" id="placeText">Voici les Pokémons de : Kanto</span>
-							<div class="spaceGap">
+							<fieldset class="spaceGap">
 								<!-- Select pokemons -->
-								<select name="GenSelecting" id="GenSelecting" class="cta secondaryButton">
+								<select name="GenSelecting" id="GenSelecting" class="cta secondaryButton" aria-label="Sélectionner la région">
 									<option value="kanto">Trier par région</option>
 									<option value="national">National</option>
 
@@ -95,7 +95,7 @@
 									<option value="updated-alola">Alola (Update)</option>
 								</select>
 
-								<select name="TypeSelecting" id="TypeSelecting" class="cta secondaryButton">
+								<select name="TypeSelecting" id="TypeSelecting" class="cta secondaryButton" aria-label="Sélectionner le type">
 									<option value="1">Trier par Type</option>
 									<option value="1">Normal</option>
 									<option value="2">Combat</option>
@@ -116,9 +116,9 @@
 									<option value="17">Ténèbre</option>
 									<option value="18">Fée</option>
 								</select>
-							</div>
+							</fieldset>
 						</div>
-					</header>
+					</div>
 
 					<!-- Grid pokedex -->
 					<div class="grid" id="gridPokemon"></div>
@@ -133,27 +133,24 @@
 					<div>
 						<h2>Une aventure inoubliable</h2>
 						<p>
-							Le Pokédex de Rocket Dev, l’outil idéal pour tout dresseur en formation ! Explorez, découvrez et apprenez tout sur vos Pokémon préférés, de Bulbizarre à Dracaufeu en
+							Le Pokédex de La Rocket Dev, l’outil idéal pour tout dresseur en formation ! Explorez, découvrez et apprenez tout sur vos Pokémon préférés, de Bulbizarre à Dracaufeu en
 							passant par Pikachu !
 						</p>
 					</div>
 					<ul>
 						<li class="secondaryText">Navigation</li>
-						<li><a href="../index.html">Accueil</a></li>
-						<li><a href="./pokedex-pokemon-list.html">Pokédex</a></li>
+						<li><a title="Page d'Accueil" href="../index.html">Accueil</a></li>
+						<li><a title="Page du Pokédex" href="./pokedex-pokemon-list.html">Pokédex</a></li>
+						<li><a title="Page de l'Équipe" href="./team-pokemon.html">Équipe</a></li>
 					</ul>
 					<ul>
-						<li class="secondaryText">Ressources</li>
-						<li><a href="./team-pokemon.html">Équipe</a></li>
-						<li><a href="./rgpd.html">Mentions légales</a></li>
+						<li title="Page des Ressources" class="secondaryText">Ressources</li>
+						<li><a title="Page des Mentions légales" href="./rgpd.html">Mentions légales</a></li>
+						<li><a title="Voir le profil GitHub de Maxime422" href="https://github.com/Maxime422">Créateur</a></li>
 					</ul>
 				</div>
 				<div class="secondaryContent">
 					<span>© 2025 - Rocket Dev</span>
-					<div>
-						<span>Langue - fr</span>
-						<span>Cookies</span>
-					</div>
 				</div>
 			</div>
 		</footer>

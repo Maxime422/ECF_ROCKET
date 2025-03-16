@@ -50,9 +50,9 @@
 							<i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
 						</div>
 					</form>
-					<button class="cta primaryButton" id="teamButton">
+					<button class="cta primaryButton" id="teamButton" aria-label="Gérer l'équipe Pokémon">
 						Équipe
-						<i id="styleIcon" class="fa-solid fa-certificate"></i>
+						<i id="styleIcon" class="fa-solid fa-certificate" aria-hidden="true"></i>
 					</button>
 				</div>
 			</div>
@@ -73,8 +73,8 @@
 
 						<nav class="sectionCardNav">
 							<div>
-								<button id="aboutBtn" class="subText redText">À propos</button>
-								<button id="evolutionBtn" class="subText">Évolution</button>
+								<button id="aboutBtn" title="Informations sur le Pokémon" class="subText redText">À propos</button>
+								<button id="evolutionBtn" title="Évolutions du Pokémon" class="subText">Évolution</button>
 							</div>
 							<!-- Add pokemon team -->
 							<div>
@@ -110,7 +110,7 @@
 							<!-- Stats pokemon -->
 							<div class="sectionsStatistiques">
 								<span class="secondaryText subText">Statistiques</span>
-								<div class="statistiques zones"></div>
+								<div class="statistiques containerColor"></div>
 							</div>
 						</div>
 						<div id="evolution" class="hidden">
@@ -122,7 +122,7 @@
 					<!-- Img pokemon -->
 					<figure id="figurePokemonZf">
 						<img src="#" id="imgPokemon" alt="Pokemon de présentation" />
-						<div id="bgPokeball"></div>
+						<div id="bgPokeball" aria-hidden="true"></div>
 					</figure>
 				</div>
 			</section>
@@ -135,27 +135,24 @@
 					<div>
 						<h2>Une aventure inoubliable</h2>
 						<p>
-							Le Pokédex de Rocket Dev, l’outil idéal pour tout dresseur en formation ! Explorez, découvrez et apprenez tout sur vos Pokémon préférés, de Bulbizarre à Dracaufeu en
+							Le Pokédex de La Rocket Dev, l’outil idéal pour tout dresseur en formation ! Explorez, découvrez et apprenez tout sur vos Pokémon préférés, de Bulbizarre à Dracaufeu en
 							passant par Pikachu !
 						</p>
 					</div>
 					<ul>
 						<li class="secondaryText">Navigation</li>
-						<li><a href="../index.html">Accueil</a></li>
-						<li><a href="./pokedex-pokemon-list.html">Pokédex</a></li>
+						<li><a title="Page d'Accueil" href="../index.html">Accueil</a></li>
+						<li><a title="Page du Pokédex" href="./pokedex-pokemon-list.html">Pokédex</a></li>
+						<li><a title="Page de l'Équipe" href="./team-pokemon.html">Équipe</a></li>
 					</ul>
 					<ul>
-						<li class="secondaryText">Ressources</li>
-						<li><a href="./team-pokemon.html">Équipe</a></li>
-						<li><a href="./rgpd.html">Mentions légales</a></li>
+						<li title="Page des Ressources" class="secondaryText">Ressources</li>
+						<li><a title="Page des Mentions légales" href="./rgpd.html">Mentions légales</a></li>
+						<li><a title="Voir le profil GitHub de Maxime422" href="https://github.com/Maxime422">Créateur</a></li>
 					</ul>
 				</div>
 				<div class="secondaryContent">
 					<span>© 2025 - Rocket Dev</span>
-					<div>
-						<span>Langue - fr</span>
-						<span>Cookies</span>
-					</div>
 				</div>
 			</div>
 		</footer>
