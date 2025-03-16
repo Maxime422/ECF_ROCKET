@@ -66,6 +66,10 @@ form > div i {
 	border-radius: var(--border-radius-small);
 }
 
+.label {
+	display: hidden;
+}
+
 /************** Buttons and Inputs **************/
 .cta,
 #search {
