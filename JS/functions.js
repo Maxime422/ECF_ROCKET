@@ -5,6 +5,7 @@ let toggle = '';
 if (localStorage.getItem('sprites')) {
 	toggle = localStorage.getItem('sprites');
 } else {
+	localStorage.setItem('sprites', 'base');
 	toggle = 'base';
 }
 
@@ -713,7 +714,7 @@ function addPokemon() {
 	let pokemonID = document.querySelector('.IdPokemon').textContent;
 	pokemonID = pokemonID.replace(' du Pokédex', '');
 
-	if (localStorage.length >= 7) {
+	if (localStorage.length >= 8) {
 		alertMessage("L'équipe est déjà au maximum (6 Pokémon)");
 	} else {
 		// J'essaie de récupérer le pokémon du localStorage, pour voir si il existe
@@ -729,12 +730,13 @@ function addPokemon() {
 	}
 }
 
+console.log(localStorage);
 /************** Team Button **************/
 const pokemon = document.querySelector('#teamButton');
 if (pokemon) {
 	// Si j'ai des pokemons dans mon équipe, je peux accéder à la liste des pokémons
 	pokemon.addEventListener(`click`, () => {
-		if (window.localStorage.length < 2) {
+		if (window.localStorage.length < 3) {
 			alertMessage('Pas encore de Pokémon');
 		} else {
 			location.assign(`${getUrl()}team-pokemon.html`);
