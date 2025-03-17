@@ -2,6 +2,7 @@
 
 // Easter egg pour changer les sprites (voir ligne 633)
 let toggle = '';
+// Récupère le sprite, si aucune key sprite, alors ajoute ajoute le base
 if (localStorage.getItem('sprites')) {
 	toggle = localStorage.getItem('sprites');
 } else {
@@ -12,9 +13,7 @@ if (localStorage.getItem('sprites')) {
 // Véfifie si il y a bien un theme dans le localStorage, si aucun, alors ajoute un theme
 if (localStorage.getItem('theme')) {
 	const theme = localStorage.getItem('theme');
-	if (theme === 'dark') {
-		LightDark(theme);
-	}
+	LightDark(theme);
 } else {
 	localStorage.setItem('theme', 'dark');
 }
@@ -30,6 +29,8 @@ document.querySelector(`#darkLightMode`).addEventListener(`click`, () => {
 		} else {
 			LightDark('dark');
 		}
+	} else {
+		localStorage.setItem('theme', 'dark');
 	}
 });
 
@@ -39,6 +40,8 @@ function LightDark(theme) {
 	// Je récupère mon icon light ou darkMode
 	const icon = document.querySelector(`#darkLightMode img`);
 	const linkMode = mode.getAttribute(`href`);
+	// Récupère la partie ./ ou ../ du href linkMode, on parcours pour chercher "CSS/" une fois récupérer on récupère une string de 0 jusqu'à CSS/
+	// (Si besoin, c'est la même fonction que celle de mon projet Dashboard Manger)
 	const pathPrefix = linkMode.substring(0, linkMode.indexOf('CSS/'));
 
 	const light = `${pathPrefix}CSS/light-mode.css`;
@@ -48,12 +51,15 @@ function LightDark(theme) {
 	if (theme === 'dark') {
 		mode.setAttribute(`href`, `${dark}`);
 		icon.src = `${pathPrefix}IMG/POKEMON__ICONS/Icon-Moon.png`;
+		// Ajoute le theme dark au localStorage
 		localStorage.setItem('theme', 'dark');
 
 		// Si le theme actuel est light, alors on set le mode en light et on change l'icon
 	} else if (theme === 'light') {
 		mode.setAttribute(`href`, `${light}`);
 		icon.src = `${pathPrefix}IMG/POKEMON__ICONS/Icon-Sun.png`;
+
+		// Ajoute le theme light au localStorage
 		localStorage.setItem('theme', 'light');
 	} else {
 		console.log(`Erreur inattendue lors du changement de mode`);
@@ -156,6 +162,7 @@ const pokemonTypes = {
 
 /************** Get URL and Return Page Location **************/
 function getUrl() {
+	// Permet de récupérer l'url sans les paramètres et en fonction de renvoyer la bonne partie de l'url courante
 	const url = window.location.pathname;
 	if (url.includes('/HTML_PAGES/')) {
 		return `./`;
@@ -195,11 +202,12 @@ async function getPokemon(urlText) {
 	// Fetch les données du pokémon
 	const dataPokemon = await getData(urlText[0]);
 	if (dataPokemon === null) {
+		// Renvoie la page 404
 		location.assign(`${getUrl()}error-page.html`);
 	}
 	const dataSpecies = await getData(urlText[1]);
 	if (dataPokemon && dataSpecies) {
-		// Appelle les structures des Pokémon
+		// Appelle les fonctions de structure des Pokémons
 		await updatePokemon(dataPokemon);
 		await updateSpeciesPokemon(dataSpecies);
 	}
@@ -213,10 +221,10 @@ async function callListPokemon(data) {
 		const pokemon = await getData(url[0]);
 		const species = await getData(url[1]);
 
-		// Appelle les structrures de pokémons pour les grids
+		// Appelle les fonctions de structrure des pokémons pour les grids
 		const pokemonElements = await updatePokemonGrid(pokemon);
 		const SpeciesElements = await updateSpeciesPokemonGrid(species);
-		// Envoies les éléments à createArticle()
+		// Envoie les éléments à createArticle
 		createArticle([pokemonElements, SpeciesElements]);
 	}
 }
@@ -226,16 +234,20 @@ async function pokemonEvolutions(url) {
 		// Fetch de la chain du pokemon de l'url
 		const dataSpecies = await getData(url[0]);
 		if (dataSpecies) {
-			// Récupère le pokémon actuel (pour éviter les doublons)
+			// Récupère le pokémon actuel (via url[1] qui contient le nom du pokémon actuel, pour éviter les doublons)
 			const pokemonName = url[1].toLowerCase();
 			let data = dataSpecies.chain;
+			console.log(data, dataSpecies);
 			const evo = [];
-			// Boucle qui vérifie les évolution du pokémon,
+			// Boucle qui vérifie les évolutions du pokémon
 			while (data) {
-				// si c'est le pokémon du fetch, alors on l'ajoute pas
+				// si c'est pas le pokémon du actuel, alors on l'ajoute au tableau evo
 				if (pokemonName !== data.species.name) {
 					evo.push(data.species.name);
 				}
+				// Le while parcourt le tableau d'évolution. Si le pokémon a une évolution, data est remplacé par cette nouvelle évolution
+				// Qui elle-même a potentiellement des évolutions, si c'est le cas, la boucle continue, sinon elle s'arrête et pokemonEvolutionsCall est appelé.
+
 				if (data.evolves_to.length > 0) {
 					data = data.evolves_to[0];
 				} else {
@@ -255,15 +267,16 @@ function pokemonEvolutionsCall(data) {
 			div.innerHTML = '';
 			const alert = document.createElement('span');
 			const link = document.createElement('a');
+			// Délégation de service client :)
 			link.setAttribute('href', 'https://support.pokemon.com/hc/fr/categories/115000426353-Informations-g%C3%A9n%C3%A9rales');
-			link.innerHTML = 'Contacter le support Pokémon';
+			link.innerHTML = 'Contacter le support de The Pokémon Company';
 			link.classList.add('redText');
 			link.setAttribute('title', 'Support Pokémon');
-			alert.textContent = `Pas d’évolution pour ce Pokémon`;
+			alert.textContent = `Pas d’évolution pour ce Pokémon :(`;
 			div.append(alert, link);
 			return;
 		} else {
-			// On boucle l'appelle au pokemon
+			// On boucle l'appel aux Pokémons
 			data.forEach((pokemon) => callListPokemon(pokemon));
 		}
 	} catch (error) {
@@ -330,6 +343,7 @@ async function updatePokemon(url) {
 			talent.textContent = getTalent(url);
 
 			const sprites = document.querySelector('#imgPokemon');
+			// Ajout des éléments SEO
 			sprites.alt = `Sprite du Pokémon ${url.name}`;
 			sprites.src = getSprite([url, toggle]);
 			sprites.setAttribute('loading', `lazy`);
@@ -346,6 +360,7 @@ async function updatePokemonGrid(dataPokemon) {
 	try {
 		const img = document.createElement('img');
 		img.src = getSprite([dataPokemon, toggle]);
+		// Ajout des éléments SEO
 		img.alt = `Sprite du Pokémon ${dataPokemon.name}`;
 		img.setAttribute('loading', `lazy`);
 
@@ -362,6 +377,7 @@ async function updatePokemonGrid(dataPokemon) {
 		// Création du bouton voir plus du pokémon qui redirige vers le bon pokémon
 		const a = document.createElement(`a`);
 		a.href = `${getUrl()}pokemon.html?p=${dataPokemon.name}`;
+		// Ajout des éléments SEO
 		a.setAttribute('title', 'Accéder au Pokémon');
 		const divA = document.createElement(`div`);
 		divA.classList.add('btnArticle');
@@ -425,7 +441,7 @@ function getDescription(dataSpecies) {
 	try {
 		// Parcours dans le tableau et cherche le fr et retourne la description du Pokémon
 		const frLang = dataSpecies.flavor_text_entries.find((entry) => entry.language.name === 'fr');
-		if (frLang !== undefined && frLang !== null) {
+		if (frLang) {
 			return frLang.flavor_text;
 		} else {
 			return 'Pas de description pour ce Pokémon';
@@ -441,7 +457,7 @@ function getName(dataSpecies) {
 	try {
 		// Parcours dans le tableau et cherche le fr et retourne le nom du Pokémon
 		const frLang = dataSpecies.names.find((entry) => entry.language.name === 'fr');
-		if (frLang !== undefined && frLang !== null) {
+		if (frLang) {
 			return frLang.name;
 		} else {
 			return 'Pas de nom pour ce Pokémon';
@@ -553,6 +569,7 @@ function getType(dataPokemon) {
 
 		const circle1 = document.createElement('div');
 		circle1.append(icon1);
+		// Récupère le fond du type depuis l'objet pokemonTypes
 		styleType1.style.backgroundColor = `var(${pokemonTypes[typePokemon1].color})`;
 		styleType1.append(circle1, type1);
 
@@ -576,7 +593,7 @@ function getType(dataPokemon) {
 
 			return [styleType1, styleType2];
 		}
-		// Si deux types je retournes les deux, sinon je retourne un tableau de un type
+		// Si deux types je retournes les deux, sinon je retourne un tableau de 1 type
 		return [styleType1];
 	} catch (error) {
 		console.error('Erreur dans getType :', error.message);
@@ -587,14 +604,17 @@ function getType(dataPokemon) {
 
 /************** Search Sprites Pokemon **************/
 function getSprite(data) {
+	// Si le local Storage contient base getSprite le récupère et affiche les pokémon en orignial
 	if (data[1] === 'base') {
 		if (data[0].sprites.other['official-artwork'].front_default) {
 			// Récupère le sprite officiel du pokémon
 			const sprites = data[0].sprites.other['official-artwork'].front_default;
 			return sprites;
 		} else {
+			// Si pas de sprites disponibles
 			return Missingo();
 		}
+		// Si le local Storage contient shiny getSprite le récupère et affiche les pokémon en shiny
 	} else if (data[1] === 'shiny') {
 		if (data[0].sprites.other['official-artwork'].front_shiny) {
 			// Récupère le sprite officiel du pokémon
@@ -606,12 +626,13 @@ function getSprite(data) {
 	}
 }
 /************** Get Missingo **************/
+// Si pas d'autre pokémon, Missigno remplace
 function Missingo() {
 	const url = window.location.pathname;
 	if (url.includes('/HTML_PAGES/')) {
-		return `../IMG/Missingo-Pokemon-Image.png`;
+		return `../IMG/Missingo-Pokemon-Image-Small.png`;
 	} else {
-		return `./IMG/Missingo-Pokemon-Image.png`;
+		return `./IMG/Missingo-Pokemon-Image-Small.png`;
 	}
 }
 
@@ -648,10 +669,17 @@ if (form) {
 	form.addEventListener('submit', (event) => {
 		event.preventDefault();
 		const pokemon = document.getElementById(`search`).value.toLowerCase();
-		// Easter EGG sympa
+		// Easter-eggs sympas
 		switch (pokemon) {
 			case 'prof chen':
 				alertMessage(['Ce n’est pas le moment d’utiliser ça !', 'easter-egg']);
+				break;
+			case 'camion':
+				alertMessage(['Vroum Vroum !!', 'easter-egg']);
+				setTimeout(() => {
+					location.assign(`${getUrl()}pokemon.html?p=${151}`);
+				}, 2200);
+
 				break;
 
 			case 'shiny':
@@ -691,7 +719,7 @@ async function searchPokemon(data) {
 	}
 }
 
-/************** Event Listener Watch Pokemon **************/
+/************** addEventListener Watch Pokemon **************/
 const watchBtn = document.querySelector('#watchPokemon');
 if (watchBtn) {
 	watchBtn.addEventListener('click', () => {
@@ -721,6 +749,7 @@ function addPokemon() {
 	let pokemonID = document.querySelector('.IdPokemon').textContent;
 	pokemonID = pokemonID.replace(' du Pokédex', '');
 
+	// Vérifie la place dans l'équipe (8 car le mode sombre et le type de sprites sont déjà ajoutés)
 	if (localStorage.length >= 8) {
 		alertMessage(["L'équipe est déjà au maximum (6 Pokémon)", 'alert']);
 	}
@@ -728,6 +757,7 @@ function addPokemon() {
 	else if (localStorage.getItem(`pokemon_${pokemonID}`)) {
 		alertMessage(['Ce Pokémon est déjà dans ton équipe', 'alert']);
 	} else {
+		// Ajout de "pokemon_" pour pas confondre avec les autres éléments du LocalStorage
 		localStorage.setItem(`pokemon_${pokemonID}`, pokemonID);
 		btn.classList.replace('secondaryButton', 'primaryButton');
 		icon.className = '';
@@ -777,18 +807,21 @@ if (evolutionBtn && aboutBtn) {
 }
 
 /************** DOM Loaded **************/
+// Permet de faire dispaître le rideau au chargement
 document.addEventListener('DOMContentLoaded', () => {
 	setTimeout(() => {
 		document.body.classList.add('loaded');
 	}, 350);
 });
 
+/************** Alert Message **************/
 function alertMessage(message) {
 	const div = document.querySelector('#alertMessage');
 	const text = document.querySelector('#alertMessageText');
 	const icon = document.querySelector('#styleIconAlert');
 
 	icon.className = '';
+	// En fonction du type de message, ajoute un icône différent
 	switch (message[1]) {
 		case 'alert':
 			icon.classList.add('fa-solid', 'fa-triangle-exclamation');
@@ -817,12 +850,13 @@ function alertMessage(message) {
 	text.textContent = message[0];
 	div.classList.add('popup');
 
+	// Fait appaître le popUp puis après un certains temps, le supprime et retire les class pour pouvoir le réutiliser
 	setTimeout(() => {
 		div.classList.add('hide');
 
 		setTimeout(() => {
 			div.classList.remove('popup', 'hide');
-		}, 200);
+		}, 400);
 	}, 5000);
 }
 

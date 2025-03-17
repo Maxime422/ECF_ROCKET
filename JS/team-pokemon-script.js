@@ -2,16 +2,16 @@
 
 import {getPokemon, TransformUrl, alertMessage} from './functions.js';
 
-// Ajoute les pokémon du localStorage au tableau teamPokemons pour éviter les problèmes de theme
+// Ajoute les pokémon du localStorage au tableau teamPokemons pour éviter les problèmes de theme et Base et shiny
 const teamPokemons = [];
 function teamPokemon() {
 	console.log(localStorage, teamPokemons);
 	teamPokemons.length = 0;
 	for (let i = 0; i < localStorage.length; i++) {
-		const key = localStorage.key(i);
-		if (key.includes('pokemon_')) {
-			const temp = key.replace('pokemon_', '');
-			teamPokemons.push(temp);
+		const temp = localStorage.key(i);
+		if (temp.includes('pokemon_')) {
+			const pokemonKey = temp.replace('pokemon_', '');
+			teamPokemons.push(pokemonKey);
 		}
 	}
 }

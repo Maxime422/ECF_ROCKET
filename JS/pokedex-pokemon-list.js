@@ -8,6 +8,8 @@ btn.addEventListener('change', () => {
 	const div = document.querySelector(`#gridPokemon`);
 
 	const text = document.querySelector(`#placeText`);
+	// Récupéré sur Stackoverflow mais pas sûr que ce soit une bonne pratique
+	// Récupère le texte de l'option séléctionnée
 	text.textContent = `Voici les Pokémons de la région de : ${tags.options[tags.selectedIndex].text}`;
 	// Nettoie la div avant ajout
 	div.innerHTML = '';

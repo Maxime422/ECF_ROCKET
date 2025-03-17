@@ -6,10 +6,10 @@
 
 Le Pokédex de La Rocket Dev, l’outil idéal pour tout dresseur en formation ! Explorez, découvrez et apprenez tout sur vos Pokémon préférés, de Bulbizarre à Dracaufeu en passant par Pikachu !
 
-## 🎨 Identité Visuelle
+## 🎨 Identité Visuelle et Maquette
 
 - **Couleur principale :** Red : `#E3455A`
-- **Couleur secondaire :** Noir : `#1B1925`
+- **Couleur secondaire :** Noir : `#d52038`
 - **Blanc :** `#FAFAFA`
 - **Noir :** `#0D0A16`
 - **Typographie :** `Montserrat`
@@ -21,8 +21,9 @@ Le Pokédex de La Rocket Dev, l’outil idéal pour tout dresseur en formation !
 
 ## 🗂️ Ressources
 
+- **Logo :** [Roundicons Freebies - Flaticon](https://www.flaticon.com/free-icons/pokemon")
+- **Image de MissingNo :** [Poképédia - licence Creative Commons](https://www.pokepedia.fr/Fichier:Sprite_MissingNo._RV.png)
 - **Icons :** [Font Awesome](https://fontawesome.com/)
-- **Icons :** [Flaticon](https://www.flaticon.com/)
 - **Fonts :** [Google Fonts](https://fonts.google.com/specimen/Montserrat)
 
 ## 🔧 Technologies Utilisées
@@ -30,6 +31,9 @@ Le Pokédex de La Rocket Dev, l’outil idéal pour tout dresseur en formation !
 - **Frontend :** `HTML`, `CSS`, `JavaScript`
 - **Outils :** `Prettier`, `Eslint`
 - **Versionnage et détection :** `Git`, `GitHub`, `SonarQube`
+- **Gestion de dépendances :** `npm`
+- **PWA :** `Service Worker`, `Manifest`
+
 
 ## 📦 Installation
 
@@ -52,15 +56,20 @@ Le Pokédex de La Rocket Dev, l’outil idéal pour tout dresseur en formation !
 
 ## 🛠 Fonctionnalités
 
-- ✅ Fonctionnalité 1
-- ✅ Fonctionnalité 2
-- ✅ Fonctionnalité 3
+- ✅ Affichage et gestion de l’équipe de Pokémon (ajout, suppression, modification)
+- ✅ Fonctionnalités de recherche de Pokémon
+- ✅ Pages de consultation des Pokémon, affichant statistiques, images, talents, région,     évolutions, etc.
+- ✅ Pokédex avec filtres par région et type de Pokémon
+- ✅ Easter-eggs cachés à découvrir dans différents endroits
+- ✅ Notifications d'événements importants (Easter eggs, niveaux, découvertes)
+- ✅ Petites animations, changement de page, ajout ou suppression de Pokémon, ...
 
 ## 🚧 Améliorations Futures
 
-- [ ] Amélioration 1
-- [ ] Amélioration 2
-- [ ] Amélioration 3
+- [ ] Ajouter d'autres Easter-eggs à découvrir
+- [ ] Ajouter une carte interactive de la région avec les Pokémon associés
+- [ ] Permettre la comparaison de différents Pokémon entre eux
+- [ ] Ajouter des musique ou sons interactifs
 
 ## 🤝 Contribuer
 

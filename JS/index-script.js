@@ -11,14 +11,14 @@ getPokemon(urlText);
 // /************** Call Grid Pokemon **************/
 
 // Appelle une liste de 18 Pokémons randoms parmis les 1020 pokémons
-let randomNbList = Math.floor(Math.random() * 52);
+let randomNbList = Math.floor(Math.random() * 51);
 randomNbList = randomNbList * 20;
 pokemonList(randomNbList);
 
 async function pokemonList(nb) {
 	try {
 		const dataPokemonList = await getData(`https://pokeapi.co/api/v2/pokemon/?offset=${nb}&limit=20`);
-		// Récupère les 18 premiers pokémons du pokédex
+		// Récupère les 18 premiers pokémons du pokédex (pour avoir un 3 colones)
 		for (let i = 0; i < 18; i++) {
 			const pokemonList = await getData(dataPokemonList.results[i].url);
 			callListPokemon(pokemonList.id);
