@@ -221,7 +221,7 @@ async function callListPokemon(data) {
 		const pokemon = await getData(url[0]);
 		const species = await getData(url[1]);
 
-		// Appelle les fonctions de structrure des pokémons pour les grids
+		// Appel les fonctions de structrure des pokémons pour les grids
 		const pokemonElements = await updatePokemonGrid(pokemon);
 		const SpeciesElements = await updateSpeciesPokemonGrid(species);
 		// Envoie les éléments à createArticle
