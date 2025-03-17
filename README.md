@@ -6,6 +6,13 @@
 
 Le Pokédex de La Rocket Dev, l’outil idéal pour tout dresseur en formation ! Explorez, découvrez et apprenez tout sur vos Pokémon préférés, de Bulbizarre à Dracaufeu en passant par Pikachu !
 
+
+## ℹ️ Informations
+
+- **Cahier des charges (lire avant) :** [Cahier des charges](./DOCUMENTS/CAHIER_CHARGES.md)
+- **Easter-eggs (À consulter après première découverte) :** [Easter-eggs](./DOCUMENTS/EASTER-EGGS.md)
+
+
 ## 🎨 Identité Visuelle et Maquette
 
 - **Couleur principale :** Red : `#E3455A`
