@@ -21,7 +21,6 @@ getPokemonByRegion('kanto');
 async function getPokemonByRegion(data) {
 	try {
 		const dataPokemonList = await getData(`https://pokeapi.co/api/v2/pokedex/${data}`);
-
 		// Appelle les Pokémons à partir des data récupérées et fait une boucle
 		dataPokemonList.pokemon_entries.forEach((pokemon) => {
 			// Récupère l'id du lien pour éviter les pokémons variants (certains pokémons n'existent pas avec les noms du pokédex ou ont des noms alternatifs)
