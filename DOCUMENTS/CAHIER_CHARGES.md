@@ -1,4 +1,5 @@
 # Cahier des charges ECF Rocket Dev
+
 Fichier créé le 04/03/2025 - Notion
 
 Créateur [Maxime422](https://github.com/Maxime422)
@@ -38,6 +39,7 @@ Créateur [Maxime422](https://github.com/Maxime422)
 - **💡 Déploiement GitHub pages**
 - **💡 Validation de l’ensemble des liens, checkup des étapes**
 - **💡 Déploiement PWA**
+
 </aside>
 
 <aside>
@@ -63,10 +65,10 @@ Le Pokédex doit être à la fois fonctionnel, esthétique et ludique. Les dress
 **- 📜 Légales & Normatives :** Respect du RGPD et des normes d’accessibilité (WCAG).
 
 **- ⁉️ API :** L’API PokeAPI ([https://pokeapi.co](https://pokeapi.co/)) pour récupérer les données des Pokémon.
+
 </aside>
 
 ## **3. Les fonctionnalités :**
-
 
 <aside>
 

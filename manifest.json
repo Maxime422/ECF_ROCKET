@@ -19,9 +19,9 @@
 			"sizes": "512x512"
 		}
 	],
-	"start_url": "./ECF_ROCKET",
+	"start_url": "/ECF_ROCKET/",
 	"background_color": "#0d0a16",
 	"display": "standalone",
-	"scope": "/",
+	"scope": "/ECF_ROCKET/",
 	"theme_color": "#0d0a16"
 }
