@@ -4,7 +4,7 @@ Fichier créé le 04/03/2025 - Notion
 
 Créateur [Maxime422](https://github.com/Maxime422)
 
-<aside>
+---
 
 ## **Sommaire d’étapes :**
 
@@ -40,23 +40,17 @@ Créateur [Maxime422](https://github.com/Maxime422)
 - **💡 Validation de l’ensemble des liens, checkup des étapes**
 - **💡 Déploiement PWA**
 
-</aside>
-
-<aside>
+---
 
 ## **1. Objectifs :**
 
-<aside>
-
 **- 💡 Objectif principal :** Créer un site pour la nouvelle start-up La rocket dev, l’objectif du projet est de créer un pokédex en ligne pour aider les dresseurs à explorer, découvrir et en apprendre plus sur leurs Pokémon préférés.
 
-Le Pokédex doit être à la fois fonctionnel, esthétique et ludique. Les dresseurs doivent avoir envie de l’utiliser pour tout savoir sur les Pokémon, de Bulbizarre à Dracaufeu en passant par les légendaires comme Pikachu (oui, on sait, il n’est pas légendaire, mais il est quand même le boss)..
+Le Pokédex doit être à la fois fonctionnel, esthétique et ludique. Les dresseurs doivent avoir envie de l’utiliser pour tout savoir sur les Pokémon, de Bulbizarre à Dracaufeu en passant par les légendaires comme Pikachu (oui, on sait, il n’est pas légendaire, mais il est quand même le boss).
 
-</aside>
+---
 
 ## **2. Contraintes :**
-
-<aside>
 
 **- 🖥 Technologies et langages utilisés :** HTML, CSS, JavaScript, …
 
@@ -66,17 +60,17 @@ Le Pokédex doit être à la fois fonctionnel, esthétique et ludique. Les dress
 
 **- ⁉️ API :** L’API PokeAPI ([https://pokeapi.co](https://pokeapi.co/)) pour récupérer les données des Pokémon.
 
-</aside>
+---
 
 ## **3. Les fonctionnalités :**
 
-<aside>
-
 ➡️ **Header :**
+
 - Un logo de Pokédex ou de Rocket Dev.
 - Une barre de recherche pour trouver un Pokémon par son nom ou son numéro.
 
 **➡️ Section "Découvrir les Pokémon" :**
+
 - Une liste de Pokémon affichée sous forme de cartes, vignette ou de grille.
 - Chaque carte doit montrer :
     - Une image du Pokémon.
@@ -86,6 +80,7 @@ Le Pokédex doit être à la fois fonctionnel, esthétique et ludique. Les dress
 - Un bouton pour afficher plus de détails (voir ci-dessous).
 
 **➡️ Fiche détaillée du Pokémon :**
+
 - Lorsqu’on clique sur un Pokémon, une fiche détaillée s’affiche dans une nouvelle page avec :
     - Une image animée ou statique du Pokémon.
     - Ses statistiques (points de vie, attaque, défense, etc).
@@ -93,16 +88,16 @@ Le Pokédex doit être à la fois fonctionnel, esthétique et ludique. Les dress
     - Une description (selon votre inspiration).
 
 **➡️ Section "Mon équipe pokémon" :**
+
 - Permettre à l’utilisateur d’ajouter des Pokémon à son équipe (ses favoris).
 
 **➡️ Footer, au minimum :**
+
 - Votre nom et prénom (parce que vous êtes le maître Pokémon du code).
 
-</aside>
+---
 
 ## **4. Validation :**
-
-<aside>
 
 **✅ La conception de la maquette :** modernité, ergonomie, et respect des contraintes mobiles et desktop.
 
@@ -112,13 +107,11 @@ Le Pokédex doit être à la fois fonctionnel, esthétique et ludique. Les dress
 
 **✅ Le design responsive :** le site doit être utilisable sur mobile, tablette et desktop.
 
-**✅  La lisibilité du code :** commentaires, indentation, et organisation du code.
+**✅ La lisibilité du code :** commentaires, indentation, et organisation du code.
 
-</aside>
+---
 
 ## **4. Les contraintes :**
-
-<aside>
 
 **❌ Maquettage :**
 
@@ -146,26 +139,27 @@ Le Pokédex doit être à la fois fonctionnel, esthétique et ludique. Les dress
 
 - Le site ne doit pas ressembler à un site “nineties” (sauf si vous voulez faire un hommage à l’époque où les Pokémon étaient en pixels, mais c’est déconseillé).
 - Utilisez des icônes modernes (FontAwesome, Google Fonts, etc.) et des couleurs pour rester dans l’esprit Pokémon.
-</aside>
+
+---
 
 ## **5. Bonus :**
 
-<aside>
-
 **🚀 Animations CSS :**
+
 - Ajoutez des animations quand un Pokémon est sélectionné ou ajouté aux favoris (exemple : une Pokéball qui s’ouvre).
 
 **🚀 Mode sombre :**
+
 - Pour les dresseurs de Pokémon nocturnes, ajoutez un mode sombre stylé.
 
 **🚀 Comparaison de Pokémon :**
+
 - Permettez à l’utilisateur de comparer deux Pokémon (taille, poids, statistiques, etc.).
 
 **🚀 Évolution animée :**
+
 - Montrez les évolutions d’un Pokémon avec une animation fluide.
 
 **🚀 Easter Egg :**
-- Cachez un Easter Egg rigolo (via par exemple la combinaison des touches du clavier ou si on cherche "Mew", affichez un message secret).
-</aside>
 
-</aside>
+- Cachez un Easter Egg rigolo (via par exemple la combinaison des touches du clavier ou si on cherche "Mew", affichez un message secret).

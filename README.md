@@ -6,12 +6,10 @@
 
 Le Pokédex de La Rocket Dev, l’outil idéal pour tout dresseur en formation ! Explorez, découvrez et apprenez tout sur vos Pokémon préférés, de Bulbizarre à Dracaufeu en passant par Pikachu !
 
-
 ## ℹ️ Informations
 
 - **Cahier des charges (lire avant) :** [Cahier des charges](./DOCUMENTS/CAHIER_CHARGES.md)
 - **Easter-eggs (À consulter après première découverte) :** [Easter-eggs](./DOCUMENTS/EASTER-EGGS.md)
-
 
 ## 🎨 Identité Visuelle et Maquette
 
@@ -41,22 +39,28 @@ Le Pokédex de La Rocket Dev, l’outil idéal pour tout dresseur en formation !
 - **Gestion de dépendances :** `npm`
 - **PWA :** `Service Worker`, `Manifest`
 
-
 ## 📦 Installation
 
 1. **Cloner le dépôt :**
+
     ```bash
     git clone https://github.com/Maxime422/ECF_ROCKET.git
     ```
+
 2. **Se rendre dans le dossier du projet :**
+
     ```bash
     cd ECF_ROCKET
     ```
+
 3. **Installer les dépendances :**
+
     ```bash
     npm install
     ```
+
 4. **Lancer le projet :**
+
     ```bash
     npm start
     ```
